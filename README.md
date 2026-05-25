@@ -109,6 +109,13 @@ Create a Google Form with one question per field below. The exact question wordi
 | enquiryType | Personal or business? | Multiple choice (Personal / Business) |
 | businessName | Business name | Short answer |
 | abn | ABN | Short answer |
+| abnVerified | ABN verified on ABR? | Short answer (auto: "Yes" or empty) |
+| abnEntityName | Legal entity name (from ABR) | Short answer |
+| abnEntityType | Entity type (Pty Ltd / Sole trader / etc) | Short answer |
+| abnStatus | ABN status (Active / Cancelled) | Short answer |
+| abnTradingYears | Years trading (from ABR) | Short answer |
+| abnGstStatus | GST registration date (ABR) | Short answer |
+| abnTradingNames | Registered business names (ABR) | Short answer |
 | businessLength | How long trading? | Multiple choice |
 | gstRegistered | GST registered? | Multiple choice (Yes / No) |
 | assetType | What are you financing? | Multiple choice |

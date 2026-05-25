@@ -5,8 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#0F1424">
 <meta name="robots" content="noindex, nofollow">
-<title>Thanks — we'll be in touch shortly | Acquired Financial Services</title>
-<meta name="description" content="Your finance enquiry has been received. A specialist broker will call you back within 1 business hour.">
+<title>Thanks — your enquiry is in good hands | Acquired Financial Services</title>
+<meta name="description" content="Your finance enquiry has been received. A specialist broker will be calling you very shortly.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -14,7 +14,6 @@
 
 <!-- ============================================================
      GOOGLE ADS CONVERSION TRACKING — REPLACE AW-XXXXXXXXXX/AAAAAAAA
-     This fires the conversion event the moment a lead lands here.
      ============================================================ -->
 <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=AW-XXXXXXXXXX"></script>
 <script>
@@ -38,6 +37,10 @@
     --green-dk:#74A832;
     --green-dk2:#5C8A28;
     --green-soft:#EEF6E0;
+    --warn-bg:#FFF7E6;
+    --warn-border:#E0A93A;
+    --warn-text:#6B4F1A;
+    --warn-strong:#5C4500;
     --ink:#0F1424;
     --body:#374151;
     --muted:#6B7280;
@@ -45,35 +48,27 @@
     --shadow-lg:0 30px 60px rgba(15,20,36,.35),0 12px 24px rgba(15,20,36,.18);
   }
   *{box-sizing:border-box;margin:0;padding:0}
-  html,body{height:100%;overflow-x:hidden}
+  html,body{overflow-x:hidden}
   body{
     font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
-    color:var(--body);
-    line-height:1.5;
-    -webkit-font-smoothing:antialiased;
-    background:var(--navy-dk);
-    min-height:100vh;
-    min-height:100dvh;
-    display:flex;
-    flex-direction:column;
+    color:var(--body);line-height:1.5;-webkit-font-smoothing:antialiased;
+    background:var(--navy-dk);min-height:100vh;min-height:100dvh;
+    display:flex;flex-direction:column;
   }
   a{color:var(--green-dk);text-decoration:none}
   a:hover{color:var(--green-dk2)}
-  h1,h3{color:var(--ink);font-weight:800;line-height:1.15;letter-spacing:-.02em}
+  h1,h2,h3,h4{color:var(--ink);font-weight:800;line-height:1.15;letter-spacing:-.02em}
   img{display:block;max-width:100%}
 
-  /* ============ ANIMATED MESH BACKGROUND (replaces video) ============ */
+  /* ============ ANIMATED MESH BACKGROUND ============ */
   .bg-stage{position:fixed;inset:0;z-index:-2;background:radial-gradient(ellipse at top, #1A2138 0%, #0F1424 60%, #07091a 100%);overflow:hidden}
-  .bg-stage::before,
-  .bg-stage::after,
-  .bg-blob{content:"";position:absolute;border-radius:50%;filter:blur(90px);opacity:.55;pointer-events:none;will-change:transform}
+  .bg-stage::before,.bg-stage::after,.bg-blob{content:"";position:absolute;border-radius:50%;filter:blur(90px);opacity:.55;pointer-events:none;will-change:transform}
   .bg-stage::before{width:640px;height:640px;background:linear-gradient(135deg,#8DC63F,#5C8A28);top:-180px;left:-180px;animation:floatA 22s ease-in-out infinite}
   .bg-stage::after{width:520px;height:520px;background:linear-gradient(135deg,#74A832,#3E5F1B);bottom:-160px;right:-160px;animation:floatB 26s ease-in-out infinite}
   .bg-blob{width:380px;height:380px;background:linear-gradient(135deg,#252E4F,#1A2138);top:35%;left:55%;opacity:.85;animation:floatC 30s ease-in-out infinite}
   @keyframes floatA{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(120px,80px) scale(1.18)}}
   @keyframes floatB{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(-110px,-60px) scale(1.12)}}
   @keyframes floatC{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(-160px,40px) scale(1.25)}}
-  /* Subtle grid overlay for texture */
   .bg-grid{position:fixed;inset:0;z-index:-1;background-image:radial-gradient(rgba(255,255,255,.04) 1px,transparent 1px);background-size:28px 28px;mask-image:radial-gradient(ellipse at center,#000 30%,transparent 80%);pointer-events:none}
 
   /* ============ HEADER ============ */
@@ -84,83 +79,64 @@
   .tel-link svg{width:16px;height:16px;fill:var(--green)}
 
   /* ============ MAIN CARD ============ */
-  .stage{flex:1;display:flex;align-items:center;justify-content:center;padding:18px 20px 22px}
-  .wrap{max-width:880px;width:100%}
+  .stage{flex:1;display:flex;align-items:center;justify-content:center;padding:16px 20px 22px}
+  .wrap{max-width:920px;width:100%}
   .card{
-    background:rgba(255,255,255,.97);
-    border-radius:24px;
-    padding:34px 36px 30px;
-    box-shadow:var(--shadow-lg);
+    background:rgba(255,255,255,.97);border-radius:24px;
+    padding:32px 36px 28px;box-shadow:var(--shadow-lg);
     border:1px solid rgba(255,255,255,.6);
-    backdrop-filter:blur(10px);
-    -webkit-backdrop-filter:blur(10px);
-    text-align:center;
-    position:relative;
-    overflow:hidden;
+    backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+    position:relative;overflow:hidden;
   }
-  .card::before{
-    content:"";position:absolute;left:0;right:0;top:0;height:4px;
-    background:linear-gradient(90deg,var(--green-dk),var(--green),var(--green-dk2));
-  }
-  .badge{
-    display:inline-flex;align-items:center;gap:8px;
-    background:var(--green-soft);color:var(--green-dk2);
-    padding:6px 14px;border-radius:999px;font-size:.78rem;font-weight:700;
-    letter-spacing:.04em;text-transform:uppercase;
-    border:1px solid rgba(141,198,63,.3);margin-bottom:12px;
-  }
+  .card::before{content:"";position:absolute;left:0;right:0;top:0;height:4px;background:linear-gradient(90deg,var(--green-dk),var(--green),var(--green-dk2))}
+
+  .head{text-align:center}
+  .badge{display:inline-flex;align-items:center;gap:8px;background:var(--green-soft);color:var(--green-dk2);padding:6px 14px;border-radius:999px;font-size:.76rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;border:1px solid rgba(141,198,63,.3);margin-bottom:14px}
   .badge svg{width:13px;height:13px;fill:currentColor}
-  .check{
-    width:60px;height:60px;border-radius:50%;
-    background:linear-gradient(135deg,var(--green),var(--green-dk));
-    display:flex;align-items:center;justify-content:center;
-    margin:0 auto 14px;box-shadow:0 10px 24px rgba(141,198,63,.4);
-    animation:pop .5s cubic-bezier(.18,.89,.32,1.28);
-  }
+  .check{width:60px;height:60px;border-radius:50%;background:linear-gradient(135deg,var(--green),var(--green-dk));display:flex;align-items:center;justify-content:center;margin:0 auto 14px;box-shadow:0 10px 24px rgba(141,198,63,.4);animation:pop .5s cubic-bezier(.18,.89,.32,1.28)}
   .check svg{width:32px;height:32px;fill:#fff}
   @keyframes pop{from{transform:scale(.3);opacity:0}to{transform:scale(1);opacity:1}}
-
   h1{font-size:clamp(1.65rem,3.6vw,2.3rem);margin-bottom:.3em}
-  .sub{font-size:1.02rem;color:var(--muted);max-width:540px;margin:0 auto 22px;line-height:1.5}
+  .sub{font-size:1.02rem;color:var(--muted);max-width:580px;margin:0 auto 22px;line-height:1.55}
   .sub strong{color:var(--ink)}
 
   /* ============ NEXT STEPS ============ */
-  .next-steps{
-    display:grid;grid-template-columns:repeat(3,1fr);gap:14px;
-    margin:0 0 22px;text-align:left;
-  }
-  .step{
-    background:#F7F9FB;border:1px solid var(--line);border-radius:14px;
-    padding:18px 18px 16px;transition:transform .15s,box-shadow .15s,border-color .15s;
-  }
+  .next-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:0 0 22px;text-align:left}
+  .step{background:#F7F9FB;border:1px solid var(--line);border-radius:14px;padding:16px 16px 14px;transition:transform .15s,box-shadow .15s,border-color .15s}
   .step:hover{transform:translateY(-2px);border-color:var(--green);box-shadow:0 6px 18px rgba(15,20,36,.06)}
-  .step-n{
-    display:inline-flex;align-items:center;justify-content:center;
-    width:28px;height:28px;background:var(--navy);color:#fff;border-radius:50%;
-    font-weight:800;font-size:.85rem;margin-bottom:9px;
-  }
-  .step h3{font-size:.97rem;font-weight:700;margin-bottom:.35em;color:var(--ink)}
-  .step p{font-size:.86rem;color:var(--muted);line-height:1.5;margin:0}
+  .step-n{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;background:var(--navy);color:#fff;border-radius:50%;font-weight:800;font-size:.82rem;margin-bottom:8px}
+  .step h3{font-size:.95rem;font-weight:700;margin-bottom:.35em;color:var(--ink)}
+  .step p{font-size:.84rem;color:var(--muted);line-height:1.5;margin:0}
   .step p strong{color:var(--ink);font-weight:600}
 
+  /* ============ DON'T SHOP AROUND WARNING ============ */
+  .warn{background:var(--warn-bg);border:1px solid var(--warn-border);border-left-width:4px;border-radius:12px;padding:16px 20px;margin:0 0 22px}
+  .warn-title{display:flex;align-items:center;gap:8px;color:var(--warn-strong);font-weight:800;font-size:1rem;margin-bottom:6px;line-height:1.3}
+  .warn-title-icon{flex:none;width:22px;height:22px;background:var(--warn-border);color:#fff;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:.8rem;font-weight:800}
+  .warn p{color:var(--warn-text);font-size:.92rem;line-height:1.55;margin:0 0 6px}
+  .warn p:last-child{margin:0}
+  .warn p strong{color:var(--warn-strong);font-weight:700}
+  .warn .punchline{margin-top:8px;font-weight:600;color:var(--warn-strong);font-style:italic}
+
   /* ============ CTA STRIP ============ */
-  .cta-row{
-    display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap;
-    padding-top:14px;border-top:1px solid var(--line);
+  .cta-strip{
+    display:flex;align-items:center;gap:18px;padding:18px 22px;
+    background:linear-gradient(135deg,#1A2138 0%,#0F1424 100%);color:#fff;border-radius:16px;
+    box-shadow:0 12px 28px rgba(15,20,36,.2);position:relative;overflow:hidden;
   }
-  .cta-row .copy{text-align:left}
-  .cta-row .copy strong{display:block;color:var(--ink);font-weight:700;font-size:.95rem;margin-bottom:2px}
-  .cta-row .copy span{font-size:.82rem;color:var(--muted)}
-  .btn{
-    display:inline-flex;align-items:center;justify-content:center;gap:8px;
-    padding:13px 22px;border-radius:999px;font-weight:700;font-size:.98rem;
-    border:0;cursor:pointer;text-decoration:none;line-height:1;
-    background:var(--navy);color:#fff;
-    box-shadow:0 8px 18px rgba(15,20,36,.18);
-    transition:transform .12s,background .15s;
+  .cta-strip::before{content:"";position:absolute;right:-100px;top:-100px;width:280px;height:280px;background:radial-gradient(closest-side,rgba(141,198,63,.28),transparent);border-radius:50%;pointer-events:none}
+  .cta-copy{flex:1;position:relative;z-index:2}
+  .cta-q{display:block;font-size:1.05rem;font-weight:800;color:#fff;margin-bottom:3px;letter-spacing:-.01em}
+  .cta-sub{display:block;font-size:.83rem;color:#C8D0E0;line-height:1.45}
+  .cta-sub strong{color:#fff;font-weight:700}
+  .cta-btn{
+    display:inline-flex;align-items:center;gap:10px;padding:13px 22px;
+    background:var(--green);color:#0E1A04;border-radius:999px;font-weight:800;font-size:1rem;
+    text-decoration:none;line-height:1;flex:none;box-shadow:0 8px 18px rgba(141,198,63,.4);
+    transition:transform .12s,background .15s;position:relative;z-index:2;
   }
-  .btn:hover{background:var(--navy-2);transform:translateY(-1px)}
-  .btn svg{width:16px;height:16px;fill:currentColor}
+  .cta-btn:hover{background:#9FD45C;transform:translateY(-1px);color:#0E1A04}
+  .cta-btn svg{width:16px;height:16px;fill:currentColor}
 
   /* ============ FOOTER ============ */
   footer{flex:none;text-align:center;padding:14px 20px 18px;color:rgba(255,255,255,.55);font-size:.74rem;line-height:1.55}
@@ -168,32 +144,35 @@
   footer a:hover{color:var(--green)}
 
   /* ============ MOBILE ============ */
-  @media (max-width:720px){
-    .stage{padding:12px 14px 16px}
-    .card{padding:26px 22px 24px;border-radius:20px}
-    .next-steps{grid-template-columns:1fr;gap:10px}
+  @media (max-width:780px){
+    .stage{padding:12px 14px 18px}
+    .card{padding:24px 20px 22px;border-radius:20px}
+    .next-steps{grid-template-columns:1fr;gap:9px}
     .step{padding:14px 16px 13px}
-    .cta-row{flex-direction:column;text-align:center}
-    .cta-row .copy{text-align:center}
-    .badge{font-size:.72rem;padding:5px 12px}
-    .check{width:52px;height:52px}
+    .cta-strip{flex-direction:column;text-align:center;padding:18px 18px 20px;gap:14px}
+    .cta-copy{text-align:center}
+    .cta-btn{width:100%;justify-content:center}
+    .badge{font-size:.7rem;padding:5px 12px}
+    .check{width:54px;height:54px}
     .check svg{width:28px;height:28px}
     h1{font-size:1.55rem}
     .sub{font-size:.95rem;margin-bottom:18px}
+    .warn{padding:14px 16px}
   }
-  @media (max-height:760px) and (min-width:721px){
-    /* Tight viewports — squeeze the card so it stays above the fold */
-    .card{padding:24px 30px 22px}
-    .check{width:52px;height:52px;margin-bottom:10px}
-    .check svg{width:28px;height:28px}
-    h1{font-size:1.6rem}
-    .sub{margin-bottom:18px}
-    .step{padding:14px 16px 13px}
-    .step h3{font-size:.94rem}
+  @media (max-height:780px) and (min-width:781px){
+    .card{padding:22px 28px 22px}
+    .check{width:50px;height:50px;margin-bottom:10px}
+    .check svg{width:26px;height:26px}
+    h1{font-size:1.55rem}
+    .sub{margin-bottom:16px}
+    .step{padding:12px 14px 11px}
+    .step h3{font-size:.92rem}
     .step p{font-size:.82rem}
+    .next-steps{margin-bottom:16px}
+    .warn{padding:13px 18px;margin-bottom:16px}
+    .warn p{font-size:.86rem}
+    .cta-strip{padding:14px 20px}
   }
-
-  /* Reduced motion */
   @media (prefers-reduced-motion: reduce){
     .bg-stage::before,.bg-stage::after,.bg-blob,.check{animation:none}
   }
@@ -201,10 +180,8 @@
 </head>
 <body>
 
-<!-- Animated background — replaces a video file, runs entirely in CSS -->
-<div class="bg-stage" aria-hidden="true">
-  <div class="bg-blob"></div>
-</div>
+<!-- Animated background -->
+<div class="bg-stage" aria-hidden="true"><div class="bg-blob"></div></div>
 <div class="bg-grid" aria-hidden="true"></div>
 
 <header class="topbar">
@@ -220,26 +197,26 @@
 <main class="stage">
   <div class="wrap">
     <div class="card">
-      <div class="badge">
-        <svg viewBox="0 0 24 24"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-        Enquiry received
+      <div class="head">
+        <div class="badge">
+          <svg viewBox="0 0 24 24"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+          Enquiry received
+        </div>
+        <div class="check"><svg viewBox="0 0 24 24"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div>
+        <h1>Thanks — your enquiry is in good hands.</h1>
+        <p class="sub">One of our brokers will be calling you very shortly. While we get the search underway across <strong>6,300+ products from 63+ lenders</strong>, here's exactly what happens next.</p>
       </div>
-      <div class="check">
-        <svg viewBox="0 0 24 24"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-      </div>
-      <h1>Thanks — we're on it.</h1>
-      <p class="sub">A specialist broker will be in touch within <strong>1 business hour</strong>. Here's exactly what happens next.</p>
 
       <div class="next-steps">
         <div class="step">
           <div class="step-n">1</div>
           <h3>We call you</h3>
-          <p>A specialist broker phones you back to talk through your situation, gather a few extra details we need, and answer any questions before we go to the lender panel.</p>
+          <p>A specialist broker phones you back to gather a few extra details, talk through your situation, and answer any questions before we hit the lender panel.</p>
         </div>
         <div class="step">
           <div class="step-n">2</div>
           <h3>We compare lenders</h3>
-          <p>With your permission, we pull a copy of your credit file so we know exactly what we're working with, then run your scenario across <strong>63+ lenders</strong>. <strong>No impact on your credit score at this stage.</strong></p>
+          <p>With your permission, we pull a copy of your credit file so we know exactly what we're working with, then search <strong>6,300+ products</strong> across our <strong>63+ lenders</strong> for the sharpest deal. <strong>No impact on your credit score at this stage.</strong></p>
         </div>
         <div class="step">
           <div class="step-n">3</div>
@@ -248,12 +225,18 @@
         </div>
       </div>
 
-      <div class="cta-row">
-        <div class="copy">
-          <strong>Need to talk now?</strong>
-          <span>Mon–Fri · 8:30am – 6pm AEST</span>
+      <div class="warn" role="note" aria-label="Important — please don't enquire elsewhere">
+        <div class="warn-title"><span class="warn-title-icon">!</span> Please don't enquire anywhere else just yet</div>
+        <p>Every additional finance application leaves a mark on your credit file. Multiple enquiries in a short window can <strong>lower your credit score</strong>, <strong>reduce your borrowing power</strong>, and make it <strong>harder for us to negotiate the sharpest rate</strong> on your behalf.</p>
+        <p class="punchline">Let us do the legwork. One enquiry, one credit check, one matched lender — that's how you get the best outcome.</p>
+      </div>
+
+      <div class="cta-strip">
+        <div class="cta-copy">
+          <span class="cta-q">In a hurry?</span>
+          <span class="cta-sub">Speak to us straight away to <strong>fast-track your application</strong> — many of our clients receive a <strong>same-day approval</strong>.</span>
         </div>
-        <a href="tel:1300235255" class="btn">
+        <a href="tel:1300235255" class="cta-btn">
           <svg viewBox="0 0 24 24"><path d="M20 15.5c-1.25 0-2.45-.2-3.57-.57a1 1 0 0 0-1.02.24l-2.2 2.2a15.07 15.07 0 0 1-6.59-6.59l2.2-2.21a1 1 0 0 0 .25-1.02A11.36 11.36 0 0 1 8.5 4a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1c0 9.39 7.61 17 17 17a1 1 0 0 0 1-1v-3.5a1 1 0 0 0-1-1z"/></svg>
           Call 1300 235 255
         </a>

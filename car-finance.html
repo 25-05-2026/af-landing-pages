@@ -139,10 +139,11 @@
   .lender-strip::after{right:0;background:linear-gradient(-90deg,#fff,transparent)}
   .lender-track{display:flex;gap:46px;align-items:center;animation:scroll-lenders 32s linear infinite;width:max-content}
   .lender-track:hover{animation-play-state:paused}
-  .lender-name{font-family:'Inter',sans-serif;font-weight:700;font-size:1.05rem;color:var(--navy);white-space:nowrap;letter-spacing:-.01em;opacity:.7;transition:opacity .15s;display:inline-flex;align-items:center;background:var(--bg-alt);border:1px solid var(--line);border-radius:8px;padding:8px 14px;height:42px}
-  .lender-track:hover .lender-name{opacity:1}
-  .lender-logo{height:34px;width:auto;max-width:140px;object-fit:contain;flex:none;opacity:.75;transition:opacity .2s,filter .2s;filter:grayscale(10%)}
-  .lender-track:hover .lender-logo{opacity:1;filter:grayscale(0%)}
+  .lender-item{display:inline-flex;flex-direction:column;align-items:center;gap:8px;flex:none;width:88px;opacity:.85;transition:opacity .2s,transform .2s}
+  .lender-item:hover{opacity:1;transform:translateY(-2px)}
+  .lender-logo{width:48px;height:48px;object-fit:contain;border-radius:12px;background:#fff;padding:6px;border:1px solid var(--line);box-shadow:var(--shadow-sm)}
+  .lender-name{font-family:'Inter',sans-serif;font-size:.78rem;font-weight:600;color:var(--navy);white-space:nowrap;text-align:center;line-height:1.15;letter-spacing:-.01em}
+  .lender-track{gap:30px}
   @keyframes scroll-lenders{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 
   /* ===== HOW IT WORKS ===== */
@@ -423,47 +424,47 @@
 
     <div class="lender-strip" aria-label="Our lender panel">
       <div class="lender-track">
-        <img class="lender-logo" loading="lazy" decoding="async" alt="CBA" src="https://logo.clearbit.com/commbank.com.au">
-        <img class="lender-logo" loading="lazy" decoding="async" alt="Westpac" src="https://logo.clearbit.com/westpac.com.au">
-        <img class="lender-logo" loading="lazy" decoding="async" alt="ANZ" src="https://logo.clearbit.com/anz.com.au">
-        <img class="lender-logo" loading="lazy" decoding="async" alt="NAB" src="https://logo.clearbit.com/nab.com.au">
-        <img class="lender-logo" loading="lazy" decoding="async" alt="Macquarie" src="https://logo.clearbit.com/macquarie.com.au">
-        <img class="lender-logo" loading="lazy" decoding="async" alt="Suncorp" src="https://logo.clearbit.com/suncorpbank.com.au">
-        <img class="lender-logo" loading="lazy" decoding="async" alt="St George" src="https://logo.clearbit.com/stgeorge.com.au">
-        <img class="lender-logo" loading="lazy" decoding="async" alt="BOQ" src="https://logo.clearbit.com/boq.com.au">
-        <img class="lender-logo" loading="lazy" decoding="async" alt="Pepper Money" src="https://logo.clearbit.com/peppermoney.com.au">
-        <img class="lender-logo" loading="lazy" decoding="async" alt="Firstmac" src="https://logo.clearbit.com/firstmac.com.au">
-        <img class="lender-logo" loading="lazy" decoding="async" alt="Latitude" src="https://logo.clearbit.com/latitudefinancial.com.au">
-        <img class="lender-logo" loading="lazy" decoding="async" alt="Plenti" src="https://logo.clearbit.com/plenti.com.au">
-        <img class="lender-logo" loading="lazy" decoding="async" alt="Wisr" src="https://logo.clearbit.com/wisr.com.au">
-        <img class="lender-logo" loading="lazy" decoding="async" alt="Moula" src="https://logo.clearbit.com/moula.com.au">
-        <img class="lender-logo" loading="lazy" decoding="async" alt="Prospa" src="https://logo.clearbit.com/prospa.com">
-        <img class="lender-logo" loading="lazy" decoding="async" alt="Liberty" src="https://logo.clearbit.com/liberty.com.au">
-        <img class="lender-logo" loading="lazy" decoding="async" alt="Resimac" src="https://logo.clearbit.com/resimac.com.au">
-        <img class="lender-logo" loading="lazy" decoding="async" alt="Now Finance" src="https://logo.clearbit.com/nowfinance.com.au">
-        <img class="lender-logo" loading="lazy" decoding="async" alt="Money3" src="https://logo.clearbit.com/money3.com.au">
-        <img class="lender-logo" loading="lazy" decoding="async" alt="MoneyPlace" src="https://logo.clearbit.com/moneyplace.com.au">
+        <div class="lender-item"><img class="lender-logo" loading="lazy" decoding="async" alt="CBA" src="https://www.google.com/s2/favicons?domain=commbank.com.au&sz=128"><span class="lender-name">CBA</span></div>
+        <div class="lender-item"><img class="lender-logo" loading="lazy" decoding="async" alt="Westpac" src="https://www.google.com/s2/favicons?domain=westpac.com.au&sz=128"><span class="lender-name">Westpac</span></div>
+        <div class="lender-item"><img class="lender-logo" loading="lazy" decoding="async" alt="ANZ" src="https://www.google.com/s2/favicons?domain=anz.com.au&sz=128"><span class="lender-name">ANZ</span></div>
+        <div class="lender-item"><img class="lender-logo" loading="lazy" decoding="async" alt="NAB" src="https://www.google.com/s2/favicons?domain=nab.com.au&sz=128"><span class="lender-name">NAB</span></div>
+        <div class="lender-item"><img class="lender-logo" loading="lazy" decoding="async" alt="Macquarie" src="https://www.google.com/s2/favicons?domain=macquarie.com.au&sz=128"><span class="lender-name">Macquarie</span></div>
+        <div class="lender-item"><img class="lender-logo" loading="lazy" decoding="async" alt="Suncorp" src="https://www.google.com/s2/favicons?domain=suncorpbank.com.au&sz=128"><span class="lender-name">Suncorp</span></div>
+        <div class="lender-item"><img class="lender-logo" loading="lazy" decoding="async" alt="St George" src="https://www.google.com/s2/favicons?domain=stgeorge.com.au&sz=128"><span class="lender-name">St George</span></div>
+        <div class="lender-item"><img class="lender-logo" loading="lazy" decoding="async" alt="BOQ" src="https://www.google.com/s2/favicons?domain=boq.com.au&sz=128"><span class="lender-name">BOQ</span></div>
+        <div class="lender-item"><img class="lender-logo" loading="lazy" decoding="async" alt="Pepper Money" src="https://www.google.com/s2/favicons?domain=peppermoney.com.au&sz=128"><span class="lender-name">Pepper Money</span></div>
+        <div class="lender-item"><img class="lender-logo" loading="lazy" decoding="async" alt="Firstmac" src="https://www.google.com/s2/favicons?domain=firstmac.com.au&sz=128"><span class="lender-name">Firstmac</span></div>
+        <div class="lender-item"><img class="lender-logo" loading="lazy" decoding="async" alt="Latitude" src="https://www.google.com/s2/favicons?domain=latitudefinancial.com.au&sz=128"><span class="lender-name">Latitude</span></div>
+        <div class="lender-item"><img class="lender-logo" loading="lazy" decoding="async" alt="Plenti" src="https://www.google.com/s2/favicons?domain=plenti.com.au&sz=128"><span class="lender-name">Plenti</span></div>
+        <div class="lender-item"><img class="lender-logo" loading="lazy" decoding="async" alt="Wisr" src="https://www.google.com/s2/favicons?domain=wisr.com.au&sz=128"><span class="lender-name">Wisr</span></div>
+        <div class="lender-item"><img class="lender-logo" loading="lazy" decoding="async" alt="Moula" src="https://www.google.com/s2/favicons?domain=moula.com.au&sz=128"><span class="lender-name">Moula</span></div>
+        <div class="lender-item"><img class="lender-logo" loading="lazy" decoding="async" alt="Prospa" src="https://www.google.com/s2/favicons?domain=prospa.com&sz=128"><span class="lender-name">Prospa</span></div>
+        <div class="lender-item"><img class="lender-logo" loading="lazy" decoding="async" alt="Liberty" src="https://www.google.com/s2/favicons?domain=liberty.com.au&sz=128"><span class="lender-name">Liberty</span></div>
+        <div class="lender-item"><img class="lender-logo" loading="lazy" decoding="async" alt="Resimac" src="https://www.google.com/s2/favicons?domain=resimac.com.au&sz=128"><span class="lender-name">Resimac</span></div>
+        <div class="lender-item"><img class="lender-logo" loading="lazy" decoding="async" alt="Now Finance" src="https://www.google.com/s2/favicons?domain=nowfinance.com.au&sz=128"><span class="lender-name">Now Finance</span></div>
+        <div class="lender-item"><img class="lender-logo" loading="lazy" decoding="async" alt="Money3" src="https://www.google.com/s2/favicons?domain=money3.com.au&sz=128"><span class="lender-name">Money3</span></div>
+        <div class="lender-item"><img class="lender-logo" loading="lazy" decoding="async" alt="MoneyPlace" src="https://www.google.com/s2/favicons?domain=moneyplace.com.au&sz=128"><span class="lender-name">MoneyPlace</span></div>
         <!-- duplicate for seamless loop -->
-        <img class="lender-logo" loading="lazy" decoding="async" alt="CBA" src="https://logo.clearbit.com/commbank.com.au">
-        <img class="lender-logo" loading="lazy" decoding="async" alt="Westpac" src="https://logo.clearbit.com/westpac.com.au">
-        <img class="lender-logo" loading="lazy" decoding="async" alt="ANZ" src="https://logo.clearbit.com/anz.com.au">
-        <img class="lender-logo" loading="lazy" decoding="async" alt="NAB" src="https://logo.clearbit.com/nab.com.au">
-        <img class="lender-logo" loading="lazy" decoding="async" alt="Macquarie" src="https://logo.clearbit.com/macquarie.com.au">
-        <img class="lender-logo" loading="lazy" decoding="async" alt="Suncorp" src="https://logo.clearbit.com/suncorpbank.com.au">
-        <img class="lender-logo" loading="lazy" decoding="async" alt="St George" src="https://logo.clearbit.com/stgeorge.com.au">
-        <img class="lender-logo" loading="lazy" decoding="async" alt="BOQ" src="https://logo.clearbit.com/boq.com.au">
-        <img class="lender-logo" loading="lazy" decoding="async" alt="Pepper Money" src="https://logo.clearbit.com/peppermoney.com.au">
-        <img class="lender-logo" loading="lazy" decoding="async" alt="Firstmac" src="https://logo.clearbit.com/firstmac.com.au">
-        <img class="lender-logo" loading="lazy" decoding="async" alt="Latitude" src="https://logo.clearbit.com/latitudefinancial.com.au">
-        <img class="lender-logo" loading="lazy" decoding="async" alt="Plenti" src="https://logo.clearbit.com/plenti.com.au">
-        <img class="lender-logo" loading="lazy" decoding="async" alt="Wisr" src="https://logo.clearbit.com/wisr.com.au">
-        <img class="lender-logo" loading="lazy" decoding="async" alt="Moula" src="https://logo.clearbit.com/moula.com.au">
-        <img class="lender-logo" loading="lazy" decoding="async" alt="Prospa" src="https://logo.clearbit.com/prospa.com">
-        <img class="lender-logo" loading="lazy" decoding="async" alt="Liberty" src="https://logo.clearbit.com/liberty.com.au">
-        <img class="lender-logo" loading="lazy" decoding="async" alt="Resimac" src="https://logo.clearbit.com/resimac.com.au">
-        <img class="lender-logo" loading="lazy" decoding="async" alt="Now Finance" src="https://logo.clearbit.com/nowfinance.com.au">
-        <img class="lender-logo" loading="lazy" decoding="async" alt="Money3" src="https://logo.clearbit.com/money3.com.au">
-        <img class="lender-logo" loading="lazy" decoding="async" alt="MoneyPlace" src="https://logo.clearbit.com/moneyplace.com.au">
+        <div class="lender-item"><img class="lender-logo" loading="lazy" decoding="async" alt="CBA" src="https://www.google.com/s2/favicons?domain=commbank.com.au&sz=128"><span class="lender-name">CBA</span></div>
+        <div class="lender-item"><img class="lender-logo" loading="lazy" decoding="async" alt="Westpac" src="https://www.google.com/s2/favicons?domain=westpac.com.au&sz=128"><span class="lender-name">Westpac</span></div>
+        <div class="lender-item"><img class="lender-logo" loading="lazy" decoding="async" alt="ANZ" src="https://www.google.com/s2/favicons?domain=anz.com.au&sz=128"><span class="lender-name">ANZ</span></div>
+        <div class="lender-item"><img class="lender-logo" loading="lazy" decoding="async" alt="NAB" src="https://www.google.com/s2/favicons?domain=nab.com.au&sz=128"><span class="lender-name">NAB</span></div>
+        <div class="lender-item"><img class="lender-logo" loading="lazy" decoding="async" alt="Macquarie" src="https://www.google.com/s2/favicons?domain=macquarie.com.au&sz=128"><span class="lender-name">Macquarie</span></div>
+        <div class="lender-item"><img class="lender-logo" loading="lazy" decoding="async" alt="Suncorp" src="https://www.google.com/s2/favicons?domain=suncorpbank.com.au&sz=128"><span class="lender-name">Suncorp</span></div>
+        <div class="lender-item"><img class="lender-logo" loading="lazy" decoding="async" alt="St George" src="https://www.google.com/s2/favicons?domain=stgeorge.com.au&sz=128"><span class="lender-name">St George</span></div>
+        <div class="lender-item"><img class="lender-logo" loading="lazy" decoding="async" alt="BOQ" src="https://www.google.com/s2/favicons?domain=boq.com.au&sz=128"><span class="lender-name">BOQ</span></div>
+        <div class="lender-item"><img class="lender-logo" loading="lazy" decoding="async" alt="Pepper Money" src="https://www.google.com/s2/favicons?domain=peppermoney.com.au&sz=128"><span class="lender-name">Pepper Money</span></div>
+        <div class="lender-item"><img class="lender-logo" loading="lazy" decoding="async" alt="Firstmac" src="https://www.google.com/s2/favicons?domain=firstmac.com.au&sz=128"><span class="lender-name">Firstmac</span></div>
+        <div class="lender-item"><img class="lender-logo" loading="lazy" decoding="async" alt="Latitude" src="https://www.google.com/s2/favicons?domain=latitudefinancial.com.au&sz=128"><span class="lender-name">Latitude</span></div>
+        <div class="lender-item"><img class="lender-logo" loading="lazy" decoding="async" alt="Plenti" src="https://www.google.com/s2/favicons?domain=plenti.com.au&sz=128"><span class="lender-name">Plenti</span></div>
+        <div class="lender-item"><img class="lender-logo" loading="lazy" decoding="async" alt="Wisr" src="https://www.google.com/s2/favicons?domain=wisr.com.au&sz=128"><span class="lender-name">Wisr</span></div>
+        <div class="lender-item"><img class="lender-logo" loading="lazy" decoding="async" alt="Moula" src="https://www.google.com/s2/favicons?domain=moula.com.au&sz=128"><span class="lender-name">Moula</span></div>
+        <div class="lender-item"><img class="lender-logo" loading="lazy" decoding="async" alt="Prospa" src="https://www.google.com/s2/favicons?domain=prospa.com&sz=128"><span class="lender-name">Prospa</span></div>
+        <div class="lender-item"><img class="lender-logo" loading="lazy" decoding="async" alt="Liberty" src="https://www.google.com/s2/favicons?domain=liberty.com.au&sz=128"><span class="lender-name">Liberty</span></div>
+        <div class="lender-item"><img class="lender-logo" loading="lazy" decoding="async" alt="Resimac" src="https://www.google.com/s2/favicons?domain=resimac.com.au&sz=128"><span class="lender-name">Resimac</span></div>
+        <div class="lender-item"><img class="lender-logo" loading="lazy" decoding="async" alt="Now Finance" src="https://www.google.com/s2/favicons?domain=nowfinance.com.au&sz=128"><span class="lender-name">Now Finance</span></div>
+        <div class="lender-item"><img class="lender-logo" loading="lazy" decoding="async" alt="Money3" src="https://www.google.com/s2/favicons?domain=money3.com.au&sz=128"><span class="lender-name">Money3</span></div>
+        <div class="lender-item"><img class="lender-logo" loading="lazy" decoding="async" alt="MoneyPlace" src="https://www.google.com/s2/favicons?domain=moneyplace.com.au&sz=128"><span class="lender-name">MoneyPlace</span></div>
       </div>
     </div>
   </div>
@@ -635,14 +636,10 @@
 <script>
   document.getElementById('yr').textContent = new Date().getFullYear();
 
-  // Fallback: if a lender logo fails to load, swap it for a styled text bubble
+  // Fallback: if a lender logo fails to load, hide the broken img (name label stays visible)
   document.querySelectorAll('.lender-logo').forEach(function(img){
     img.addEventListener('error', function(){
-      var name = this.alt || 'Lender';
-      var span = document.createElement('span');
-      span.className = 'lender-name';
-      span.textContent = name;
-      if (this.parentNode) this.parentNode.replaceChild(span, this);
+      this.style.display = 'none';
     });
   });
 

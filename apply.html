@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Check Your Eligibility — 60-Second Chat | Acquired Financial Services</title>
 <meta name="description" content="Quick chat-based eligibility check. Will not impact your credit score. 63+ lenders, 1-hour approvals. ACL 488607.">
 <meta name="robots" content="noindex, nofollow">
@@ -41,28 +41,40 @@
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
+  html, body { height: 100%; overflow: hidden; }
+
   body {
     font-family: 'Inter','Segoe UI', system-ui, -apple-system, sans-serif;
     background: var(--bg);
     color: var(--text);
-    min-height: 100vh;
+    height: 100vh;
+    height: 100dvh; /* dynamic viewport — accounts for mobile URL bar */
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    overscroll-behavior: none;
   }
 
   .chat-container {
     width: 100%;
     max-width: 480px;
-    height: 90vh;
-    max-height: 750px;
+    height: 100vh;
+    height: 100dvh;
     background: var(--chat-bg);
-    border-radius: 16px;
     box-shadow: 0 8px 40px rgba(0,0,0,0.12);
     display: flex;
     flex-direction: column;
     overflow: hidden;
+  }
+
+  /* Desktop: centered card with rounded corners and breathing room */
+  @media (min-width: 600px) {
+    .chat-container {
+      height: 90vh;
+      max-height: 760px;
+      border-radius: 16px;
+    }
   }
 
   .chat-header {
@@ -659,12 +671,21 @@ function updateProgress() {
   progressFill.style.width = pct + '%';
 }
 
+function scrollToBottom() {
+  // Defer two frames so any newly inserted node has been laid out
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      scrollToBottom();
+    });
+  });
+}
+
 function addMessage(text, type) {
   const div = document.createElement('div');
   div.className = `message ${type}`;
   div.innerHTML = text.replace(/\n/g, '<br>');
   chatMessages.appendChild(div);
-  chatMessages.scrollTop = chatMessages.scrollHeight;
+  scrollToBottom();
 }
 
 function addOptions(options) {
@@ -682,7 +703,7 @@ function addOptions(options) {
     container.appendChild(btn);
   });
   chatMessages.appendChild(container);
-  chatMessages.scrollTop = chatMessages.scrollHeight;
+  scrollToBottom();
 }
 
 function showTyping() {
@@ -691,7 +712,7 @@ function showTyping() {
   div.id = 'typingIndicator';
   div.innerHTML = '<span></span><span></span><span></span>';
   chatMessages.appendChild(div);
-  chatMessages.scrollTop = chatMessages.scrollHeight;
+  scrollToBottom();
 }
 
 function hideTyping() {

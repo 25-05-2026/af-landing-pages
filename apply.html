@@ -416,43 +416,24 @@ const flow = [
     type: 'options',
     field: 'enquiryType',
     options: ['Personal', 'Business'],
-    next: (answer) => answer === 'Business' ? 'business_name' : 'asset_type'
+    next: (answer) => answer === 'Business' ? 'business_identify' : 'asset_type'
   },
 
   // ===== BUSINESS DETAILS (conditional) =====
+  // One step: ask for ABN OR business name, look up on the ABR
   {
-    id: 'business_name',
-    botMessage: "What's your business name?",
+    id: 'business_identify',
+    botMessage: "What's your ABN or business name? I'll search the Australian Business Register so we have your details right.",
     type: 'text',
-    field: 'businessName',
-    placeholder: 'e.g. Smith Constructions Pty Ltd',
-    validate: (v) => v.trim().length >= 2 ? null : 'Please enter your business name.',
-    next: () => 'abn'
+    field: 'businessIdentifier',
+    placeholder: 'ABN or business name',
+    validate: (v) => v.trim().length >= 2 ? null : 'Please enter an ABN or business name.',
+    next: () => 'business_verify'
   },
   {
-    id: 'abn',
-    botMessage: "Do you have your ABN handy? I'll verify it on the spot. (Or type 'skip')",
-    type: 'text',
-    field: 'abn',
-    placeholder: 'e.g. 12 345 678 901',
-    validate: (v) => {
-      const t = v.trim().toLowerCase();
-      if (t === 'skip' || t === '') return null;
-      const digits = (v || '').replace(/\D/g, '');
-      if (digits.length !== 11) return 'An ABN has 11 digits — please check and try again, or type "skip".';
-      return null;
-    },
-    next: (v) => {
-      const t = (v || '').trim().toLowerCase();
-      if (t === 'skip' || t === '') return 'business_length';
-      const digits = v.replace(/\D/g, '');
-      return digits.length === 11 ? 'abn_verify' : 'business_length';
-    }
-  },
-  {
-    id: 'abn_verify',
+    id: 'business_verify',
     type: 'abn-verify',
-    options: ["Yes — that's us", "No — let me re-enter"],
+    options: ["Yes — that's us", "No — try a different search"],
     next: (v) => {
       if (v && v.toLowerCase().indexOf('yes') === 0) {
         // Auto-skip business_length and gst_registered if pre-filled by lookup
@@ -461,11 +442,13 @@ const flow = [
         return 'business_length';
       }
       // User said no — clear and re-ask
+      leadData.businessIdentifier = '';
       leadData.abn = '';
+      leadData.businessName = '';
       leadData.abnLookup = null;
       leadData.businessLength = '';
       leadData.gstRegistered = '';
-      return 'abn';
+      return 'business_identify';
     }
   },
   {
@@ -558,7 +541,14 @@ const flow = [
     type: 'options',
     field: 'timeframe',
     options: ['ASAP', 'Within 2 weeks', 'Within 1 month', '1-3 months', 'Just exploring'],
-    next: () => 'employment_status'
+    next: () => {
+      // Business enquiry → skip employment question (we know they're self-employed via the ABN)
+      if (leadData.enquiryType === 'Business') {
+        leadData.employmentStatus = 'Self-employed (ABN)';
+        return 'credit_history';
+      }
+      return 'employment_status';
+    }
   },
 
   // ===== FINANCIAL SITUATION =====
@@ -881,6 +871,47 @@ function lookupAbn(digits) {
   });
 }
 
+// Search the ABR by business / trading / legal name. Returns an array of {Abn, Name, ...}
+function searchAbnByName(name) {
+  return new Promise((resolve, reject) => {
+    if (!ABR_GUID || ABR_GUID === 'YOUR-ABR-GUID-HERE') {
+      reject(new Error('ABN lookup not configured')); return;
+    }
+    const seq = ++abnLookupSeq;
+    const cbName = '__abnNameCb_' + seq;
+    let script, timeout;
+    function cleanup(){
+      try { delete window[cbName]; } catch(e){ window[cbName] = undefined; }
+      if (script && script.parentNode) script.parentNode.removeChild(script);
+      clearTimeout(timeout);
+    }
+    window[cbName] = function(data){
+      if (seq !== abnLookupSeq) { try{ delete window[cbName]; }catch(e){} return; }
+      cleanup();
+      if (!data) { reject(new Error('No response from ABR')); return; }
+      if (data.Message) { reject(new Error(data.Message)); return; }
+      resolve(data.Names || []);
+    };
+    script = document.createElement('script');
+    script.src = 'https://abr.business.gov.au/json/MatchingNames.aspx?' +
+                 'callback=' + encodeURIComponent(cbName) +
+                 '&name=' + encodeURIComponent(name) +
+                 '&maxResults=5' +
+                 '&legalName=Y&tradingName=Y&businessName=Y' +
+                 '&activeAbnOnly=Y' +
+                 '&guid=' + encodeURIComponent(ABR_GUID);
+    script.onerror = function(){
+      if (seq !== abnLookupSeq) { cleanup(); return; }
+      cleanup();
+      reject(new Error('Could not reach the ABN register'));
+    };
+    document.body.appendChild(script);
+    timeout = setTimeout(() => {
+      if (seq === abnLookupSeq) { cleanup(); reject(new Error('Name search timed out')); }
+    }, 10000);
+  });
+}
+
 function yearsBetween(isoDate) {
   if (!isoDate) return null;
   const d = new Date(isoDate);
@@ -901,57 +932,105 @@ function bandFromYears(yStr){
 
 function escapeHtml(s){ return (s == null ? '' : String(s)).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
 
+// Render the standard ABR confirmation card from a full AbnDetails response
+function showAbrConfirmCard(data, step){
+  const entityName = data.EntityName || (data.BusinessName && data.BusinessName[0]) || '(no name on register)';
+  const years = yearsBetween(data.AbnStatusEffectiveFrom);
+  const gstText = data.Gst ? 'Yes (since ' + data.Gst.slice(0,10) + ')' : 'Not registered';
+  const location = [data.AddressState, data.AddressPostcode].filter(Boolean).join(' ') || '—';
+  const abnPretty = (data.Abn || '').replace(/(\d{2})(\d{3})(\d{3})(\d{3})/, '$1 $2 $3 $4');
+
+  // Persist for submission + auto-fill downstream
+  leadData.businessName = entityName;
+  if (data.Abn) leadData.abn = data.Abn;
+  leadData.abnLookup = {
+    entityName: entityName,
+    entityType: data.EntityTypeName || '',
+    status: data.AbnStatus || '',
+    statusEffectiveFrom: data.AbnStatusEffectiveFrom || '',
+    tradingYears: years,
+    gst: data.Gst || '',
+    addressState: data.AddressState || '',
+    addressPostcode: data.AddressPostcode || '',
+    tradingNames: (data.BusinessName || []).join(', ')
+  };
+  const band = bandFromYears(years);
+  if (band) leadData.businessLength = band;
+  if (data.Gst) leadData.gstRegistered = 'Yes';
+
+  const card = '<div class="abn-result">' +
+    '<div class="abn-result-title">✓ Found on the ABR</div>' +
+    '<div class="abn-result-name">' + escapeHtml(entityName) + '</div>' +
+    '<div class="abn-result-rows">' +
+      (abnPretty ? '<div><span>ABN</span><strong>' + escapeHtml(abnPretty) + '</strong></div>' : '') +
+      '<div><span>Status</span><strong>' + escapeHtml(data.AbnStatus || '—') + '</strong></div>' +
+      '<div><span>Trading</span><strong>' + (years ? escapeHtml(years) + ' years' : '—') + '</strong></div>' +
+      '<div><span>GST</span><strong>' + escapeHtml(gstText) + '</strong></div>' +
+      '<div><span>Entity</span><strong>' + escapeHtml(data.EntityTypeName || '—') + '</strong></div>' +
+      '<div><span>Location</span><strong>' + escapeHtml(location) + '</strong></div>' +
+    '</div></div>' +
+    'Is this your business?';
+  addMessage(card, 'bot');
+  addOptions((step && step.options) || ["Yes — that's us", "No — try a different search"]);
+}
+
 function runAbnVerify(step){
-  const digits = (leadData.abn || '').replace(/\D/g, '');
-  if (digits.length !== 11) { goToStep('business_length'); return; }
+  const raw = (leadData.businessIdentifier || leadData.abn || '').trim();
+  const onlyDigitsAndSpaces = /^[\d\s]+$/.test(raw);
+  const digits = raw.replace(/\D/g, '');
+  const isAbnNumber = onlyDigitsAndSpaces && digits.length === 11;
 
   setInputMode('none');
-  // Pre-message + spinner
   showTyping();
   setTimeout(() => {
     hideTyping();
-    addMessage('<span class="abn-lookup-pending">Checking the Australian Business Register…</span>', 'bot');
 
-    lookupAbn(digits).then(data => {
-      const entityName = data.EntityName || (data.BusinessName && data.BusinessName[0]) || '(no name on register)';
-      const years = yearsBetween(data.AbnStatusEffectiveFrom);
-      const gstText = data.Gst ? 'Yes (since ' + data.Gst.slice(0,10) + ')' : 'Not registered';
-      const location = [data.AddressState, data.AddressPostcode].filter(Boolean).join(' ') || '—';
-
-      // Persist for submission
-      leadData.abnLookup = {
-        entityName: entityName,
-        entityType: data.EntityTypeName || '',
-        status: data.AbnStatus || '',
-        statusEffectiveFrom: data.AbnStatusEffectiveFrom || '',
-        tradingYears: years,
-        gst: data.Gst || '',
-        addressState: data.AddressState || '',
-        addressPostcode: data.AddressPostcode || '',
-        tradingNames: (data.BusinessName || []).join(', ')
-      };
-      // Auto-fill matching fields so subsequent steps skip
-      const band = bandFromYears(years);
-      if (band) leadData.businessLength = band;
-      if (data.Gst) leadData.gstRegistered = 'Yes';
-
-      const card = '<div class="abn-result">' +
-        '<div class="abn-result-title">✓ Found on the ABR</div>' +
-        '<div class="abn-result-name">' + escapeHtml(entityName) + '</div>' +
-        '<div class="abn-result-rows">' +
-          '<div><span>Status</span><strong>' + escapeHtml(data.AbnStatus || '—') + '</strong></div>' +
-          '<div><span>Trading</span><strong>' + (years ? escapeHtml(years) + ' years' : '—') + '</strong></div>' +
-          '<div><span>GST</span><strong>' + escapeHtml(gstText) + '</strong></div>' +
-          '<div><span>Entity</span><strong>' + escapeHtml(data.EntityTypeName || '—') + '</strong></div>' +
-          '<div><span>Location</span><strong>' + escapeHtml(location) + '</strong></div>' +
-        '</div></div>' +
-        'Is this your business?';
-      addMessage(card, 'bot');
-      addOptions(step.options || ["Yes — that's us", "No — let me re-enter"]);
-    }).catch(err => {
-      addMessage("I couldn't verify that ABN right now (" + (err && err.message ? err.message : 'error') + "). No worries — we'll confirm when we call. Let's continue.", 'bot');
-      setTimeout(() => goToStep('business_length'), 1200);
-    });
+    if (isAbnNumber) {
+      // ----- ABN-number lookup -----
+      addMessage('<span class="abn-lookup-pending">Checking ABN ' + escapeHtml(digits.replace(/(\d{2})(\d{3})(\d{3})(\d{3})/,'$1 $2 $3 $4')) + ' on the Australian Business Register…</span>', 'bot');
+      lookupAbn(digits).then(data => {
+        showAbrConfirmCard(data, step);
+      }).catch(err => {
+        // Couldn't verify — fall back to storing what they typed and moving on
+        leadData.abn = digits;
+        leadData.businessName = leadData.businessName || raw;
+        addMessage("I couldn't verify that ABN right now (" + escapeHtml(err && err.message ? err.message : 'error') + "). No worries — we'll confirm when we call.", 'bot');
+        setTimeout(() => goToStep('business_length'), 1200);
+      });
+    } else {
+      // ----- Name search -----
+      addMessage('<span class="abn-lookup-pending">Searching the ABR for "' + escapeHtml(raw) + '"…</span>', 'bot');
+      searchAbnByName(raw).then(matches => {
+        if (!matches || matches.length === 0) {
+          // No match — store what they typed and move on
+          leadData.businessName = raw;
+          addMessage("I couldn't find a match for <strong>" + escapeHtml(raw) + "</strong> on the ABR. No problem — we'll sort out the details when we call. Let's keep going.", 'bot');
+          setTimeout(() => goToStep('business_length'), 1300);
+          return;
+        }
+        // Take the top match and fetch full details
+        const top = matches[0];
+        const topAbn = (top.Abn || '').replace(/\D/g, '');
+        if (topAbn.length !== 11) {
+          leadData.businessName = top.Name || raw;
+          addMessage("I found <strong>" + escapeHtml(top.Name || raw) + "</strong> on the ABR, but couldn't load the full details. We'll confirm when we call.", 'bot');
+          setTimeout(() => goToStep('business_length'), 1300);
+          return;
+        }
+        lookupAbn(topAbn).then(data => {
+          showAbrConfirmCard(data, step);
+        }).catch(err => {
+          leadData.businessName = top.Name || raw;
+          leadData.abn = topAbn;
+          addMessage("I found <strong>" + escapeHtml(top.Name || raw) + "</strong> on the ABR, but couldn't load full details. We'll confirm when we call.", 'bot');
+          setTimeout(() => goToStep('business_length'), 1300);
+        });
+      }).catch(err => {
+        leadData.businessName = raw;
+        addMessage("I couldn't reach the ABN register right now (" + escapeHtml(err && err.message ? err.message : 'error') + "). No worries — we'll confirm when we call.", 'bot');
+        setTimeout(() => goToStep('business_length'), 1300);
+      });
+    }
   }, 700);
 }
 
@@ -999,6 +1078,8 @@ const FORM_FIELD_MAP = {
   state:            'entry.555555555',
   enquiryType:      'entry.666666666',
   businessName:     'entry.777777777',
+  // What the user originally typed in the combined "ABN or business name" step
+  businessIdentifier: 'entry.778778778',
   abn:              'entry.888888888',
   // ABR verification result — captured automatically from the Australian Business Register lookup
   abnVerified:      'entry.881881881',  // 'Yes' if the user confirmed the ABR match, else ''
@@ -1042,6 +1123,11 @@ function submitLead(data){
     data.abnTradingYears = data.abnLookup.tradingYears || '';
     data.abnGstStatus    = data.abnLookup.gst || '';
     data.abnTradingNames = data.abnLookup.tradingNames || '';
+  }
+  // Defensive defaults for the new combined Business path
+  if (data.enquiryType === 'Business') {
+    if (!data.employmentStatus) data.employmentStatus = 'Self-employed (ABN)';
+    if (!data.businessName && data.businessIdentifier) data.businessName = data.businessIdentifier;
   }
 
   // Log to console for debugging (remove in production if desired)

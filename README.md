@@ -107,8 +107,9 @@ Create a Google Form with one question per field below. The exact question wordi
 | phone | Mobile | Short answer |
 | state | State | Multiple choice (VIC, NSW, QLD, etc.) |
 | enquiryType | Personal or business? | Multiple choice (Personal / Business) |
-| businessName | Business name | Short answer |
-| abn | ABN | Short answer |
+| businessIdentifier | What the user originally typed (ABN or business name) | Short answer |
+| businessName | Business name (auto-filled from ABR entity name when found) | Short answer |
+| abn | ABN (auto-filled from ABR when found) | Short answer |
 | abnVerified | ABN verified on ABR? | Short answer (auto: "Yes" or empty) |
 | abnEntityName | Legal entity name (from ABR) | Short answer |
 | abnEntityType | Entity type (Pty Ltd / Sole trader / etc) | Short answer |

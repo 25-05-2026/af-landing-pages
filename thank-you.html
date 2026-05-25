@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#1A2138">
+<meta name="theme-color" content="#0F1424">
 <meta name="robots" content="noindex, nofollow">
 <title>Thanks — we'll be in touch shortly | Acquired Financial Services</title>
 <meta name="description" content="Your finance enquiry has been received. A specialist broker will call you back within 1 business hour.">
@@ -22,7 +22,6 @@
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
   gtag('config', 'AW-XXXXXXXXXX');
-  // Fire the lead conversion
   gtag('event', 'conversion', {
     'send_to': 'AW-XXXXXXXXXX/AAAAAAAA',
     'value': 1.0,
@@ -30,131 +29,243 @@
   });
 </script> -->
 
-<!-- Optional: Meta Pixel Lead event -->
-<!-- <script>fbq('track', 'Lead');</script> -->
-
 <style>
   :root{
     --navy:#1A2138;
+    --navy-dk:#0F1424;
+    --navy-2:#252E4F;
     --green:#8DC63F;
     --green-dk:#74A832;
     --green-dk2:#5C8A28;
+    --green-soft:#EEF6E0;
     --ink:#0F1424;
     --body:#374151;
     --muted:#6B7280;
     --line:#E5E7EB;
-    --bg-alt:#F5F7FA;
-    --bg-navy:#0F1424;
+    --shadow-lg:0 30px 60px rgba(15,20,36,.35),0 12px 24px rgba(15,20,36,.18);
   }
-  *{box-sizing:border-box}
-  body{margin:0;font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;color:var(--body);background:var(--bg-alt);line-height:1.55;-webkit-font-smoothing:antialiased;font-size:16px}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%;overflow-x:hidden}
+  body{
+    font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+    color:var(--body);
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+    background:var(--navy-dk);
+    min-height:100vh;
+    min-height:100dvh;
+    display:flex;
+    flex-direction:column;
+  }
   a{color:var(--green-dk);text-decoration:none}
   a:hover{color:var(--green-dk2)}
-  h1,h2,h3{color:var(--ink);font-weight:800;line-height:1.15;margin:0 0 .6em}
-  img{max-width:100%;display:block}
+  h1,h3{color:var(--ink);font-weight:800;line-height:1.15;letter-spacing:-.02em}
+  img{display:block;max-width:100%}
 
-  header.topbar{background:#fff;border-bottom:1px solid var(--line)}
-  .topbar-inner{display:flex;align-items:center;justify-content:space-between;padding:12px 22px;max-width:1180px;margin:0 auto}
-  .logo img{height:34px}
-  .tel-link{display:inline-flex;align-items:center;gap:8px;font-weight:700;color:var(--navy);font-size:.95rem}
-  .tel-link svg{width:18px;height:18px;fill:var(--green-dk)}
+  /* ============ ANIMATED MESH BACKGROUND (replaces video) ============ */
+  .bg-stage{position:fixed;inset:0;z-index:-2;background:radial-gradient(ellipse at top, #1A2138 0%, #0F1424 60%, #07091a 100%);overflow:hidden}
+  .bg-stage::before,
+  .bg-stage::after,
+  .bg-blob{content:"";position:absolute;border-radius:50%;filter:blur(90px);opacity:.55;pointer-events:none;will-change:transform}
+  .bg-stage::before{width:640px;height:640px;background:linear-gradient(135deg,#8DC63F,#5C8A28);top:-180px;left:-180px;animation:floatA 22s ease-in-out infinite}
+  .bg-stage::after{width:520px;height:520px;background:linear-gradient(135deg,#74A832,#3E5F1B);bottom:-160px;right:-160px;animation:floatB 26s ease-in-out infinite}
+  .bg-blob{width:380px;height:380px;background:linear-gradient(135deg,#252E4F,#1A2138);top:35%;left:55%;opacity:.85;animation:floatC 30s ease-in-out infinite}
+  @keyframes floatA{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(120px,80px) scale(1.18)}}
+  @keyframes floatB{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(-110px,-60px) scale(1.12)}}
+  @keyframes floatC{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(-160px,40px) scale(1.25)}}
+  /* Subtle grid overlay for texture */
+  .bg-grid{position:fixed;inset:0;z-index:-1;background-image:radial-gradient(rgba(255,255,255,.04) 1px,transparent 1px);background-size:28px 28px;mask-image:radial-gradient(ellipse at center,#000 30%,transparent 80%);pointer-events:none}
 
-  .wrap{max-width:760px;margin:0 auto;padding:0 22px}
-  .hero-card{background:#fff;border-radius:20px;padding:48px 36px;margin:48px auto;box-shadow:0 18px 40px rgba(15,20,36,.06),0 2px 6px rgba(15,20,36,.04);text-align:center;border-top:6px solid var(--green)}
-  .check{width:84px;height:84px;border-radius:50%;background:rgba(141,198,63,.15);display:flex;align-items:center;justify-content:center;margin:0 auto 22px;position:relative}
-  .check svg{width:46px;height:46px;fill:var(--green-dk2);animation:pop .4s ease-out}
-  @keyframes pop{from{transform:scale(.4);opacity:0}to{transform:scale(1);opacity:1}}
-  .hero-card h1{font-size:clamp(1.8rem,4vw,2.6rem);letter-spacing:-.02em}
-  .hero-card .sub{font-size:1.1rem;color:var(--muted);max-width:480px;margin:0 auto 28px}
-  .badge{display:inline-flex;align-items:center;gap:8px;background:rgba(141,198,63,.12);color:var(--green-dk2);padding:8px 16px;border-radius:999px;font-size:.88rem;font-weight:700;margin-bottom:22px}
-  .badge svg{width:14px;height:14px;fill:currentColor}
+  /* ============ HEADER ============ */
+  header.topbar{flex:none;padding:14px 20px;display:flex;align-items:center;justify-content:space-between;gap:16px;max-width:1180px;width:100%;margin:0 auto}
+  .logo img{height:32px;width:auto;filter:brightness(0) invert(1)}
+  .tel-link{display:inline-flex;align-items:center;gap:8px;font-weight:700;color:#fff;font-size:.95rem;padding:7px 14px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);border-radius:999px;transition:all .15s}
+  .tel-link:hover{background:rgba(141,198,63,.18);border-color:rgba(141,198,63,.4);color:#fff}
+  .tel-link svg{width:16px;height:16px;fill:var(--green)}
 
-  .next-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:30px 0;text-align:left}
-  .step{background:var(--bg-alt);border-radius:14px;padding:20px;border:1px solid var(--line)}
-  .step-n{display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;background:var(--navy);color:#fff;border-radius:50%;font-weight:800;font-size:.95rem;margin-bottom:10px}
-  .step h3{font-size:1rem;margin-bottom:.3em}
-  .step p{font-size:.9rem;color:var(--muted);margin:0}
+  /* ============ MAIN CARD ============ */
+  .stage{flex:1;display:flex;align-items:center;justify-content:center;padding:18px 20px 22px}
+  .wrap{max-width:880px;width:100%}
+  .card{
+    background:rgba(255,255,255,.97);
+    border-radius:24px;
+    padding:34px 36px 30px;
+    box-shadow:var(--shadow-lg);
+    border:1px solid rgba(255,255,255,.6);
+    backdrop-filter:blur(10px);
+    -webkit-backdrop-filter:blur(10px);
+    text-align:center;
+    position:relative;
+    overflow:hidden;
+  }
+  .card::before{
+    content:"";position:absolute;left:0;right:0;top:0;height:4px;
+    background:linear-gradient(90deg,var(--green-dk),var(--green),var(--green-dk2));
+  }
+  .badge{
+    display:inline-flex;align-items:center;gap:8px;
+    background:var(--green-soft);color:var(--green-dk2);
+    padding:6px 14px;border-radius:999px;font-size:.78rem;font-weight:700;
+    letter-spacing:.04em;text-transform:uppercase;
+    border:1px solid rgba(141,198,63,.3);margin-bottom:12px;
+  }
+  .badge svg{width:13px;height:13px;fill:currentColor}
+  .check{
+    width:60px;height:60px;border-radius:50%;
+    background:linear-gradient(135deg,var(--green),var(--green-dk));
+    display:flex;align-items:center;justify-content:center;
+    margin:0 auto 14px;box-shadow:0 10px 24px rgba(141,198,63,.4);
+    animation:pop .5s cubic-bezier(.18,.89,.32,1.28);
+  }
+  .check svg{width:32px;height:32px;fill:#fff}
+  @keyframes pop{from{transform:scale(.3);opacity:0}to{transform:scale(1);opacity:1}}
 
-  .help{background:#0F1424;color:#D9E0EE;border-radius:16px;padding:26px 28px;margin:30px 0 10px;text-align:center}
-  .help h3{color:#fff;margin-bottom:.4em;font-size:1.1rem}
-  .help p{margin:0 0 16px;color:#C8D0E0;font-size:.95rem}
-  .btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:14px 22px;border-radius:10px;font-weight:700;font-size:1rem;cursor:pointer;border:0;text-decoration:none;transition:transform .12s,background .15s}
-  .btn:active{transform:translateY(1px)}
-  .btn--primary{background:var(--green);color:#0E1A04;box-shadow:0 6px 16px rgba(141,198,63,.35)}
-  .btn--primary:hover{background:var(--green-dk)}
-  .help .btn{font-size:1.05rem;padding:16px 26px}
+  h1{font-size:clamp(1.65rem,3.6vw,2.3rem);margin-bottom:.3em}
+  .sub{font-size:1.02rem;color:var(--muted);max-width:540px;margin:0 auto 22px;line-height:1.5}
+  .sub strong{color:var(--ink)}
 
-  .extra{text-align:center;font-size:.92rem;color:var(--muted);margin:20px 0 60px}
-  .extra a{font-weight:600}
+  /* ============ NEXT STEPS ============ */
+  .next-steps{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:14px;
+    margin:0 0 22px;text-align:left;
+  }
+  .step{
+    background:#F7F9FB;border:1px solid var(--line);border-radius:14px;
+    padding:18px 18px 16px;transition:transform .15s,box-shadow .15s,border-color .15s;
+  }
+  .step:hover{transform:translateY(-2px);border-color:var(--green);box-shadow:0 6px 18px rgba(15,20,36,.06)}
+  .step-n{
+    display:inline-flex;align-items:center;justify-content:center;
+    width:28px;height:28px;background:var(--navy);color:#fff;border-radius:50%;
+    font-weight:800;font-size:.85rem;margin-bottom:9px;
+  }
+  .step h3{font-size:.97rem;font-weight:700;margin-bottom:.35em;color:var(--ink)}
+  .step p{font-size:.86rem;color:var(--muted);line-height:1.5;margin:0}
+  .step p strong{color:var(--ink);font-weight:600}
 
-  footer{background:var(--bg-navy);color:#A1A8BC;padding:34px 0 24px;font-size:.84rem;text-align:center}
-  footer a{color:#A1A8BC}
+  /* ============ CTA STRIP ============ */
+  .cta-row{
+    display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap;
+    padding-top:14px;border-top:1px solid var(--line);
+  }
+  .cta-row .copy{text-align:left}
+  .cta-row .copy strong{display:block;color:var(--ink);font-weight:700;font-size:.95rem;margin-bottom:2px}
+  .cta-row .copy span{font-size:.82rem;color:var(--muted)}
+  .btn{
+    display:inline-flex;align-items:center;justify-content:center;gap:8px;
+    padding:13px 22px;border-radius:999px;font-weight:700;font-size:.98rem;
+    border:0;cursor:pointer;text-decoration:none;line-height:1;
+    background:var(--navy);color:#fff;
+    box-shadow:0 8px 18px rgba(15,20,36,.18);
+    transition:transform .12s,background .15s;
+  }
+  .btn:hover{background:var(--navy-2);transform:translateY(-1px)}
+  .btn svg{width:16px;height:16px;fill:currentColor}
+
+  /* ============ FOOTER ============ */
+  footer{flex:none;text-align:center;padding:14px 20px 18px;color:rgba(255,255,255,.55);font-size:.74rem;line-height:1.55}
+  footer a{color:rgba(255,255,255,.75);font-weight:600}
   footer a:hover{color:var(--green)}
-  footer .legal{font-size:.76rem;color:#7B83A0;margin-top:12px;line-height:1.6;max-width:780px;margin-left:auto;margin-right:auto;padding:0 22px}
 
+  /* ============ MOBILE ============ */
   @media (max-width:720px){
-    .hero-card{padding:36px 22px;margin:24px 14px}
-    .next-steps{grid-template-columns:1fr}
+    .stage{padding:12px 14px 16px}
+    .card{padding:26px 22px 24px;border-radius:20px}
+    .next-steps{grid-template-columns:1fr;gap:10px}
+    .step{padding:14px 16px 13px}
+    .cta-row{flex-direction:column;text-align:center}
+    .cta-row .copy{text-align:center}
+    .badge{font-size:.72rem;padding:5px 12px}
+    .check{width:52px;height:52px}
+    .check svg{width:28px;height:28px}
+    h1{font-size:1.55rem}
+    .sub{font-size:.95rem;margin-bottom:18px}
+  }
+  @media (max-height:760px) and (min-width:721px){
+    /* Tight viewports — squeeze the card so it stays above the fold */
+    .card{padding:24px 30px 22px}
+    .check{width:52px;height:52px;margin-bottom:10px}
+    .check svg{width:28px;height:28px}
+    h1{font-size:1.6rem}
+    .sub{margin-bottom:18px}
+    .step{padding:14px 16px 13px}
+    .step h3{font-size:.94rem}
+    .step p{font-size:.82rem}
+  }
+
+  /* Reduced motion */
+  @media (prefers-reduced-motion: reduce){
+    .bg-stage::before,.bg-stage::after,.bg-blob,.check{animation:none}
   }
 </style>
 </head>
 <body>
 
+<!-- Animated background — replaces a video file, runs entirely in CSS -->
+<div class="bg-stage" aria-hidden="true">
+  <div class="bg-blob"></div>
+</div>
+<div class="bg-grid" aria-hidden="true"></div>
+
 <header class="topbar">
-  <div class="topbar-inner">
-    <a href="https://acquiredfinance.com" class="logo">
-      <img src="https://www.acquiredfinance.com/wp-content/uploads/2023/08/logo.png" alt="Acquired Financial Services">
-    </a>
-    <a href="tel:1300235255" class="tel-link">
-      <svg viewBox="0 0 24 24"><path d="M20 15.5c-1.25 0-2.45-.2-3.57-.57a1 1 0 0 0-1.02.24l-2.2 2.2a15.07 15.07 0 0 1-6.59-6.59l2.2-2.21a1 1 0 0 0 .25-1.02A11.36 11.36 0 0 1 8.5 4a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1c0 9.39 7.61 17 17 17a1 1 0 0 0 1-1v-3.5a1 1 0 0 0-1-1z"/></svg>
-      1300 235 255
-    </a>
-  </div>
+  <a href="https://acquiredfinance.com" class="logo" aria-label="Acquired Financial Services">
+    <img src="https://www.acquiredfinance.com/wp-content/uploads/2023/08/logo.png" alt="Acquired Financial Services">
+  </a>
+  <a href="tel:1300235255" class="tel-link">
+    <svg viewBox="0 0 24 24"><path d="M20 15.5c-1.25 0-2.45-.2-3.57-.57a1 1 0 0 0-1.02.24l-2.2 2.2a15.07 15.07 0 0 1-6.59-6.59l2.2-2.21a1 1 0 0 0 .25-1.02A11.36 11.36 0 0 1 8.5 4a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1c0 9.39 7.61 17 17 17a1 1 0 0 0 1-1v-3.5a1 1 0 0 0-1-1z"/></svg>
+    1300 235 255
+  </a>
 </header>
 
-<div class="wrap">
-  <div class="hero-card">
-    <div class="badge"><svg viewBox="0 0 24 24"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg> Enquiry received</div>
-    <div class="check"><svg viewBox="0 0 24 24"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div>
-    <h1>Thanks — we're on it.</h1>
-    <p class="sub">A specialist broker will call you back within <strong>1 business hour</strong>. (If you've enquired outside business hours, expect a call the next business morning.)</p>
+<main class="stage">
+  <div class="wrap">
+    <div class="card">
+      <div class="badge">
+        <svg viewBox="0 0 24 24"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+        Enquiry received
+      </div>
+      <div class="check">
+        <svg viewBox="0 0 24 24"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+      </div>
+      <h1>Thanks — we're on it.</h1>
+      <p class="sub">A specialist broker will be in touch within <strong>1 business hour</strong>. Here's exactly what happens next.</p>
 
-    <div class="next-steps">
-      <div class="step">
-        <div class="step-n">1</div>
-        <h3>We compare lenders</h3>
-        <p>Our team starts pre-assessing your scenario against our 63+ lender panel — no credit check yet.</p>
+      <div class="next-steps">
+        <div class="step">
+          <div class="step-n">1</div>
+          <h3>We call you</h3>
+          <p>A specialist broker phones you back to talk through your situation, gather a few extra details we need, and answer any questions before we go to the lender panel.</p>
+        </div>
+        <div class="step">
+          <div class="step-n">2</div>
+          <h3>We compare lenders</h3>
+          <p>With your permission, we pull a copy of your credit file so we know exactly what we're working with, then run your scenario across <strong>63+ lenders</strong>. <strong>No impact on your credit score at this stage.</strong></p>
+        </div>
+        <div class="step">
+          <div class="step-n">3</div>
+          <h3>You decide</h3>
+          <p>You choose if and when to proceed. Most pre-approvals are valid for <strong>90 days</strong> — after which we may just need a quick update of recent documents before settlement.</p>
+        </div>
       </div>
-      <div class="step">
-        <div class="step-n">2</div>
-        <h3>We call you</h3>
-        <p>A broker explains your best options, answers questions, and confirms what (if anything) you need to send through.</p>
-      </div>
-      <div class="step">
-        <div class="step-n">3</div>
-        <h3>You decide</h3>
-        <p>No commitment until you're happy. Pre-approval is valid for <strong>90 days</strong>.</p>
+
+      <div class="cta-row">
+        <div class="copy">
+          <strong>Need to talk now?</strong>
+          <span>Mon–Fri · 8:30am – 6pm AEST</span>
+        </div>
+        <a href="tel:1300235255" class="btn">
+          <svg viewBox="0 0 24 24"><path d="M20 15.5c-1.25 0-2.45-.2-3.57-.57a1 1 0 0 0-1.02.24l-2.2 2.2a15.07 15.07 0 0 1-6.59-6.59l2.2-2.21a1 1 0 0 0 .25-1.02A11.36 11.36 0 0 1 8.5 4a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1c0 9.39 7.61 17 17 17a1 1 0 0 0 1-1v-3.5a1 1 0 0 0-1-1z"/></svg>
+          Call 1300 235 255
+        </a>
       </div>
     </div>
-
-    <div class="help">
-      <h3>Need to talk to us sooner?</h3>
-      <p>Office hours: Mon–Fri 8:30am – 6pm AEST. Outside hours, leave a message and we'll be in touch first thing.</p>
-      <a href="tel:1300235255" class="btn btn--primary">Call 1300 235 255</a>
-    </div>
-
-    <p class="extra">Wrong number or details? <a href="mailto:customerservice@acquiredfinance.com?subject=Update%20to%20my%20enquiry">Email us</a> and we'll update your enquiry.</p>
   </div>
-</div>
+</main>
 
 <footer>
-  <p>&copy; <span id="yr"></span> Acquired Financial Services Pty Ltd · <a href="https://acquiredfinance.com">acquiredfinance.com</a></p>
-  <div class="legal">Australian Credit Licence 488607. Information provided is general in nature and does not constitute personal financial advice. Lender criteria, fees and terms apply.</div>
+  &copy; <span id="yr"></span> Acquired Financial Services Pty Ltd · ACL 488607 · <a href="https://acquiredfinance.com">acquiredfinance.com</a>
 </footer>
 
-<script>
-  document.getElementById('yr').textContent = new Date().getFullYear();
-</script>
-
+<script>document.getElementById('yr').textContent = new Date().getFullYear();</script>
 </body>
 </html>

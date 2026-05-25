@@ -1,11 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-AU">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Check Your Eligibility — 60-Second Chat | Acquired Financial Services</title>
-<meta name="description" content="Quick chat-based eligibility check. Will not impact your credit score. 63+ lenders, 1-hour approvals. ACL 488607.">
+<meta name="theme-color" content="#1A2138">
 <meta name="robots" content="noindex, nofollow">
+<title>Check Your Eligibility — Finance Enquiry | Acquired Financial Services</title>
+<meta name="description" content="Quick eligibility check. We verify your ABN with the Australian Business Register on the spot. Will not impact your credit score. ACL 488607.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -22,1168 +23,1645 @@
 
 <style>
   :root {
-    --primary: #1A2138;
-    --primary-light: #252E4F;
-    --primary-dark: #0F1424;
-    --accent: #8DC63F;
-    --accent-dk: #74A832;
-    --accent-dk2: #5C8A28;
-    --accent-soft: #EEF6E0;
-    --bg: #F7F9FB;
-    --chat-bg: #ffffff;
-    --user-bubble: #1A2138;
-    --bot-bubble: #EEF1F5;
-    --text: #0F1424;
-    --text-light: #6b7280;
+    --brand: #74A832;          /* matches landing pages --green-dk */
+    --brand-dark: #5C8A28;     /* matches --green-dk2 */
+    --accent: #8DC63F;         /* matches --green */
+    --accent-soft: #EEF6E0;    /* matches --green-soft */
+    --navy: #1A2138;           /* matches landing pages --navy */
+    --navy-dark: #0F1424;
+    --bg: #F7F9FB;             /* matches --bg-alt */
+    --card: #FFFFFF;
+    --text: #0F1424;           /* navy ink */
+    --muted: #6B7280;
+    --line: #E5E7EB;
+    --error: #C0392B;
     --success: #5C8A28;
-    --border: #E5E7EB;
+    --notice-bg: #FFF7E6;
+    --notice-border: #E0A93A;
+    --notice-text: #6B4F1A;
+    --block-bg: #FDECEA;
+    --block-border: #C0392B;
+    --block-text: #7A1F12;
+    --radius: 14px;
+    --shadow: 0 4px 20px rgba(15, 20, 36, 0.08);
   }
-
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-
-  html, body { height: 100%; overflow: hidden; }
-
+  * { box-sizing: border-box; }
+  html, body { background: transparent; }
   body {
-    font-family: 'Inter','Segoe UI', system-ui, -apple-system, sans-serif;
-    background: var(--bg);
+    margin: 0;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     color: var(--text);
-    height: 100vh;
-    height: 100dvh; /* dynamic viewport — accounts for mobile URL bar */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    overscroll-behavior: none;
-  }
-
-  .chat-container {
-    width: 100%;
-    max-width: 480px;
-    height: 100vh;
-    height: 100dvh;
-    background: var(--chat-bg);
-    box-shadow: 0 8px 40px rgba(0,0,0,0.12);
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-  }
-
-  /* Desktop: centered card with rounded corners and breathing room */
-  @media (min-width: 600px) {
-    .chat-container {
-      height: 90vh;
-      max-height: 760px;
-      border-radius: 16px;
-    }
-  }
-
-  .chat-header {
-    background: #fff;
-    color: var(--text);
-    padding: 16px 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 4px;
-    border-bottom: 3px solid #8cc63f;
-  }
-
-  .chat-header .logo-img {
-    display: flex;
-    align-items: center;
-  }
-
-  .chat-header .logo-img img {
-    max-height: 85px;
-    width: auto;
-  }
-
-  .chat-header .info { text-align: center; }
-  .chat-header .info p { font-size: 12px; color: var(--text-light); margin-top: 2px; font-weight: 500; }
-
-  .chat-messages {
-    flex: 1;
-    overflow-y: auto;
-    padding: 20px 16px;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    scroll-behavior: smooth;
-  }
-
-  .message {
-    max-width: 85%;
-    padding: 12px 16px;
-    border-radius: 16px;
-    font-size: 14px;
     line-height: 1.5;
-    animation: fadeIn 0.3s ease;
+    -webkit-font-smoothing: antialiased;
+    background: var(--bg);
+    min-height: 100vh;
+    min-height: 100dvh;
   }
-
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(8px); }
-    to { opacity: 1; transform: translateY(0); }
+  .form-wrapper { max-width: 580px; margin: 24px auto; padding: 0 16px; }
+  .form-card {
+    background: var(--card);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 28px 28px 24px;
+    border: 1px solid var(--line);
   }
-
-  .message.bot {
-    background: var(--bot-bubble);
-    color: var(--text);
-    align-self: flex-start;
-    border-bottom-left-radius: 4px;
-  }
-
-  .message.user {
-    background: var(--user-bubble);
-    color: #fff;
-    align-self: flex-end;
-    border-bottom-right-radius: 4px;
-  }
-
-  .message.system {
-    background: #f0fdf4;
-    border: 1px solid #bbf7d0;
-    color: var(--success);
-    align-self: center;
-    text-align: center;
-    font-weight: 600;
-    border-radius: 12px;
-    font-size: 13px;
-  }
-
-  .options-grid {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin-top: 8px;
-  }
-
+  .logo-bar { text-align: center; margin-bottom: 18px; padding-bottom: 18px; border-bottom: 1px solid var(--line); }
+  .logo-bar img { max-width: 240px; width: 100%; height: auto; }
+  .form-header h1 { font-size: 22px; margin: 0 0 6px; color: var(--brand); font-weight: 700; }
+  .form-header p { margin: 0 0 20px; color: var(--muted); font-size: 15px; }
+  .progress { display: flex; align-items: center; gap: 8px; margin-bottom: 14px; }
+  .progress-step { flex: 1; height: 6px; background: var(--line); border-radius: 3px; transition: background 0.3s; }
+  .progress-step.active { background: var(--accent); }
+  .progress-step.complete { background: var(--brand); }
+  .step-label { font-size: 13px; color: var(--muted); margin-bottom: 18px; font-weight: 500; }
+  .step { display: none; animation: fadeIn 0.25s ease; }
+  .step.active { display: block; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+  .step h2 { font-size: 19px; margin: 0 0 18px; color: var(--text); font-weight: 600; }
+  .options { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 8px; }
   .option-btn {
-    padding: 10px 16px;
-    border: 2px solid var(--primary-light);
-    background: #fff;
-    color: var(--primary);
-    border-radius: 24px;
-    cursor: pointer;
-    font-size: 13px;
-    font-weight: 600;
-    transition: all 0.2s;
+    background: #fff; border: 1.5px solid var(--line); padding: 14px 12px;
+    border-radius: 10px; cursor: pointer; font-size: 15px; font-weight: 500;
+    color: var(--text); text-align: left; transition: all 0.15s;
+    display: flex; align-items: center; gap: 10px; font-family: inherit;
   }
-
-  .option-btn:hover {
-    background: var(--primary);
-    color: #fff;
-    transform: translateY(-1px);
+  .option-btn:hover { border-color: var(--accent); background: #F8FCEF; }
+  .option-btn.selected { border-color: var(--brand); background: var(--accent-soft); color: var(--brand-dark); }
+  .option-btn .icon { font-size: 20px; }
+  .field {
+    margin-bottom: 22px;
+    padding-bottom: 22px;
+    border-bottom: 1px solid #EDF1E8;
   }
-
-  .input-area {
-    padding: 12px 16px;
-    border-top: 1px solid var(--border);
-    display: flex;
-    gap: 8px;
-    background: #fff;
+  .field:last-of-type {
+    border-bottom: none;
+    padding-bottom: 0;
+    margin-bottom: 12px;
   }
-
-  .input-area input, .input-area select {
-    flex: 1;
-    padding: 12px 16px;
-    border: 2px solid var(--border);
-    border-radius: 24px;
-    font-size: 14px;
-    outline: none;
-    transition: border-color 0.2s;
-  }
-
-  .input-area input:focus { border-color: var(--primary-light); }
-
-  .input-area button {
-    padding: 12px 20px;
-    background: var(--primary);
-    color: #fff;
-    border: none;
-    border-radius: 24px;
-    cursor: pointer;
+  .field > label,
+  .field > .field-question {
+    display: block;
+    font-size: 15.5px;
     font-weight: 700;
-    font-size: 14px;
-    transition: background 0.2s;
-  }
-
-  .input-area button:hover { background: var(--primary-light); }
-  .input-area button:disabled { opacity: 0.4; cursor: not-allowed; }
-
-  .typing-indicator {
-    display: flex; gap: 4px; padding: 12px 16px;
-    background: var(--bot-bubble); border-radius: 16px;
-    align-self: flex-start; border-bottom-left-radius: 4px;
-  }
-
-  .typing-indicator span {
-    width: 8px; height: 8px; background: #9ca3af;
-    border-radius: 50%; animation: bounce 1.4s infinite;
-  }
-
-  .typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
-  .typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
-
-  @keyframes bounce {
-    0%, 60%, 100% { transform: translateY(0); }
-    30% { transform: translateY(-8px); }
-  }
-
-  .progress-bar {
-    height: 4px; background: #e5e7eb;
-  }
-
-  .progress-bar .fill {
-    height: 100%; background: var(--accent);
-    transition: width 0.5s ease;
-  }
-
-  .summary-card {
-    background: #f8fafc;
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 16px;
-    margin-top: 8px;
-    font-size: 13px;
-  }
-
-  .summary-card h4 {
-    color: var(--primary);
     margin-bottom: 10px;
+    color: var(--brand-dark);
+    line-height: 1.4;
+  }
+  .field .hint {
+    display: inline-block;
+    margin-left: 4px;
+    font-size: 13px;
+    color: var(--muted);
+    font-weight: 400;
+  }
+  /* Inner labels (e.g. sub-questions inside conditional groups) keep the smaller style */
+  .field .radio-stack label,
+  .field .radio-row label,
+  .field .checkbox-row label {
     font-size: 14px;
+    font-weight: 500;
+    color: var(--text);
+    margin-bottom: 0;
   }
-
-  .summary-card .row {
-    display: flex;
-    justify-content: space-between;
-    padding: 4px 0;
-    border-bottom: 1px solid #f1f5f9;
+  .field input, .field select, .field textarea {
+    width: 100%; padding: 12px 14px; border: 1.5px solid var(--line);
+    border-radius: 10px; font-size: 15px; font-family: inherit;
+    background: #fff; color: var(--text); transition: border-color 0.15s, box-shadow 0.15s;
   }
-
-  .summary-card .row:last-child { border-bottom: none; }
-  .summary-card .label { color: var(--text-light); }
-  .summary-card .value { font-weight: 600; color: var(--text); }
-
-  /* ===== ABN VERIFICATION CARD ===== */
-  .abn-result {
-    margin: 8px 0 6px;
-    border-radius: 14px;
-    background: linear-gradient(135deg, #F7FBEF 0%, #EEF6E0 100%);
-    border: 1.5px solid var(--accent);
+  .field input:focus, .field select:focus, .field textarea:focus {
+    outline: none; border-color: var(--brand);
+    box-shadow: 0 0 0 3px rgba(149, 201, 61, 0.20);
+  }
+  .field.error input, .field.error select { border-color: var(--error); }
+  .error-msg { color: var(--error); font-size: 13px; margin-top: 4px; display: none; }
+  .field.error .error-msg { display: block; }
+  .amount-input-wrap { position: relative; display: flex; align-items: center; }
+  .amount-prefix {
+    position: absolute; left: 14px; color: var(--muted);
+    font-size: 15px; font-weight: 600; pointer-events: none;
+  }
+  .amount-input-wrap input { padding-left: 28px; }
+  .amount-input-wrap input::-webkit-outer-spin-button,
+  .amount-input-wrap input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+  .amount-input-wrap input[type=number] { -moz-appearance: textfield; }
+  /* Notices */
+  .notice {
+    display: none; margin-top: 10px; padding: 12px 14px;
+    background: var(--notice-bg); border: 1px solid var(--notice-border);
+    border-left: 4px solid var(--notice-border); border-radius: 8px;
+    font-size: 14px; color: var(--notice-text); line-height: 1.45;
+  }
+  .notice a { color: var(--brand-dark); text-decoration: none; font-weight: 700; }
+  .notice.show { display: block; }
+  .notice.blocking {
+    background: var(--block-bg); border-color: var(--block-border);
+    border-left-color: var(--block-border); color: var(--block-text);
+  }
+  .notice.blocking a { color: var(--block-text); }
+  .field.below-min input { border-color: var(--notice-border); }
+  /* Qualify modal */
+  .qualify-modal {
+    position: fixed; inset: 0; z-index: 9999;
+    display: flex; align-items: center; justify-content: center;
+    padding: 20px;
+  }
+  .qualify-modal-backdrop {
+    position: absolute; inset: 0;
+    background: rgba(8, 41, 62, 0.55);
+    backdrop-filter: blur(2px);
+    animation: fadeBg 0.25s ease;
+  }
+  @keyframes fadeBg { from { opacity: 0; } to { opacity: 1; } }
+  .qualify-modal-card {
+    position: relative; z-index: 1;
+    background: #fff; border-radius: 16px;
+    padding: 32px 28px 28px;
+    max-width: 460px; width: 100%;
+    text-align: center;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    animation: popIn 0.32s cubic-bezier(0.34, 1.56, 0.64, 1);
+    max-height: 90vh; overflow-y: auto;
+  }
+  @keyframes popIn {
+    from { transform: scale(0.85); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+  }
+  .qualify-modal-icon { font-size: 56px; line-height: 1; margin-bottom: 10px; }
+  .qualify-modal-title {
+    margin: 0 0 10px; color: var(--brand-dark);
+    font-size: 24px; font-weight: 700; line-height: 1.3;
+  }
+  .qualify-modal-text {
+    margin: 0 0 16px; color: var(--text);
+    font-size: 15px; line-height: 1.55;
+  }
+  .qualify-modal-list {
+    list-style: none; padding: 0; margin: 0 0 18px;
+    text-align: left;
+    background: var(--accent-soft);
+    border-radius: 10px;
     padding: 14px 16px;
-    box-shadow: 0 2px 8px rgba(141,198,63,.15);
   }
-  .abn-result-title {
-    font-size: 12px;
+  .qualify-modal-list li {
+    padding: 5px 0 5px 26px;
+    position: relative;
+    font-size: 14px;
+    color: var(--text);
+    line-height: 1.45;
+  }
+  .qualify-modal-list li::before {
+    content: "✓";
+    position: absolute; left: 4px; top: 5px;
+    color: var(--brand);
     font-weight: 700;
-    letter-spacing: .06em;
-    text-transform: uppercase;
-    color: var(--accent-dk2);
-    margin-bottom: 6px;
-    display: flex;
-    align-items: center;
-    gap: 6px;
   }
-  .abn-result-name {
+  .qualify-modal-footer {
+    margin: 0 0 20px; color: var(--muted);
+    font-size: 13px; line-height: 1.5;
+  }
+  .qualify-modal-cta {
+    width: 100%;
+    padding: 14px;
     font-size: 16px;
-    font-weight: 800;
-    color: var(--text);
-    margin-bottom: 10px;
-    line-height: 1.3;
   }
-  .abn-result-rows {
-    display: grid;
-    gap: 6px;
+  /* Privacy panel (Step 4 intro) */
+  .privacy-panel {
+    background: var(--accent-soft);
+    border: 1px solid var(--accent);
+    border-left: 4px solid var(--brand);
+    border-radius: 10px;
+    padding: 14px 16px;
+    margin-bottom: 22px;
+  }
+  .privacy-panel-title {
+    font-weight: 700;
+    color: var(--brand-dark);
+    font-size: 14px;
+    margin-bottom: 8px;
+  }
+  .privacy-panel-list {
+    margin: 0;
+    padding-left: 18px;
     font-size: 13px;
-  }
-  .abn-result-rows > div {
-    display: flex;
-    justify-content: space-between;
-    gap: 12px;
-  }
-  .abn-result-rows > div span {
-    color: var(--text-light);
-  }
-  .abn-result-rows > div strong {
     color: var(--text);
-    font-weight: 600;
-    text-align: right;
+    line-height: 1.5;
   }
-  .abn-lookup-pending {
-    display: inline-flex;
+  .privacy-panel-list li { margin-bottom: 4px; }
+  .privacy-panel-list li:last-child { margin-bottom: 0; }
+  /* Inline note under a field input */
+  .field-note {
+    margin-top: 6px;
+    font-size: 12.5px;
+    color: var(--muted);
+    line-height: 1.45;
+    font-style: italic;
+  }
+  /* ABN lookup */
+  .abn-loading {
+    display: flex;
     align-items: center;
     gap: 8px;
+    margin-top: 10px;
+    padding: 10px 14px;
+    background: #F4F8EE;
+    border-radius: 8px;
     font-size: 13px;
-    color: var(--accent-dk2);
-    font-weight: 600;
+    color: var(--muted);
   }
-  .abn-lookup-pending::before {
-    content: "";
+  .abn-spinner {
+    display: inline-block;
     width: 14px;
     height: 14px;
     border: 2px solid var(--accent);
     border-top-color: transparent;
     border-radius: 50%;
-    animation: spinAbn .8s linear infinite;
+    animation: spin 0.7s linear infinite;
   }
-  @keyframes spinAbn { to { transform: rotate(360deg); } }
-
-  .hidden { display: none !important; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .abn-card {
+    margin-top: 10px;
+    padding: 14px 16px;
+    background: var(--accent-soft);
+    border: 1.5px solid var(--brand);
+    border-radius: 10px;
+  }
+  .abn-card-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--brand-dark);
+    margin-bottom: 4px;
+  }
+  .abn-card-meta {
+    font-size: 13px;
+    color: var(--text);
+    line-height: 1.5;
+    margin-bottom: 12px;
+  }
+  .abn-card-meta .row { display: flex; justify-content: space-between; gap: 8px; padding: 2px 0; }
+  .abn-card-meta .row .lbl { color: var(--muted); }
+  .abn-card-meta .row .val { font-weight: 600; }
+  .abn-confirm-q { font-size: 14px; font-weight: 600; margin-bottom: 8px; color: var(--text); }
+  .abn-confirm-actions { display: flex; gap: 8px; }
+  .btn-confirm-yes, .btn-confirm-no {
+    flex: 1;
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: 1.5px solid var(--line);
+    background: #fff;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    font-family: inherit;
+    transition: all 0.15s;
+  }
+  .btn-confirm-yes { background: var(--brand); color: #fff; border-color: var(--brand); }
+  .btn-confirm-yes:hover { background: var(--brand-dark); }
+  .btn-confirm-no:hover { border-color: var(--muted); }
+  .abn-confirmed-tick {
+    color: var(--success);
+    font-weight: 700;
+    font-size: 14px;
+    text-align: center;
+    padding: 4px;
+  }
+  .abn-error-msg {
+    margin-top: 10px;
+    padding: 10px 14px;
+    font-size: 13px;
+    color: var(--notice-text);
+    background: var(--notice-bg);
+    border: 1px solid var(--notice-border);
+    border-left: 4px solid var(--notice-border);
+    border-radius: 8px;
+  }
+  /* Radio rows */
+  .radio-row { display: flex; gap: 10px; flex-wrap: wrap; }
+  .radio-row label {
+    flex: 1; border: 1.5px solid var(--line); border-radius: 10px;
+    padding: 12px; text-align: center; cursor: pointer; font-size: 14px;
+    font-weight: 500; transition: all 0.15s; background: #fff; min-width: 0;
+  }
+  .radio-row input { display: none; }
+  .radio-row label:has(input:checked) { border-color: var(--brand); background: var(--accent-soft); color: var(--brand-dark); }
+  .radio-stack { display: grid; gap: 8px; }
+  .radio-stack label {
+    border: 1.5px solid var(--line); border-radius: 10px; padding: 12px 14px;
+    cursor: pointer; font-size: 14px; font-weight: 500; background: #fff;
+    transition: all 0.15s; text-align: left;
+  }
+  .radio-stack input { display: none; }
+  .radio-stack label:has(input:checked) { border-color: var(--brand); background: var(--accent-soft); color: var(--brand-dark); }
+  .checkbox-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+  .checkbox-row label {
+    border: 1.5px solid var(--line); border-radius: 8px; padding: 10px 6px;
+    text-align: center; cursor: pointer; font-size: 13px; font-weight: 500;
+    background: #fff; transition: all 0.15s;
+  }
+  .checkbox-row input { display: none; }
+  .checkbox-row label:has(input:checked) { border-color: var(--brand); background: var(--accent-soft); color: var(--brand-dark); }
+  @media (max-width: 480px) { .checkbox-row { grid-template-columns: repeat(3, 1fr); } }
+  .actions { display: flex; gap: 10px; margin-top: 22px; }
+  .btn {
+    padding: 13px 22px; border: none; border-radius: 10px;
+    font-size: 15px; font-weight: 600; cursor: pointer;
+    transition: all 0.15s; font-family: inherit;
+  }
+  .btn-primary { background: var(--brand); color: #fff; flex: 1; }
+  .btn-primary:hover { background: var(--brand-dark); }
+  .btn-primary:disabled { background: #B5C2CD; cursor: not-allowed; }
+  .btn-secondary { background: transparent; color: var(--muted); border: 1.5px solid var(--line); }
+  .btn-secondary:hover { border-color: var(--muted); color: var(--text); }
+  .trust {
+    font-size: 13px; color: var(--muted); text-align: center;
+    margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--line);
+  }
+  .trust .lock { display: inline-block; margin-right: 4px; }
+  .success-screen { display: none; text-align: center; padding: 30px 10px; }
+  .success-screen.active { display: block; }
+  .success-icon {
+    width: 64px; height: 64px; border-radius: 50%;
+    background: var(--accent-soft); color: var(--brand);
+    margin: 0 auto 16px; display: flex; align-items: center;
+    justify-content: center; font-size: 32px; font-weight: bold;
+  }
+  .success-screen h2 { margin: 0 0 8px; color: var(--brand); font-size: 22px; }
+  .success-screen p { color: var(--muted); margin: 0 0 6px; }
+  .success-screen .success-lead { font-size: 15px; margin-bottom: 18px; }
+  .success-callout {
+    background: var(--accent-soft);
+    border: 1px solid var(--accent);
+    border-left: 4px solid var(--brand);
+    border-radius: 10px;
+    padding: 14px 16px;
+    margin: 18px 0;
+    text-align: left;
+  }
+  .success-callout-title {
+    font-weight: 700;
+    color: var(--brand-dark);
+    font-size: 15px;
+    margin-bottom: 6px;
+  }
+  .success-callout p {
+    margin: 0;
+    color: var(--text);
+    font-size: 14px;
+    line-height: 1.5;
+  }
+  .success-warn {
+    background: var(--notice-bg);
+    border: 1px solid var(--notice-border);
+    border-left: 4px solid var(--notice-border);
+    border-radius: 10px;
+    padding: 14px 16px;
+    margin: 18px 0;
+    text-align: left;
+  }
+  .success-warn-title {
+    font-weight: 700;
+    color: var(--notice-text);
+    font-size: 15px;
+    margin-bottom: 8px;
+  }
+  .success-warn p {
+    margin: 0 0 8px;
+    color: var(--text);
+    font-size: 14px;
+    line-height: 1.5;
+  }
+  .success-warn ul {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 10px;
+  }
+  .success-warn ul li {
+    padding: 4px 0 4px 22px;
+    position: relative;
+    font-size: 13.5px;
+    color: var(--text);
+    line-height: 1.5;
+  }
+  .success-warn ul li::before {
+    content: "✕";
+    position: absolute;
+    left: 4px;
+    top: 4px;
+    color: var(--notice-border);
+    font-weight: 700;
+  }
+  .success-warn-emphasis {
+    margin: 6px 0 0 !important;
+    padding-top: 8px;
+    border-top: 1px dashed var(--notice-border);
+    color: var(--notice-text) !important;
+    font-size: 13.5px !important;
+  }
+  .success-cta {
+    margin-top: 22px;
+    padding-top: 20px;
+    border-top: 1px solid var(--line);
+  }
+  .success-cta .success-cta-q {
+    margin: 0 0 10px;
+    color: var(--text);
+    font-size: 15px;
+    font-weight: 600;
+  }
+  .success-call-btn {
+    display: inline-block;
+    background: var(--brand);
+    color: #fff;
+    padding: 14px 24px;
+    border-radius: 10px;
+    font-size: 17px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: all 0.15s;
+    box-shadow: 0 4px 14px rgba(111, 174, 52, 0.35);
+  }
+  .success-call-btn:hover {
+    background: var(--brand-dark);
+    transform: translateY(-1px);
+    box-shadow: 0 6px 18px rgba(111, 174, 52, 0.45);
+  }
+  .success-cta-sub {
+    margin-top: 12px !important;
+    font-size: 13px !important;
+    color: var(--muted) !important;
+    line-height: 1.5;
+  }
+  @media (max-width: 480px) {
+    .form-wrapper { margin: 12px auto; }
+    .form-card { padding: 22px 18px; }
+    .options { grid-template-columns: 1fr; }
+    .radio-row { flex-direction: column; }
+  }
 </style>
 </head>
 <body>
 
-<div class="chat-container">
-  <div class="chat-header">
-    <div class="logo-img">
-      <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEAYABgAAD/2wBDAAMCAgMCAgMDAwMEAwMEBQgFBQQEBQoHBwYIDAoMDAsKCwsNDhIQDQ4RDgsLEBYQERMUFRUVDA8XGBYUGBIUFRT/2wBDAQMEBAUEBQkFBQkUDQsNFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBT/wAARCAGdBLYDASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD9U6KKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKYqkN7UAPopMikPtQA6kyKWmtQA6iiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAoopjHauT2oATzAq5NYOreMLLSeGbzG/2awfGHjRId1taSfN91mWvOZppLiRnkZm/3q/Ms94s+pVHhsGk5LdvZHTTpcyuz0aT4oW275I/lq9p/wAQrC8kWNv3deT+9LyvIaviKXGOZwnzzkmu1jf2MLHv9vcx3a5jdZFqbbntXkHhPxVLpd0sErM0J+X5q9bhuEuIlkX7pr9ayTO6ec0nJK01ujlnTcGWKKbup1fVGIUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFAESqNtc7408QR6HpMjhv3h+XbXQySeVCzHsu6vCvHXiy01LWP3lwsMcTbdrN718tn+ZLLcG5Q+J6ItLmZnr/pEjXB3bpW3NT6jt7iK6VXiZWj/vLUlfzjUnKpOU57s9KNkkkFFFFYlhu2tkfeWvTvAOvfbLf7NI3zL92vMau6Hqj6TfLIn975v92voMjzKeV4yNVPR6P0M6kedWPd/enNVDS9QXULSOUd15q9X9KUasK0I1IbM8xxH0UUV0iCiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKAGrQ1OqrfXiWNrJO/3UXdUSfKrsDg/i344TwroMixSL9oddu368V8ReMPEGp6xfSTvIy5bd8rV7L8VvEx8Va9IY2byUZl215nqGlpJ/DX5NmeNWKxTlulov8zx61aU5NReh0fwf8aFl/s65Zmkb5V3V6/Xy/bxyaHqUdzBuVlb+GvoXwjrQ1zSYX3bpP4q+AzbCqnP20Nnv6nsZfX9pD2beqNuiiivnT2AoooTtQB3vw78QbZPsTtXo+4V4BY3T2NxHJG23DV7R4b1ZNUsVcNuZfvV+18HZv7ek8FVeq29O3yOGtHldzZ+tJT6K/UjlCiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKAGV5H8ZvHX9m2bWFrJ++b5Wr0nXtVXSdLnuGbbsX5a+SvGHiCTxJrk1w7dGZVr5HiDHvD0fZQerOPEVORWW5iN+8kaR/mYtuaoZrdGWrHH8NLX5Z7x5TMG+00SK3y1tfDvWH0fUPsj/6t2/9mpJFDdaz5rc28nmRfe3U6iVWm6b6mlKp7Kakj27cG+cfdZd1OTtWB4P1b+0LFYz94fK1b9fD1KbpzcHuj7GnUVSCkgooorI0G7a6zwHr39n3i2zt+7dv4q5WljkMMiujfdr0MvxlTAYiFeD1T/AicVJWZ9Axssiqw70+uY8E64uqWKofvJXS/eXIr+nMDjIY/Dxr09mea04uzJaKQdKWvRICiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAoprZpR0oAWiikHSgBaKTIpaAGGgbaPvLWB4w8QR+HdImuC21lX5a56tSFGDqTJbUVc8w+NnjgRx/wBm20m1l+9t968KX72T8zGtPxBqz69q013I3zFm/Ss+vxjMcY8ZiHN7dPQ8WrPnm2M9qKKK84wH1HIo281JV3QdHk17WIbOP+Ngu6qhBykox3ZS952R23wr8F3eoW9xcbWjVV3L/tfNWzcRtDI0ZXayttr2Lwj4di8P6LHbhfm2/M1cT4+0P7DdNcRr8rNXdxBw+8PhY4qC1S9759T6jCe5HlZyVFN20ba/M7Ho3HUU3bRtosFzb8J60dJ1CP5v3Zb5q9ms7hLq3WRPutXz9zuyPlr0/wAA+IBdW/2aRvmX7u6v1Dg3NvYVHgqr0e3r2OStDm1R3dFFN+lfthxDqKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKAIJJ1t4WkkbaorwTxx8XrzT/ABA0VnJ+5Rvm2/xfervPix4wh0HRZLdZP30q7Vr5lkme4maWRtzFt25q+Cz7NJ0pqjQdmtX/AJHBXq8r5Ue9eG/jxbXnlxXi+W33WavS9L8VadrCr9nuFkZv4a+NGT0/8d+WtDS9ev8ASXU21wy7f7zM39a8zCcSYilpXV/zMYYpx31PtIEKOKWvmHw38aNU0mZWvGa4X+7/APrr1Lw58btJ1hlSZvs7f7bf/Wr63CZ3hcVpez8zthiITPSGwq5P3RXzt8aPGx1S+awt22xo21tv8Vek+PviJY2egTGyulkkdTtZa+Z7y6kvrqS4mb94zV4nEOYR5Fhqb33sYYippyxI07UUUV+dHlhSfw0tMZqpAO3fd/vV7r8D/BIjjbUruH5vvRs1eafDfwufE2vRo67oRt3N/wACr6s03T4tNs47eJdqou35a+14ey/2tT6zUWi29T0MNSv77LX8OBWT4g0tNU0+SMr8wX5a16K/Q8RQhiKUqNTZnqJ8p4BqFm+n3TRSL0aoa9B+IWgjb9riX5v4q885/ir+Zs3y+eW4uVCWy29D0YS5lccnaj5qKK8VmqCrmj6k+l30cg+Vd3zVU3VGy7q2o1J0ZqpB2ad0N+8rHvWk6impWcc6fxCr33q80+HviLy3+ySt8v8ADur0n+tf0lkeZRzLCRq31Wj9Ty6keR2JaKbz0p1fSGYUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFN+7TqZu9aAE21V1G+i0+zlnlbaqLuq1715B8bPGy2Nn/Z8LfM/3trV52PxUMHQdWRnUkqcbnlHxG8TP4i1ybDboUY7a5dabt7ltzM1LX4tWqzrVHUluzw23J8wyiijdtrEgbMwVaw9QuismI2bdu/h+WtC+uAq1n6fbm8ut5+6tbQXKrsDcsbi5a3USyNIu35VZql/hzSbUVVAXbS/erJtyd2WH3qKKKzICn28bXE0cSfMzsF+WmV6B8H/C8Gsa0s87L5a/NtZhXXhaEsVVVKO7ZcYubSR6/wDCfwemg6PHO6/vnXdXoP8ABUUKxxwqkf3V+Wpa/bMNQhhaKpx2R7sYqMeVD6KKK7CylqFql9ayRMv3hXiviDS30nUJIz93c1e6Vxvj7QVvLPz0X94tfn/FmU/XcN9Ypr34/kdFKXLI8soobKtsP3vu0V+BbHoBRRRQBLZ3Rs7qOUdmDV7P4b1hNW09ZP4tvzV4l8nSum8D+IDpt55cjfKflVa+34Wzb+z8WoSfuT0fr0ZhVjzR8z2OmsuaZE/mRq46Falr+hFK6POCiiiqAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKZv96fRQBVustbyBfvba+ZfiN4N1yTWJrh4WkhLMytz8q/lX1D8tV7i1iuY8SqrL/tV4uY5cswgot2MKtP2isz4qmt5LWRkkjZWH96o/vV9Wa98L9H1iFtsKxyH+JVrynxR8DbzT1aWxZrjPzba/PcXkWKw93BXXkedLDzjtqjyn7tQTSCOtPVtFvdFk2XcLRtXN6heeWv/ALLXzyhKLtLRnN8O5TvpjJJsHzbmra0+3FrCuF2t/FWVo9r9obz3Wt//AHfu1VR9CRaKKKxuVcKKZT+O9FgRBdXSWtu0jt/Ca5rR/Hmt6bqW/T7poY1b7qtTPGGseY32SJv96qei2O1VJX5q9CjekueLsxXd9GfQngv9oq8t7dYtQha4Y/eZs17N4f8AiVpGuQx4uFjmP8LMv+NfIFrbheladrNPYyLLBIyyfw7a9vDZ/iaDSnqvM64Ymcd9T7YikWRcqdympa+WvD/xe1XR2X7RI0yr/C25q9V8N/G7TtUVfte23Zv73y19jhc8wuI0bs/M7oV4S6nqOc/hUU0KzRsjfdNUdL1yy1aPfazJJ/utWlXvJwrR0eh0J9YnjXjTQzpd8xRf3Zbdurnd1e0eLNHGqabIAu6QLXjdxbvb3EkT/Kyttr+eeJcq/s3GOUV7k9V/kelSnzR8yKiiivkTcN3y0xZmhmWQdm3UkzfNUDN/+zWsE1LmiZSZ7R4I8RJqmnLG7fvE+WurzXgfhHxA+j6orlv3Z+Wvc7O6S+tY5l+667q/oDhnM/r+FVOp8cN/TocElysuUUUV9sZhRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAU3P+zTqKAE96btDDH3lpdtC96AMLVvCema1/wAfVurZ/wBmvEPit8E9PsbeTUIpvJUfdXd/gK+iJHWGMlvuivm74yeNG1TUmsYJN1uNy/L7V8nniwtLDuU4rn6epyV+RRu0eX28It18tPu/d3U/mj2pa/Kn72p5QUUUUWFYTd81U9WvEsbVnP3tvy1c3BeXbaq1w/ibUjqF55Cf6sN/DWtKPO7dCdjPt4zfXTSP97d8tdVp9v8ALWbpNntVflrpreHbxtroqzWyAnhXbUlMorjKuFJtPX/0GpKKVyTX0vxZquit/o9wyxj+Hc1eh+HfjxcWcaxXitN/tfLXktJtr0KGY4jC605teRtGpOGzPqbw/wDFbR9Yt1824WGZv4awvG2jp5n22z2yQn5mZa+d1aSFt6SMrD7u3dWrY+PNUs2WKeZpLdf4WrrzHMf7Uwbo4iPvLVNd/wDgnoYfGcslzo9E4psjBeah0++TUrVZU7/w0+Rt1flnJKMrS6H0XOpK62ZGzbt3zbWqvI1Pkaq7NlcV0wRzSZHI3ltkf7y1658MfFAvofscsm6Qfdrx9mqz4f1p9F1aO4Rvu19NkuOnl2KjO+j0foczfc+nKcDk1maDqiatp8c6NuytaS1/QVKpGtBThsQOoooroAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKAE6U2l96rX15Hp9rJPI21UXc1Zt8qbYHE/FTxYnh3RZERv30q7dtfL11M95dSSyM2523V13xO8VSeItekEcm63X5VX+GuP+7X5FnGN+uYh2ei0R41epzz8kLRRS7flrwDASiin29u99cR28X3mbau2jWUrIDf8K+Bbjxt51vHuVdv3qxPEHwB1zQbxjFC1xH95mr6e+F/hFPDuixyOu2aVd1drJFGy4ddymv0XB5DCphk6jam9T0IYVSgr7nwpHpc+nyeVLCysPvfK1XlUdq+uNc+HOjaxbybrOOOQ/wAS15trnwBWONpbOZv9la8XF8P4qk70/eRlPDTjtqeJbaPL+Wuh1rwHq+isxkt22j+JdzVzzK8bMHVl/wB7ctfM1KM6TtNWfmcTUouzFoo9qK5xBRRRQAi1Xuo6sLTJ6tbgavgfxB9lm+zSt95tq7q7yST5a8XkkNjcLOn3hXpfh3Wk1axj+bdIF+av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FFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUmRQAtFFFABRRSZFAC0UUmRQAtFJkUZFAC0UUUAFFFFABRRRQAUUUUAFFFFABRSZFLQAUUUUAFFFJkUALRSZFGRQAtFFFABRSZFGRQAtFFJkUALRRRQAUUUUAeX+OPhKnirUPtJk21zf/DPqLz533a9w+7T68Krk+EqzdSUdWYOjCTu0c74N8Mjwvpq2ytuxXRAU3rR91a9alSjSiqcFoaxXLoPopMijIrcoWikyKWgAooooAKKTIpaACiiigAooooAKKKKACiiigAooooAKKKKAPNfjV/yLcn+61fMUf3Wr6c+NX/ItSf7rV8xJ91v96vyriP8A3z5Hk4r4z1r4AqW1KT/e/wDZq+iv4fmr53+Af/IUb/e/9mr6Jr6vh3/cl6s7MN/DFVs06iivqjqCiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKTqKWm/eoARe1G0CjIXmvOPiN8ULfwzbyQW7eZcbf++a4sTiaeFpupUdkRKfIrs7bUtes9Lj33EyrXI33xh0K1Zk85WYf3X/8ArV856t4u1PXLiSSW4ZVLfdrJZZJm5VpN393dXwWI4lqylahFJeepwSxT6I+kv+F5aR/e/wDH/wD61aFj8Y9CvODNtb/er5e+x3X/AD7yf+PUnlyQ8/NG3+1urkXEeNjrJL7jP6zM+zdJ8QWOrR5t5lb/AGa0t3y5r410nxVqei3EckVw20fNtr3/AOGvxSj8TRrZ3Tbbofd/2q+py7PqeMfs6itL8Drp11PR7npr96XbRxRw1fWHWJ96opJo4VzI21f9qqOua5baHZtcXEiqB/er528ffFi91y4kgtJGhhVvvLXh5hmlLAR97V9jCrVUD3DVviRo2jswluF3Vgy/G/REbCSbv+Bf/Wr5suLq4vG/eyNJ/wACao/sM7dLeRl/GviqnEmLqS/dpJHC8TOWx9NW/wAbNDkbDybf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t7+DyriFZoz/AAuuatUUAc63w/8ADbNuOh2O7+95C1pafothpa7bO0itl/6ZrtrQooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigDgvirDJL4fkEcbM3/66+WZlMM0iyLtbd/FX2zdWsd5C0Uq7ozXn/iL4N6VrCySRR+XM1fF51lFXGyVWk9UcVejKbujzz4D/APIWavoo9K8r+H/wzu/COrNI7bof96vVR1r0skw9TD4bkqKzNaMXGFmOooor6I6AooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKb7U6igBOfaloooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigD/9k=" alt="Acquired Financial Services"  />
+<div class="form-wrapper">
+  <div class="form-card">
+
+    <div class="logo-bar">
+      <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEAYABgAAD/2wBDAAMCAgMCAgMDAwMEAwMEBQgFBQQEBQoHBwYIDAoMDAsKCwsNDhIQDQ4RDgsLEBYQERMUFRUVDA8XGBYUGBIUFRT/2wBDAQMEBAUEBQkFBQkUDQsNFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBT/wAARCAGdBLYDASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD9U6KKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKYqkN7UAPopMikPtQA6kyKWmtQA6iiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAoopjHauT2oATzAq5NYOreMLLSeGbzG/2awfGHjRId1taSfN91mWvOZppLiRnkZm/3q/Ms94s+pVHhsGk5LdvZHTTpcyuz0aT4oW275I/lq9p/wAQrC8kWNv3deT+9LyvIaviKXGOZwnzzkmu1jf2MLHv9vcx3a5jdZFqbbntXkHhPxVLpd0sErM0J+X5q9bhuEuIlkX7pr9ayTO6ec0nJK01ujlnTcGWKKbup1fVGIUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFAESqNtc7408QR6HpMjhv3h+XbXQySeVCzHsu6vCvHXiy01LWP3lwsMcTbdrN718tn+ZLLcG5Q+J6ItLmZnr/pEjXB3bpW3NT6jt7iK6VXiZWj/vLUlfzjUnKpOU57s9KNkkkFFFFYlhu2tkfeWvTvAOvfbLf7NI3zL92vMau6Hqj6TfLIn975v92voMjzKeV4yNVPR6P0M6kedWPd/enNVDS9QXULSOUd15q9X9KUasK0I1IbM8xxH0UUV0iCiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKAGrQ1OqrfXiWNrJO/3UXdUSfKrsDg/i344TwroMixSL9oddu368V8ReMPEGp6xfSTvIy5bd8rV7L8VvEx8Va9IY2byUZl215nqGlpJ/DX5NmeNWKxTlulov8zx61aU5NReh0fwf8aFl/s65Zmkb5V3V6/Xy/bxyaHqUdzBuVlb+GvoXwjrQ1zSYX3bpP4q+AzbCqnP20Nnv6nsZfX9pD2beqNuiiivnT2AoooTtQB3vw78QbZPsTtXo+4V4BY3T2NxHJG23DV7R4b1ZNUsVcNuZfvV+18HZv7ek8FVeq29O3yOGtHldzZ+tJT6K/UjlCiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKAGV5H8ZvHX9m2bWFrJ++b5Wr0nXtVXSdLnuGbbsX5a+SvGHiCTxJrk1w7dGZVr5HiDHvD0fZQerOPEVORWW5iN+8kaR/mYtuaoZrdGWrHH8NLX5Z7x5TMG+00SK3y1tfDvWH0fUPsj/6t2/9mpJFDdaz5rc28nmRfe3U6iVWm6b6mlKp7Kakj27cG+cfdZd1OTtWB4P1b+0LFYz94fK1b9fD1KbpzcHuj7GnUVSCkgooorI0G7a6zwHr39n3i2zt+7dv4q5WljkMMiujfdr0MvxlTAYiFeD1T/AicVJWZ9Axssiqw70+uY8E64uqWKofvJXS/eXIr+nMDjIY/Dxr09mea04uzJaKQdKWvRICiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAoprZpR0oAWiikHSgBaKTIpaAGGgbaPvLWB4w8QR+HdImuC21lX5a56tSFGDqTJbUVc8w+NnjgRx/wBm20m1l+9t968KX72T8zGtPxBqz69q013I3zFm/Ss+vxjMcY8ZiHN7dPQ8WrPnm2M9qKKK84wH1HIo281JV3QdHk17WIbOP+Ngu6qhBykox3ZS952R23wr8F3eoW9xcbWjVV3L/tfNWzcRtDI0ZXayttr2Lwj4di8P6LHbhfm2/M1cT4+0P7DdNcRr8rNXdxBw+8PhY4qC1S9759T6jCe5HlZyVFN20ba/M7Ho3HUU3bRtosFzb8J60dJ1CP5v3Zb5q9ms7hLq3WRPutXz9zuyPlr0/wAA+IBdW/2aRvmX7u6v1Dg3NvYVHgqr0e3r2OStDm1R3dFFN+lfthxDqKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKAIJJ1t4WkkbaorwTxx8XrzT/ABA0VnJ+5Rvm2/xfervPix4wh0HRZLdZP30q7Vr5lkme4maWRtzFt25q+Cz7NJ0pqjQdmtX/AJHBXq8r5Ue9eG/jxbXnlxXi+W33WavS9L8VadrCr9nuFkZv4a+NGT0/8d+WtDS9ev8ASXU21wy7f7zM39a8zCcSYilpXV/zMYYpx31PtIEKOKWvmHw38aNU0mZWvGa4X+7/APrr1Lw58btJ1hlSZvs7f7bf/Wr63CZ3hcVpez8zthiITPSGwq5P3RXzt8aPGx1S+awt22xo21tv8Vek+PviJY2egTGyulkkdTtZa+Z7y6kvrqS4mb94zV4nEOYR5Fhqb33sYYippyxI07UUUV+dHlhSfw0tMZqpAO3fd/vV7r8D/BIjjbUruH5vvRs1eafDfwufE2vRo67oRt3N/wACr6s03T4tNs47eJdqou35a+14ey/2tT6zUWi29T0MNSv77LX8OBWT4g0tNU0+SMr8wX5a16K/Q8RQhiKUqNTZnqJ8p4BqFm+n3TRSL0aoa9B+IWgjb9riX5v4q885/ir+Zs3y+eW4uVCWy29D0YS5lccnaj5qKK8VmqCrmj6k+l30cg+Vd3zVU3VGy7q2o1J0ZqpB2ad0N+8rHvWk6impWcc6fxCr33q80+HviLy3+ySt8v8ADur0n+tf0lkeZRzLCRq31Wj9Ty6keR2JaKbz0p1fSGYUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFN+7TqZu9aAE21V1G+i0+zlnlbaqLuq1715B8bPGy2Nn/Z8LfM/3trV52PxUMHQdWRnUkqcbnlHxG8TP4i1ybDboUY7a5dabt7ltzM1LX4tWqzrVHUluzw23J8wyiijdtrEgbMwVaw9QuismI2bdu/h+WtC+uAq1n6fbm8ut5+6tbQXKrsDcsbi5a3USyNIu35VZql/hzSbUVVAXbS/erJtyd2WH3qKKKzICn28bXE0cSfMzsF+WmV6B8H/C8Gsa0s87L5a/NtZhXXhaEsVVVKO7ZcYubSR6/wDCfwemg6PHO6/vnXdXoP8ABUUKxxwqkf3V+Wpa/bMNQhhaKpx2R7sYqMeVD6KKK7CylqFql9ayRMv3hXiviDS30nUJIz93c1e6Vxvj7QVvLPz0X94tfn/FmU/XcN9Ypr34/kdFKXLI8soobKtsP3vu0V+BbHoBRRRQBLZ3Rs7qOUdmDV7P4b1hNW09ZP4tvzV4l8nSum8D+IDpt55cjfKflVa+34Wzb+z8WoSfuT0fr0ZhVjzR8z2OmsuaZE/mRq46Falr+hFK6POCiiiqAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKZv96fRQBVustbyBfvba+ZfiN4N1yTWJrh4WkhLMytz8q/lX1D8tV7i1iuY8SqrL/tV4uY5cswgot2MKtP2isz4qmt5LWRkkjZWH96o/vV9Wa98L9H1iFtsKxyH+JVrynxR8DbzT1aWxZrjPzba/PcXkWKw93BXXkedLDzjtqjyn7tQTSCOtPVtFvdFk2XcLRtXN6heeWv/ALLXzyhKLtLRnN8O5TvpjJJsHzbmra0+3FrCuF2t/FWVo9r9obz3Wt//AHfu1VR9CRaKKKxuVcKKZT+O9FgRBdXSWtu0jt/Ca5rR/Hmt6bqW/T7poY1b7qtTPGGseY32SJv96qei2O1VJX5q9CjekueLsxXd9GfQngv9oq8t7dYtQha4Y/eZs17N4f8AiVpGuQx4uFjmP8LMv+NfIFrbheladrNPYyLLBIyyfw7a9vDZ/iaDSnqvM64Ymcd9T7YikWRcqdympa+WvD/xe1XR2X7RI0yr/C25q9V8N/G7TtUVfte23Zv73y19jhc8wuI0bs/M7oV4S6nqOc/hUU0KzRsjfdNUdL1yy1aPfazJJ/utWlXvJwrR0eh0J9YnjXjTQzpd8xRf3Zbdurnd1e0eLNHGqabIAu6QLXjdxbvb3EkT/Kyttr+eeJcq/s3GOUV7k9V/kelSnzR8yKiiivkTcN3y0xZmhmWQdm3UkzfNUDN/+zWsE1LmiZSZ7R4I8RJqmnLG7fvE+WurzXgfhHxA+j6orlv3Z+Wvc7O6S+tY5l+667q/oDhnM/r+FVOp8cN/TocElysuUUUV9sZhRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAU3P+zTqKAE96btDDH3lpdtC96AMLVvCema1/wAfVurZ/wBmvEPit8E9PsbeTUIpvJUfdXd/gK+iJHWGMlvuivm74yeNG1TUmsYJN1uNy/L7V8nniwtLDuU4rn6epyV+RRu0eX28It18tPu/d3U/mj2pa/Kn72p5QUUUUWFYTd81U9WvEsbVnP3tvy1c3BeXbaq1w/ibUjqF55Cf6sN/DWtKPO7dCdjPt4zfXTSP97d8tdVp9v8ALWbpNntVflrpreHbxtroqzWyAnhXbUlMorjKuFJtPX/0GpKKVyTX0vxZquit/o9wyxj+Hc1eh+HfjxcWcaxXitN/tfLXktJtr0KGY4jC605teRtGpOGzPqbw/wDFbR9Yt1824WGZv4awvG2jp5n22z2yQn5mZa+d1aSFt6SMrD7u3dWrY+PNUs2WKeZpLdf4WrrzHMf7Uwbo4iPvLVNd/wDgnoYfGcslzo9E4psjBeah0++TUrVZU7/w0+Rt1flnJKMrS6H0XOpK62ZGzbt3zbWqvI1Pkaq7NlcV0wRzSZHI3ltkf7y1658MfFAvofscsm6Qfdrx9mqz4f1p9F1aO4Rvu19NkuOnl2KjO+j0foczfc+nKcDk1maDqiatp8c6NuytaS1/QVKpGtBThsQOoooroAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKAE6U2l96rX15Hp9rJPI21UXc1Zt8qbYHE/FTxYnh3RZERv30q7dtfL11M95dSSyM2523V13xO8VSeItekEcm63X5VX+GuP+7X5FnGN+uYh2ei0R41epzz8kLRRS7flrwDASiin29u99cR28X3mbau2jWUrIDf8K+Bbjxt51vHuVdv3qxPEHwB1zQbxjFC1xH95mr6e+F/hFPDuixyOu2aVd1drJFGy4ddymv0XB5DCphk6jam9T0IYVSgr7nwpHpc+nyeVLCysPvfK1XlUdq+uNc+HOjaxbybrOOOQ/wAS15trnwBWONpbOZv9la8XF8P4qk70/eRlPDTjtqeJbaPL+Wuh1rwHq+isxkt22j+JdzVzzK8bMHVl/wB7ctfM1KM6TtNWfmcTUouzFoo9qK5xBRRRQAi1Xuo6sLTJ6tbgavgfxB9lm+zSt95tq7q7yST5a8XkkNjcLOn3hXpfh3Wk1axj+bdIF+av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FFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUmRQAtFFFABRRSZFAC0UUmRQAtFJkUZFAC0UUUAFFFFABRRRQAUUUUAFFFFABRSZFLQAUUUUAFFFJkUALRSZFGRQAtFFFABRSZFGRQAtFFJkUALRRRQAUUUUAeX+OPhKnirUPtJk21zf/DPqLz533a9w+7T68Krk+EqzdSUdWYOjCTu0c74N8Mjwvpq2ytuxXRAU3rR91a9alSjSiqcFoaxXLoPopMijIrcoWikyKWgAooooAKKTIpaACiiigAooooAKKKKACiiigAooooAKKKKAPNfjV/yLcn+61fMUf3Wr6c+NX/ItSf7rV8xJ91v96vyriP8A3z5Hk4r4z1r4AqW1KT/e/wDZq+iv4fmr53+Af/IUb/e/9mr6Jr6vh3/cl6s7MN/DFVs06iivqjqCiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKTqKWm/eoARe1G0CjIXmvOPiN8ULfwzbyQW7eZcbf++a4sTiaeFpupUdkRKfIrs7bUtes9Lj33EyrXI33xh0K1Zk85WYf3X/8ArV856t4u1PXLiSSW4ZVLfdrJZZJm5VpN393dXwWI4lqylahFJeepwSxT6I+kv+F5aR/e/wDH/wD61aFj8Y9CvODNtb/er5e+x3X/AD7yf+PUnlyQ8/NG3+1urkXEeNjrJL7jP6zM+zdJ8QWOrR5t5lb/AGa0t3y5r410nxVqei3EckVw20fNtr3/AOGvxSj8TRrZ3Tbbofd/2q+py7PqeMfs6itL8Drp11PR7npr96XbRxRw1fWHWJ96opJo4VzI21f9qqOua5baHZtcXEiqB/er528ffFi91y4kgtJGhhVvvLXh5hmlLAR97V9jCrVUD3DVviRo2jswluF3Vgy/G/REbCSbv+Bf/Wr5suLq4vG/eyNJ/wACao/sM7dLeRl/GviqnEmLqS/dpJHC8TOWx9NW/wAbNDkbDybf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t7+DyriFZoz/AAuuatUUAc63w/8ADbNuOh2O7+95C1pafothpa7bO0itl/6ZrtrQooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigDgvirDJL4fkEcbM3/66+WZlMM0iyLtbd/FX2zdWsd5C0Uq7ozXn/iL4N6VrCySRR+XM1fF51lFXGyVWk9UcVejKbujzz4D/APIWavoo9K8r+H/wzu/COrNI7bof96vVR1r0skw9TD4bkqKzNaMXGFmOooor6I6AooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKb7U6igBOfaloooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigD/9k=" alt="Acquired Financial Services">
     </div>
-    <div class="info">
-      <p>The Best Service Finance Brokers in Australia</p>
+
+    <div class="form-header">
+      <h1>Quick Finance Enquiry</h1>
+      <p>A few quick details and we'll be in touch with options that fit your situation.</p>
     </div>
+
+    <div class="progress" aria-hidden="true">
+      <div class="progress-step active" data-step="1"></div>
+      <div class="progress-step" data-step="2"></div>
+      <div class="progress-step" data-step="3"></div>
+      <div class="progress-step" data-step="4"></div>
+    </div>
+    <div class="step-label" id="stepLabel">Step 1 of 4 &middot; What you need</div>
+
+    <form id="financeForm" novalidate>
+
+      <!-- STEP 1: ASSET -->
+      <div class="step active" data-step="1">
+        <h2>What are you looking to finance?</h2>
+        <div class="options" id="assetOptions">
+          <button type="button" class="option-btn" data-value="Vehicle"><span class="icon">🚗</span> Vehicle</button>
+          <button type="button" class="option-btn" data-value="Truck or Trailer"><span class="icon">🚛</span> Truck or Trailer</button>
+          <button type="button" class="option-btn" data-value="Equipment or Machinery"><span class="icon">⚙️</span> Equipment / Machinery</button>
+          <button type="button" class="option-btn" data-value="Leisure Vehicle"><span class="icon">🚐</span> Leisure (Caravan / Motorbike)</button>
+          <button type="button" class="option-btn" data-value="Marine"><span class="icon">🚤</span> Marine (Boat / Jetski)</button>
+          <button type="button" class="option-btn" data-value="Business Loan"><span class="icon">💼</span> Business Loan</button>
+          <button type="button" class="option-btn" data-value="Personal Loan"><span class="icon">💳</span> Personal Loan</button>
+          <button type="button" class="option-btn" data-value="Other"><span class="icon">✨</span> Something Else</button>
+        </div>
+        <input type="hidden" name="assetType" id="assetType" required>
+        <div class="error-msg" id="assetError">Please choose what you'd like to finance.</div>
+
+        <div class="actions">
+          <button type="button" class="btn btn-primary" data-next="2">Continue</button>
+        </div>
+      </div>
+
+      <!-- STEP 2: LOAN DETAILS -->
+      <div class="step" data-step="2">
+        <h2>Your loan details</h2>
+
+        <div class="field" id="amountField">
+          <label for="amount">How much do you need to borrow? <span class="hint">(approximate is fine)</span></label>
+          <div class="amount-input-wrap">
+            <span class="amount-prefix">$</span>
+            <input type="number" id="amount" name="amount" placeholder="e.g. 50000" min="0" step="500" required inputmode="numeric">
+          </div>
+          <div class="error-msg" id="amountError">Please enter the amount you'd like to borrow.</div>
+          <div class="notice blocking" id="amountNotice">
+            Sorry — we're not able to assist with finance under <strong>$15,000</strong>.
+            For amounts below this, please give us a call on <strong><a href="tel:1300235255">1300 235 255</a></strong> and we'll point you in the right direction.
+          </div>
+        </div>
+
+        <div class="field">
+          <label>When are you hoping to settle?</label>
+          <div class="checkbox-row">
+            <label><input type="radio" name="timeframe" value="ASAP" required><span>ASAP</span></label>
+            <label><input type="radio" name="timeframe" value="Within a month"><span>Within a month</span></label>
+            <label><input type="radio" name="timeframe" value="Just looking"><span>Just looking</span></label>
+          </div>
+          <div class="error-msg">Please select a timeframe.</div>
+        </div>
+
+        <div class="field">
+          <label>Are you buying as a business or personal?</label>
+          <div class="radio-row">
+            <label><input type="radio" name="entity" value="Business (ABN)" required><span>Business (ABN)</span></label>
+            <label><input type="radio" name="entity" value="Personal"><span>Personal</span></label>
+          </div>
+          <div class="error-msg">Please choose one.</div>
+        </div>
+
+        <div class="field" id="abnField" style="display:none;">
+          <label for="abn">ABN <span class="hint">(we'll look it up against the ABR)</span></label>
+          <input type="text" id="abn" name="abn" placeholder="11 234 567 890" inputmode="numeric" maxlength="14" autocomplete="off">
+          <div class="error-msg">Please enter a valid 11-digit ABN.</div>
+
+          <div class="abn-loading" id="abnLoading" style="display:none;">
+            <span class="abn-spinner"></span> Looking up ABN…
+          </div>
+
+          <div class="abn-card" id="abnCard" style="display:none;">
+            <div class="abn-card-title" id="abnEntityName"></div>
+            <div class="abn-card-meta" id="abnMeta"></div>
+            <div class="abn-confirm">
+              <div class="abn-confirm-q">Is this your business?</div>
+              <div class="abn-confirm-actions">
+                <button type="button" class="btn-confirm-yes" id="abnConfirmYes">Yes, that's us</button>
+                <button type="button" class="btn-confirm-no" id="abnConfirmNo">No, try again</button>
+              </div>
+            </div>
+            <div class="abn-confirmed-tick" id="abnConfirmedTick" style="display:none;">
+              ✓ Confirmed
+            </div>
+          </div>
+
+          <div class="abn-error-msg" id="abnLookupError" style="display:none;"></div>
+        </div>
+
+        <div class="actions">
+          <button type="button" class="btn btn-secondary" data-back="1">← Back</button>
+          <button type="button" class="btn btn-primary" data-next="3">Continue</button>
+        </div>
+      </div>
+
+      <!-- STEP 3: SITUATION -->
+      <div class="step" data-step="3">
+        <h2>Your situation</h2>
+
+        <div class="field" id="residencyField">
+          <label>What's your residency status?</label>
+          <div class="radio-stack">
+            <label><input type="radio" name="residency" value="Australian Resident" required><span>Australian Resident</span></label>
+            <label><input type="radio" name="residency" value="Permanent Resident"><span>Permanent Resident</span></label>
+            <label><input type="radio" name="residency" value="On a Visa"><span>On a Visa</span></label>
+          </div>
+          <div class="error-msg" id="residencyError">Please select your residency status.</div>
+
+          <div id="visaWrap" style="display:none; margin-top:12px;">
+            <label for="visa" style="display:block; font-size:14px; font-weight:600; margin-bottom:6px; color:var(--text);">
+              Which visa subclass are you on?
+            </label>
+            <select id="visa" name="visa">
+              <option value="">Select your visa subclass</option>
+              <option value="100">Subclass 100 — Partner (Provisional and Migrant) Visa</option>
+              <option value="103">Subclass 103 — Parent Visa</option>
+              <option value="114">Subclass 114 — Aged Dependent Relative Visa (1)</option>
+              <option value="115">Subclass 115 — Remaining Relative Visa (1)</option>
+              <option value="116">Subclass 116 — Carer Visa (2)</option>
+              <option value="124">Subclass 124 — Distinguished Talent Visa</option>
+              <option value="132">Subclass 132 — Business Talent Visa</option>
+              <option value="143">Subclass 143 — Contributory Parent Visa</option>
+              <option value="151">Subclass 151 — Former Resident Visa</option>
+              <option value="155">Subclass 155 — Resident Return Visa</option>
+              <option value="186">Subclass 186 — Employer Nomination Scheme</option>
+              <option value="187">Subclass 187 — Regional Sponsored Migration Scheme</option>
+              <option value="188">Subclass 188 — Business Innovation and Investment (Provisional)</option>
+              <option value="189">Subclass 189 — Skilled Independent Visa</option>
+              <option value="190">Subclass 190 — Skilled Nominated Visa</option>
+              <option value="191">Subclass 191 — Permanent Residence (Skilled Regional)</option>
+              <option value="200">Subclass 200 — Refugee Visa</option>
+              <option value="201">Subclass 201 — Refugee Visa</option>
+              <option value="202">Subclass 202 — Global Special Humanitarian</option>
+              <option value="203">Subclass 203 — Refugee Visa</option>
+              <option value="204">Subclass 204 — Refugee Visa</option>
+              <option value="405">Subclass 405 — Investor Retirement Visa</option>
+              <option value="444">Subclass 444 — Special Category Visa</option>
+              <option value="461">Subclass 461 — NZ Citizen Family Relationship (Temporary)</option>
+              <option value="482">Subclass 482 — Temporary Skill Shortage Visa</option>
+              <option value="485">Subclass 485 — Temporary Graduate Visa</option>
+              <option value="489">Subclass 489 — Skilled Regional (Provisional)</option>
+              <option value="491">Subclass 491 — Skilled Work Regional (Provisional)</option>
+              <option value="494">Subclass 494 — Skilled Employer Sponsored Regional (Provisional)</option>
+              <option value="785">Subclass 785 — Temporary Protection Visa</option>
+              <option value="790">Subclass 790 — Safe-Haven Enterprise Visa</option>
+              <option value="801">Subclass 801 — Partner Visa</option>
+              <option value="804">Subclass 804 — Aged Parent Visa</option>
+              <option value="808">Subclass 808 — Confirmatory (Residence) Visa</option>
+              <option value="835">Subclass 835 — Remaining Relative Visa (2)</option>
+              <option value="836">Subclass 836 — Carer Visa (1)</option>
+              <option value="838">Subclass 838 — Aged Dependent Relative Visa (2)</option>
+              <option value="851">Subclass 851 — Resolution of Status</option>
+              <option value="858">Subclass 858 — Global Talent Visa</option>
+              <option value="864">Subclass 864 — Contributory Aged Parent Visa</option>
+              <option value="866">Subclass 866 — Protection Visa</option>
+              <option value="887">Subclass 887 — Skilled Regional Visa</option>
+              <option value="888">Subclass 888 — Business Innovation and Investment (Permanent)</option>
+              <option value="890">Subclass 890 — Business Owner</option>
+              <option value="891">Subclass 891 — Investor Visa</option>
+              <option value="892">Subclass 892 — State/Territory Sponsored Business Owner</option>
+              <option value="893">Subclass 893 — State/Territory Sponsored Investor</option>
+              <option value="OTHER">Other / Not listed</option>
+            </select>
+            <div class="error-msg" id="visaError">Please select your visa subclass.</div>
+
+            <div id="visaExpiryWrap" style="display:none; margin-top:14px;">
+              <label for="visaExpiry" style="display:block; font-size:14px; font-weight:600; margin-bottom:6px; color:var(--text);">
+                When does your visa expire?
+              </label>
+              <input type="date" id="visaExpiry" name="visaExpiry">
+              <div class="error-msg" id="visaExpiryError">Please enter your visa expiry date.</div>
+              <div class="notice blocking" id="visaExpiryNotice">
+                Unfortunately we're unable to assist when there's less than <strong>12 months</strong> remaining on your visa.
+                Please give us a call on <strong><a href="tel:1300235255">1300 235 255</a></strong> to discuss your options or check back once your visa is renewed.
+              </div>
+            </div>
+          </div>
+
+          <div class="notice blocking" id="visaNotice">
+            Unfortunately your visa subclass isn't on our acceptable list, so we're not able to assist at this time.
+            Please give us a call on <strong><a href="tel:1300235255">1300 235 255</a></strong> if your circumstances have changed or you'd like to discuss further.
+          </div>
+        </div>
+
+        <div class="field" id="incomeField">
+          <label>Where does your income come from?</label>
+          <div class="radio-stack">
+            <label><input type="radio" name="income" value="Employed" required><span>Employed (PAYG or self-employed)</span></label>
+            <label><input type="radio" name="income" value="Employed + Centrelink"><span>Employed + Centrelink</span></label>
+            <label><input type="radio" name="income" value="Centrelink only"><span>Centrelink only</span></label>
+          </div>
+          <div class="error-msg" id="incomeError">Please select your income source.</div>
+
+          <div id="centrelinkPctWrap" style="display:none; margin-top: 12px;">
+            <label for="centrelinkPct" style="display:block; font-size:14px; font-weight:600; margin-bottom:6px; color:var(--text);">
+              Roughly what % of your income comes from Centrelink?
+            </label>
+            <select id="centrelinkPct" name="centrelinkPct">
+              <option value="">Select percentage</option>
+              <option value="Less than 25%">Less than 25%</option>
+              <option value="25–50%">25 – 50%</option>
+              <option value="51–75%">51 – 75%</option>
+              <option value="More than 75%">More than 75%</option>
+            </select>
+            <div class="error-msg" id="centrelinkPctError">Please select a percentage.</div>
+          </div>
+
+          <div class="notice blocking" id="incomeNotice">
+            Unfortunately we're not able to assist when Centrelink makes up the majority of your income.
+            Please give us a call on <strong><a href="tel:1300235255">1300 235 255</a></strong> if you'd like to chat — we may be able to point you toward an alternative.
+          </div>
+        </div>
+
+        <div class="field" id="creditField">
+          <label>What does your credit history look like?</label>
+          <div class="radio-stack">
+            <label><input type="radio" name="credit" value="Clear" required><span>Clear — no defaults</span></label>
+            <label><input type="radio" name="credit" value="Has defaults"><span>I have defaults on my file</span></label>
+            <label><input type="radio" name="credit" value="Not sure"><span>Not sure</span></label>
+          </div>
+          <div class="error-msg">Please choose one.</div>
+          <div class="notice" id="creditNotice">
+            Defaults aren't always a deal-breaker. Depending on what they're for and how long ago they were listed, we may still be able to help. We'll talk it through when we call.
+          </div>
+        </div>
+
+        <div class="field" id="livingField">
+          <label>What's your current living situation?</label>
+          <div class="radio-stack">
+            <label><input type="radio" name="living" value="Home owner" required><span>Home owner (no mortgage)</span></label>
+            <label><input type="radio" name="living" value="Mortgaged"><span>Home owner with mortgage</span></label>
+            <label><input type="radio" name="living" value="Renting"><span>Renting</span></label>
+            <label><input type="radio" name="living" value="Boarding"><span>Boarding (with family or friends)</span></label>
+          </div>
+          <div class="error-msg">Please choose one.</div>
+
+          <div id="investmentWrap" style="display:none; margin-top:12px;">
+            <label style="display:block; font-size:14px; font-weight:600; margin-bottom:6px; color:var(--text);">
+              Do you own an investment property?
+            </label>
+            <div class="radio-row">
+              <label><input type="radio" name="investmentProperty" value="Yes"><span>Yes</span></label>
+              <label><input type="radio" name="investmentProperty" value="No"><span>No</span></label>
+            </div>
+            <div class="error-msg" id="investmentError">Please choose one.</div>
+          </div>
+        </div>
+
+        <div class="actions">
+          <button type="button" class="btn btn-secondary" data-back="2">← Back</button>
+          <button type="button" class="btn btn-primary" data-next="4">Continue</button>
+        </div>
+      </div>
+
+      <!-- STEP 4: CONTACT -->
+      <div class="step" data-step="4">
+        <h2>How can we reach you?</h2>
+
+        <div class="privacy-panel">
+          <div class="privacy-panel-title">🔐 Your information is safe with us</div>
+          <ul class="privacy-panel-list">
+            <li>We <strong>do not share</strong> your information with anyone at this stage — not even a lender.</li>
+            <li>This site is <strong>encrypted</strong> and your details are kept strictly confidential.</li>
+            <li>Your information is only used by our team at Acquired Financial Services to help with your enquiry.</li>
+          </ul>
+        </div>
+
+        <div class="field">
+          <label for="firstName">First name</label>
+          <input type="text" id="firstName" name="firstName" placeholder="e.g. Sarah" required autocomplete="given-name">
+          <div class="error-msg">Please enter your first name.</div>
+        </div>
+
+        <div class="field">
+          <label for="surname">Surname</label>
+          <input type="text" id="surname" name="surname" placeholder="e.g. Johnson" required autocomplete="family-name">
+          <div class="error-msg">Please enter your surname.</div>
+        </div>
+
+        <div class="field">
+          <label for="mobile">Mobile number</label>
+          <input type="tel" id="mobile" name="mobile" placeholder="04XX XXX XXX" required autocomplete="tel" inputmode="tel">
+          <div class="error-msg">Please enter a valid mobile number.</div>
+        </div>
+
+        <div class="field">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" placeholder="you@example.com" required autocomplete="email">
+          <div class="field-note">Please double-check this is correct — your email will be used for all future correspondence with brokers at Acquired Financial Services.</div>
+          <div class="error-msg">Please enter a valid email address.</div>
+        </div>
+
+        <div class="field">
+          <label for="state">Which state are you in? <span class="hint">(so we call at the right time)</span></label>
+          <select id="state" name="state" required>
+            <option value="">Select your state</option>
+            <option value="NSW">New South Wales (NSW)</option>
+            <option value="VIC">Victoria (VIC)</option>
+            <option value="QLD">Queensland (QLD)</option>
+            <option value="WA">Western Australia (WA)</option>
+            <option value="SA">South Australia (SA)</option>
+            <option value="TAS">Tasmania (TAS)</option>
+            <option value="ACT">ACT</option>
+            <option value="NT">Northern Territory (NT)</option>
+          </select>
+          <div class="error-msg">Please select your state.</div>
+        </div>
+
+        <div class="field" id="contactMethodField">
+          <label>How would you like to be contacted?</label>
+          <div class="checkbox-row">
+            <label><input type="radio" name="contactMethod" value="Phone call" required><span>Phone call</span></label>
+            <label><input type="radio" name="contactMethod" value="Text message"><span>Text message</span></label>
+            <label><input type="radio" name="contactMethod" value="Email"><span>Email</span></label>
+          </div>
+          <div class="error-msg">Please choose how you'd like us to reach out.</div>
+          <div class="notice" id="contactMethodNotice">
+            <strong>Just so you know —</strong> to give you an accurate quote we really do need to speak with you.
+            We'll reach out via your preferred method to find a time that works for a quick chat.
+          </div>
+        </div>
+
+        <div class="actions">
+          <button type="button" class="btn btn-secondary" data-back="3">← Back</button>
+          <button type="submit" class="btn btn-primary" id="submitBtn">Submit Enquiry</button>
+        </div>
+
+        <div class="trust">
+          <span class="lock">🔒</span> This process is <strong>cost and commitment free</strong> — you can opt out at any time.<br>
+          Submitting this enquiry <strong>will not affect your credit score</strong>.<br>
+          We have access to <strong>63+ bank and non-bank lenders</strong> to make sure we find you the best deal in the market.
+        </div>
+      </div>
+
+    </form>
+
+    <!-- SUCCESS -->
+    <div class="success-screen" id="successScreen">
+      <div class="success-icon">✓</div>
+      <h2>Thanks — your enquiry is in good hands.</h2>
+      <p class="success-lead">One of our brokers will be calling you very shortly.</p>
+
+      <div class="success-callout">
+        <div class="success-callout-title">📞 When we call, please answer.</div>
+        <p>We're about to search across <strong>6,300+ products</strong> from our 63+ bank and non-bank lenders to find your sharpest possible deal. To do that properly — and quickly — we need just a few minutes of your time.</p>
+      </div>
+
+      <div class="success-warn">
+        <div class="success-warn-title">⚠️ Please don't enquire anywhere else just yet</div>
+        <p>Every additional finance enquiry leaves a mark on your credit file. Multiple enquiries in a short window can:</p>
+        <ul>
+          <li><strong>Lower your credit score</strong> — right when you need it strongest</li>
+          <li><strong>Reduce your borrowing power</strong></li>
+          <li>Make it <strong>harder for us to negotiate the sharpest rate</strong> on your behalf</li>
+        </ul>
+        <p class="success-warn-emphasis">Let us do the legwork. <strong>One enquiry, one credit check, one matched lender</strong> — that's how you get the best outcome.</p>
+      </div>
+
+      <div class="success-cta">
+        <p class="success-cta-q">In a hurry?</p>
+        <a href="tel:1300235255" class="success-call-btn">📞 Call us now on 1300 235 255</a>
+        <p class="success-cta-sub">Speak to us straight away to <strong>fast-track your application</strong> — many of our clients receive a <strong>same-day approval</strong>.</p>
+      </div>
+    </div>
+
   </div>
-  <div class="progress-bar"><div class="fill" id="progressFill" style="width:0%"></div></div>
-  <div class="chat-messages" id="chatMessages"></div>
-  <div class="input-area" id="inputArea">
-    <input type="text" id="textInput" placeholder="Type your answer..." />
-    <button id="sendBtn" onclick="handleSend()">Send</button>
+</div>
+
+<!-- QUALIFY MODAL — shown after Step 3 -->
+<div class="qualify-modal" id="qualifyModal" style="display:none;" role="dialog" aria-modal="true" aria-labelledby="qualifyTitle">
+  <div class="qualify-modal-backdrop"></div>
+  <div class="qualify-modal-card">
+    <div class="qualify-modal-icon" id="qualifyIcon">🎉</div>
+    <h3 class="qualify-modal-title" id="qualifyTitle">Great news!</h3>
+    <p class="qualify-modal-text" id="qualifyText"></p>
+    <ul class="qualify-modal-list" id="qualifyList"></ul>
+    <p class="qualify-modal-footer" id="qualifyFooter"></p>
+    <button type="button" class="btn btn-primary qualify-modal-cta" id="qualifyContinue">Let's keep going →</button>
   </div>
 </div>
 
 <script>
-// ========== LEAD DATA ==========
-const leadData = {};
+(function() {
+  const MIN_LOAN = 15000;
+  const form = document.getElementById('financeForm');
+  const steps = form.querySelectorAll('.step');
+  const progressSteps = document.querySelectorAll('.progress-step');
+  const stepLabel = document.getElementById('stepLabel');
+  const successScreen = document.getElementById('successScreen');
 
-// ========== CONVERSATION FLOW ==========
-// Each step: { id, botMessage, type, options?, field?, validate?, next? }
-const flow = [
-  {
-    id: 'welcome',
-    botMessage: "Hi there! 👋 Welcome to Acquired Financial Services.\n\nI'm here to help get you started with your finance enquiry. I'll ask a few quick questions so we can match you with the right broker.\n\nShall we get started?",
-    type: 'options',
-    options: ["Yes, let's go!", "Tell me more first"],
-    next: (answer) => {
-      if (answer === "Tell me more first") return 'about';
-      return 'first_name';
-    }
-  },
-  {
-    id: 'about',
-    botMessage: "We're one of Australia's leading asset finance brokerages with access to 63+ bank and non-bank lenders.\n\nHere's what your broker actually does for you — we take the time to understand your full financial picture. That means calculating your income, assessing your borrowing capacity, reviewing your credit file, and gathering every key detail about your circumstances. We do all of this upfront so we can match you with the lender that's the best fit for your profile the first time around.\n\nWhy does that matter? Because every time a lender runs a credit check it leaves a mark on your file. By doing the homework first and targeting the right lender from the start, we protect your credit score and give you the strongest chance of approval at the best possible rate.\n\nThe best part — our pre-approval process comes at absolutely no cost and no commitment to you.\n\nWhether it's a car, truck, equipment, or business finance — we make it easy.\n\nReady to get started?",
-    type: 'options',
-    options: ["Yes, let's go!"],
-    next: () => 'first_name'
-  },
+  const stepLabels = {
+    1: 'Step 1 of 4 · What you need',
+    2: 'Step 2 of 4 · Loan details',
+    3: 'Step 3 of 4 · Your situation',
+    4: 'Step 4 of 4 · Contact info'
+  };
 
-  // ===== PERSONAL DETAILS =====
-  {
-    id: 'first_name',
-    botMessage: "Great! Let's start with your name.\n\nWhat's your first name?",
-    type: 'text',
-    field: 'firstName',
-    placeholder: 'e.g. John',
-    validate: (v) => v.trim().length >= 2 ? null : 'Please enter your first name.',
-    next: () => 'last_name'
-  },
-  {
-    id: 'last_name',
-    botMessage: (data) => `Thanks ${data.firstName}! And your last name?`,
-    type: 'text',
-    field: 'lastName',
-    placeholder: 'e.g. Smith',
-    validate: (v) => v.trim().length >= 2 ? null : 'Please enter your last name.',
-    next: () => 'email'
-  },
-  {
-    id: 'email',
-    botMessage: "What's the best email address to reach you on?",
-    type: 'text',
-    field: 'email',
-    placeholder: 'e.g. john@email.com',
-    validate: (v) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v) ? null : 'Please enter a valid email address.',
-    next: () => 'phone'
-  },
-  {
-    id: 'phone',
-    botMessage: "And your mobile number?",
-    type: 'text',
-    field: 'phone',
-    placeholder: 'e.g. 0412 345 678',
-    validate: (v) => v.replace(/\s/g,'').length >= 8 ? null : 'Please enter a valid phone number.',
-    next: () => 'state'
-  },
-  {
-    id: 'state',
-    botMessage: "Which state are you located in?",
-    type: 'options',
-    field: 'state',
-    options: ['NSW', 'VIC', 'QLD', 'WA', 'SA', 'TAS', 'ACT', 'NT'],
-    next: () => 'enquiry_type'
-  },
-
-  // ===== ENQUIRY TYPE =====
-  {
-    id: 'enquiry_type',
-    botMessage: (data) => `Perfect, ${data.firstName}. Now let's understand what you're looking for.\n\nIs this finance for personal use or for your business?`,
-    type: 'options',
-    field: 'enquiryType',
-    options: ['Personal', 'Business'],
-    next: (answer) => answer === 'Business' ? 'business_identify' : 'asset_type'
-  },
-
-  // ===== BUSINESS DETAILS (conditional) =====
-  // One step: ask for ABN OR business name, look up on the ABR
-  {
-    id: 'business_identify',
-    botMessage: "What's your ABN or business name? I'll search the Australian Business Register so we have your details right.",
-    type: 'text',
-    field: 'businessIdentifier',
-    placeholder: 'ABN or business name',
-    validate: (v) => v.trim().length >= 2 ? null : 'Please enter an ABN or business name.',
-    next: () => 'business_verify'
-  },
-  {
-    id: 'business_verify',
-    type: 'abn-verify',
-    options: ["Yes — that's us", "No — try a different search"],
-    next: (v) => {
-      if (v && v.toLowerCase().indexOf('yes') === 0) {
-        // Auto-skip business_length and gst_registered if pre-filled by lookup
-        if (leadData.businessLength && leadData.gstRegistered) return 'asset_type';
-        if (leadData.businessLength) return 'gst_registered';
-        return 'business_length';
-      }
-      // User said no — clear and re-ask
-      leadData.businessIdentifier = '';
-      leadData.abn = '';
-      leadData.businessName = '';
-      leadData.abnLookup = null;
-      leadData.businessLength = '';
-      leadData.gstRegistered = '';
-      return 'business_identify';
-    }
-  },
-  {
-    id: 'business_length',
-    botMessage: "How long has the business been operating?",
-    type: 'options',
-    field: 'businessLength',
-    options: ['Less than 1 year', '1-2 years', '2-5 years', '5+ years'],
-    next: () => 'gst_registered'
-  },
-  {
-    id: 'gst_registered',
-    botMessage: "Is the business registered for GST?",
-    type: 'options',
-    field: 'gstRegistered',
-    options: ['Yes', 'No', 'Not sure'],
-    next: () => 'asset_type'
-  },
-
-  // ===== ASSET DETAILS =====
-  {
-    id: 'asset_type',
-    botMessage: "What type of asset or finance are you looking for?",
-    type: 'options',
-    field: 'assetType',
-    options: [
-      'Car / SUV',
-      'Truck / Heavy Vehicle',
-      'Motorbike',
-      'Equipment / Machinery',
-      'Yellow Goods',
-      'Personal Loan',
-      'Business Cash Flow',
-      'Other'
-    ],
-    next: (answer) => answer === 'Other' ? 'asset_other' : 'asset_new_used'
-  },
-  {
-    id: 'asset_other',
-    botMessage: "No problem — tell me what you're looking to finance:",
-    type: 'text',
-    field: 'assetTypeOther',
-    placeholder: 'Describe the asset...',
-    next: () => 'asset_new_used'
-  },
-  {
-    id: 'asset_new_used',
-    botMessage: "Are you looking at something new or used?",
-    type: 'options',
-    field: 'newOrUsed',
-    options: ['New', 'Used', 'Not sure yet'],
-    next: () => 'found_asset'
-  },
-  {
-    id: 'found_asset',
-    botMessage: "Have you already found the specific asset you want to purchase?",
-    type: 'options',
-    field: 'foundAsset',
-    options: ['Yes, I know exactly what I want', 'Still looking', 'Just exploring options'],
-    next: () => 'purchase_price'
-  },
-  {
-    id: 'purchase_price',
-    botMessage: "What's the approximate purchase price (or amount you want to borrow)?",
-    type: 'text',
-    field: 'purchasePrice',
-    placeholder: 'e.g. $50,000',
-    validate: (v) => v.trim().length >= 1 ? null : 'Please enter an amount.',
-    next: () => 'deposit'
-  },
-  {
-    id: 'deposit',
-    botMessage: "Do you have a deposit or trade-in?",
-    type: 'options',
-    field: 'hasDeposit',
-    options: ['Yes', 'No'],
-    next: (answer) => answer === 'Yes' ? 'deposit_amount' : 'timeframe'
-  },
-  {
-    id: 'deposit_amount',
-    botMessage: "Roughly how much is your deposit / trade-in worth?",
-    type: 'text',
-    field: 'depositAmount',
-    placeholder: 'e.g. $10,000',
-    next: () => 'timeframe'
-  },
-  {
-    id: 'timeframe',
-    botMessage: "When are you looking to make this purchase?",
-    type: 'options',
-    field: 'timeframe',
-    options: ['ASAP', 'Within 2 weeks', 'Within 1 month', '1-3 months', 'Just exploring'],
-    next: () => {
-      // Business enquiry → skip employment question (we know they're self-employed via the ABN)
-      if (leadData.enquiryType === 'Business') {
-        leadData.employmentStatus = 'Self-employed (ABN)';
-        return 'credit_history';
-      }
-      return 'employment_status';
-    }
-  },
-
-  // ===== FINANCIAL SITUATION =====
-  {
-    id: 'employment_status',
-    botMessage: "Now a couple of quick questions about your financial situation to help us find the right lender.\n\nWhat's your current employment status?",
-    type: 'options',
-    field: 'employmentStatus',
-    options: ['Full-time', 'Part-time / Casual', 'Self-employed', 'Contractor', 'Retired', 'Not currently employed'],
-    next: () => 'credit_history'
-  },
-  {
-    id: 'credit_history',
-    botMessage: "How would you describe your credit history?",
-    type: 'options',
-    field: 'creditHistory',
-    options: ['Excellent – no issues', 'Good – minor things', 'Fair – some past issues', 'Poor – defaults or judgements', 'Not sure'],
-    next: () => 'existing_finance'
-  },
-  {
-    id: 'existing_finance',
-    botMessage: "Do you currently have any existing finance or loans?",
-    type: 'options',
-    field: 'existingFinance',
-    options: ['No', 'Yes – 1 or 2', 'Yes – several', 'Prefer not to say'],
-    next: () => 'lead_source'
-  },
-
-  // ===== SOURCE & BOOKING =====
-  {
-    id: 'lead_source',
-    botMessage: "Just so we know — how did you hear about us?",
-    type: 'options',
-    field: 'leadSource',
-    options: ['Google Search', 'Facebook / Instagram', 'Referred by someone', 'Returning client', 'Other'],
-    next: (answer) => answer === 'Referred by someone' ? 'referrer' : 'preferred_day'
-  },
-  {
-    id: 'referrer',
-    botMessage: "Great to get a referral! Who referred you? (name or business)",
-    type: 'text',
-    field: 'referrer',
-    placeholder: 'e.g. Dave from XYZ Motors',
-    next: () => 'preferred_day'
-  },
-
-  // ===== APPOINTMENT BOOKING =====
-  {
-    id: 'preferred_day',
-    botMessage: (data) => `Almost done, ${data.firstName}! Let's lock in a time for one of our brokers to give you a call.\n\nWhat day works best for you?`,
-    type: 'options',
-    field: 'preferredDay',
-    options: ['Today', 'Tomorrow', 'This week', 'Next week', 'Specific date'],
-    next: (answer) => answer === 'Specific date' ? 'specific_date' : 'preferred_time'
-  },
-  {
-    id: 'specific_date',
-    botMessage: "What date works best? (e.g. 15/04/2026)",
-    type: 'text',
-    field: 'preferredDate',
-    placeholder: 'DD/MM/YYYY',
-    next: () => 'preferred_time'
-  },
-  {
-    id: 'preferred_time',
-    botMessage: "And what time of day suits you best?",
-    type: 'options',
-    field: 'preferredTime',
-    options: ['Morning (8am-12pm)', 'Afternoon (12pm-4pm)', 'Late afternoon (4pm-6pm)', 'Evening (after 6pm)'],
-    next: () => 'notes'
-  },
-  {
-    id: 'notes',
-    botMessage: "Any other notes or questions you'd like us to know before the call? (or type 'no')",
-    type: 'text',
-    field: 'notes',
-    placeholder: 'Anything else...',
-    next: () => 'summary'
-  },
-
-  // ===== SUMMARY =====
-  {
-    id: 'summary',
-    botMessage: 'SUMMARY',
-    type: 'summary'
-  }
-];
-
-// ========== STATE ==========
-let currentStepIndex = 0;
-let currentStep = null;
-const totalSteps = flow.length;
-
-// ========== DOM ==========
-const chatMessages = document.getElementById('chatMessages');
-const textInput = document.getElementById('textInput');
-const sendBtn = document.getElementById('sendBtn');
-const inputArea = document.getElementById('inputArea');
-const progressFill = document.getElementById('progressFill');
-
-textInput.addEventListener('keypress', (e) => {
-  if (e.key === 'Enter') handleSend();
-});
-
-// ========== HELPERS ==========
-function updateProgress() {
-  const pct = Math.round(((currentStepIndex) / (totalSteps - 1)) * 100);
-  progressFill.style.width = pct + '%';
-}
-
-function scrollToBottom() {
-  // Defer two frames so any newly inserted node has been laid out
-  requestAnimationFrame(() => {
-    requestAnimationFrame(() => {
-      scrollToBottom();
+  // Asset buttons
+  const assetButtons = document.querySelectorAll('#assetOptions .option-btn');
+  const assetInput = document.getElementById('assetType');
+  assetButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      assetButtons.forEach(b => b.classList.remove('selected'));
+      btn.classList.add('selected');
+      assetInput.value = btn.dataset.value;
+      document.getElementById('assetError').style.display = 'none';
     });
   });
-}
 
-function addMessage(text, type) {
-  const div = document.createElement('div');
-  div.className = `message ${type}`;
-  div.innerHTML = text.replace(/\n/g, '<br>');
-  chatMessages.appendChild(div);
-  scrollToBottom();
-}
-
-function addOptions(options) {
-  const container = document.createElement('div');
-  container.className = 'options-grid';
-  options.forEach(opt => {
-    const btn = document.createElement('button');
-    btn.className = 'option-btn';
-    btn.textContent = opt;
-    btn.onclick = () => {
-      // Remove options
-      container.remove();
-      handleAnswer(opt);
-    };
-    container.appendChild(btn);
-  });
-  chatMessages.appendChild(container);
-  scrollToBottom();
-}
-
-function showTyping() {
-  const div = document.createElement('div');
-  div.className = 'typing-indicator';
-  div.id = 'typingIndicator';
-  div.innerHTML = '<span></span><span></span><span></span>';
-  chatMessages.appendChild(div);
-  scrollToBottom();
-}
-
-function hideTyping() {
-  const el = document.getElementById('typingIndicator');
-  if (el) el.remove();
-}
-
-function setInputMode(mode) {
-  if (mode === 'text') {
-    textInput.classList.remove('hidden');
-    sendBtn.classList.remove('hidden');
-    textInput.focus();
-  } else {
-    textInput.classList.add('hidden');
-    sendBtn.classList.add('hidden');
-  }
-}
-
-function showSummary() {
-  const assetLabel = leadData.assetType === 'Other' ? leadData.assetTypeOther : leadData.assetType;
-  const dayLabel = leadData.preferredDay === 'Specific date' ? leadData.preferredDate : leadData.preferredDay;
-
-  let rows = [
-    ['Name', `${leadData.firstName} ${leadData.lastName}`],
-    ['Email', leadData.email],
-    ['Phone', leadData.phone],
-    ['State', leadData.state],
-    ['Type', leadData.enquiryType],
-  ];
-
-  if (leadData.enquiryType === 'Business') {
-    rows.push(['Business', leadData.businessName]);
-    if (leadData.abn && leadData.abn.toLowerCase() !== 'skip') {
-      const abnLabel = leadData.abnLookup ? 'ABN ✓ verified' : 'ABN';
-      const abnValue = leadData.abnLookup ? leadData.abn + ' — ' + leadData.abnLookup.entityName : leadData.abn;
-      rows.push([abnLabel, abnValue]);
-    }
-    rows.push(['Trading', leadData.businessLength]);
-    rows.push(['GST Registered', leadData.gstRegistered]);
-  }
-
-  rows.push(
-    ['Asset', assetLabel],
-    ['Condition', leadData.newOrUsed],
-    ['Purchase Price', leadData.purchasePrice],
-    ['Deposit/Trade-in', leadData.hasDeposit === 'Yes' ? leadData.depositAmount : 'None'],
-    ['Timeframe', leadData.timeframe],
-    ['Employment', leadData.employmentStatus],
-    ['Credit History', leadData.creditHistory],
-    ['Existing Finance', leadData.existingFinance],
-    ['Lead Source', leadData.leadSource],
-    ['Callback', `${dayLabel} – ${leadData.preferredTime}`]
-  );
-
-  if (leadData.referrer) rows.push(['Referred by', leadData.referrer]);
-  if (leadData.notes && leadData.notes.toLowerCase() !== 'no') rows.push(['Notes', leadData.notes]);
-
-  const rowsHtml = rows.map(([label, value]) =>
-    `<div class="row"><span class="label">${label}</span><span class="value">${value || '—'}</span></div>`
-  ).join('');
-
-  const summaryHtml = `<div class="summary-card"><h4>📋 Your Enquiry Summary</h4>${rowsHtml}</div>`;
-
-  addMessage(
-    `Thanks ${leadData.firstName}! Here's a summary of everything you've told us:` +
-    summaryHtml,
-    'bot'
-  );
-
-  setTimeout(() => {
-    addMessage("✅ Enquiry submitted — redirecting you to confirmation…", "system");
-    setInputMode('none');
-
-    // Capture marketing attribution
-    try {
-      var p = new URLSearchParams(location.search);
-      leadData.gclid = p.get('gclid') || localStorage.getItem('gclid') || '';
-      leadData.source = p.get('source') || document.referrer || 'direct';
-      leadData.landingPage = p.get('from') || 'apply.html';
-    } catch(e){}
-
-    // ===== SUBMISSION =====
-    submitLead(leadData);
-
-    // Fire Google Ads conversion event
-    if (typeof gtag === 'function') {
-      gtag('event', 'conversion', {'send_to': 'AW-XXXXXXXXXX/AAAAAAAA', 'value': 1.0, 'currency': 'AUD'});
-    }
-
-    // Redirect to thank-you page after a beat so user sees the success message
-    setTimeout(function(){
-      window.location.href = 'thank-you.html';
-    }, 1400);
-  }, 600);
-}
-
-// ========== FLOW ENGINE ==========
-function getStepById(id) {
-  return flow.find(s => s.id === id);
-}
-
-function goToStep(id) {
-  const step = getStepById(id);
-  if (!step) return;
-
-  currentStep = step;
-  currentStepIndex = flow.indexOf(step);
-  updateProgress();
-
-  if (step.type === 'summary') {
-    showTyping();
-    setTimeout(() => { hideTyping(); showSummary(); }, 1000);
-    return;
-  }
-
-  if (step.type === 'abn-verify') {
-    runAbnVerify(step);
-    return;
-  }
-
-  const msg = typeof step.botMessage === 'function' ? step.botMessage(leadData) : step.botMessage;
-
-  showTyping();
-  setTimeout(() => {
-    hideTyping();
-    addMessage(msg, 'bot');
-
-    if (step.type === 'options') {
-      setInputMode('none');
-      addOptions(step.options);
-    } else if (step.type === 'text') {
-      setInputMode('text');
-      textInput.placeholder = step.placeholder || 'Type your answer...';
-      textInput.value = '';
-    }
-  }, 600 + Math.random() * 400);
-}
-
-// ========== ABN VERIFICATION (Australian Business Register) ==========
-// Register your own GUID at https://abr.business.gov.au/Tools/WebServices
-const ABR_GUID = 'e9d00f80-e531-4bec-8ef7-492c760ed15d';
-let abnLookupSeq = 0;
-
-function lookupAbn(digits) {
-  return new Promise((resolve, reject) => {
-    if (!ABR_GUID || ABR_GUID === 'YOUR-ABR-GUID-HERE') {
-      reject(new Error('ABN lookup not configured')); return;
-    }
-    const seq = ++abnLookupSeq;
-    const cbName = '__abnCb_' + seq;
-    let script, timeout;
-    function cleanup(){
-      try { delete window[cbName]; } catch(e){ window[cbName] = undefined; }
-      if (script && script.parentNode) script.parentNode.removeChild(script);
-      clearTimeout(timeout);
-    }
-    window[cbName] = function(data){
-      if (seq !== abnLookupSeq) { try{ delete window[cbName]; }catch(e){} return; }
-      cleanup();
-      if (!data || data.Message) { reject(new Error((data && data.Message) || 'ABN not found')); return; }
-      resolve(data);
-    };
-    script = document.createElement('script');
-    script.src = 'https://abr.business.gov.au/json/AbnDetails.aspx?callback=' +
-                 encodeURIComponent(cbName) +
-                 '&abn=' + encodeURIComponent(digits) +
-                 '&guid=' + encodeURIComponent(ABR_GUID);
-    script.onerror = function(){
-      if (seq !== abnLookupSeq) { cleanup(); return; }
-      cleanup();
-      reject(new Error('Could not reach the ABN register'));
-    };
-    document.body.appendChild(script);
-    timeout = setTimeout(() => {
-      if (seq === abnLookupSeq) { cleanup(); reject(new Error('ABN lookup timed out')); }
-    }, 10000);
-  });
-}
-
-// Search the ABR by business / trading / legal name. Returns an array of {Abn, Name, ...}
-function searchAbnByName(name) {
-  return new Promise((resolve, reject) => {
-    if (!ABR_GUID || ABR_GUID === 'YOUR-ABR-GUID-HERE') {
-      reject(new Error('ABN lookup not configured')); return;
-    }
-    const seq = ++abnLookupSeq;
-    const cbName = '__abnNameCb_' + seq;
-    let script, timeout;
-    function cleanup(){
-      try { delete window[cbName]; } catch(e){ window[cbName] = undefined; }
-      if (script && script.parentNode) script.parentNode.removeChild(script);
-      clearTimeout(timeout);
-    }
-    window[cbName] = function(data){
-      if (seq !== abnLookupSeq) { try{ delete window[cbName]; }catch(e){} return; }
-      cleanup();
-      if (!data) { reject(new Error('No response from ABR')); return; }
-      if (data.Message) { reject(new Error(data.Message)); return; }
-      resolve(data.Names || []);
-    };
-    script = document.createElement('script');
-    script.src = 'https://abr.business.gov.au/json/MatchingNames.aspx?' +
-                 'callback=' + encodeURIComponent(cbName) +
-                 '&name=' + encodeURIComponent(name) +
-                 '&maxResults=5' +
-                 '&legalName=Y&tradingName=Y&businessName=Y' +
-                 '&activeAbnOnly=Y' +
-                 '&guid=' + encodeURIComponent(ABR_GUID);
-    script.onerror = function(){
-      if (seq !== abnLookupSeq) { cleanup(); return; }
-      cleanup();
-      reject(new Error('Could not reach the ABN register'));
-    };
-    document.body.appendChild(script);
-    timeout = setTimeout(() => {
-      if (seq === abnLookupSeq) { cleanup(); reject(new Error('Name search timed out')); }
-    }, 10000);
-  });
-}
-
-function yearsBetween(isoDate) {
-  if (!isoDate) return null;
-  const d = new Date(isoDate);
-  if (isNaN(d.getTime())) return null;
-  const diff = (Date.now() - d.getTime()) / (1000 * 60 * 60 * 24 * 365.25);
-  return diff >= 0 ? diff.toFixed(1) : null;
-}
-
-function bandFromYears(yStr){
-  if (!yStr) return null;
-  const y = parseFloat(yStr);
-  if (isNaN(y)) return null;
-  if (y < 1) return 'Less than 1 year';
-  if (y < 2) return '1-2 years';
-  if (y < 5) return '2-5 years';
-  return '5+ years';
-}
-
-function escapeHtml(s){ return (s == null ? '' : String(s)).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
-
-// Render the standard ABR confirmation card from a full AbnDetails response
-function showAbrConfirmCard(data, step){
-  const entityName = data.EntityName || (data.BusinessName && data.BusinessName[0]) || '(no name on register)';
-  const years = yearsBetween(data.AbnStatusEffectiveFrom);
-  const gstText = data.Gst ? 'Yes (since ' + data.Gst.slice(0,10) + ')' : 'Not registered';
-  const location = [data.AddressState, data.AddressPostcode].filter(Boolean).join(' ') || '—';
-  const abnPretty = (data.Abn || '').replace(/(\d{2})(\d{3})(\d{3})(\d{3})/, '$1 $2 $3 $4');
-
-  // Persist for submission + auto-fill downstream
-  leadData.businessName = entityName;
-  if (data.Abn) leadData.abn = data.Abn;
-  leadData.abnLookup = {
-    entityName: entityName,
-    entityType: data.EntityTypeName || '',
-    status: data.AbnStatus || '',
-    statusEffectiveFrom: data.AbnStatusEffectiveFrom || '',
-    tradingYears: years,
-    gst: data.Gst || '',
-    addressState: data.AddressState || '',
-    addressPostcode: data.AddressPostcode || '',
-    tradingNames: (data.BusinessName || []).join(', ')
-  };
-  const band = bandFromYears(years);
-  if (band) leadData.businessLength = band;
-  if (data.Gst) leadData.gstRegistered = 'Yes';
-
-  const card = '<div class="abn-result">' +
-    '<div class="abn-result-title">✓ Found on the ABR</div>' +
-    '<div class="abn-result-name">' + escapeHtml(entityName) + '</div>' +
-    '<div class="abn-result-rows">' +
-      (abnPretty ? '<div><span>ABN</span><strong>' + escapeHtml(abnPretty) + '</strong></div>' : '') +
-      '<div><span>Status</span><strong>' + escapeHtml(data.AbnStatus || '—') + '</strong></div>' +
-      '<div><span>Trading</span><strong>' + (years ? escapeHtml(years) + ' years' : '—') + '</strong></div>' +
-      '<div><span>GST</span><strong>' + escapeHtml(gstText) + '</strong></div>' +
-      '<div><span>Entity</span><strong>' + escapeHtml(data.EntityTypeName || '—') + '</strong></div>' +
-      '<div><span>Location</span><strong>' + escapeHtml(location) + '</strong></div>' +
-    '</div></div>' +
-    'Is this your business?';
-  addMessage(card, 'bot');
-  addOptions((step && step.options) || ["Yes — that's us", "No — try a different search"]);
-}
-
-function runAbnVerify(step){
-  const raw = (leadData.businessIdentifier || leadData.abn || '').trim();
-  const onlyDigitsAndSpaces = /^[\d\s]+$/.test(raw);
-  const digits = raw.replace(/\D/g, '');
-  const isAbnNumber = onlyDigitsAndSpaces && digits.length === 11;
-
-  setInputMode('none');
-  showTyping();
-  setTimeout(() => {
-    hideTyping();
-
-    if (isAbnNumber) {
-      // ----- ABN-number lookup -----
-      addMessage('<span class="abn-lookup-pending">Checking ABN ' + escapeHtml(digits.replace(/(\d{2})(\d{3})(\d{3})(\d{3})/,'$1 $2 $3 $4')) + ' on the Australian Business Register…</span>', 'bot');
-      lookupAbn(digits).then(data => {
-        showAbrConfirmCard(data, step);
-      }).catch(err => {
-        // Couldn't verify — fall back to storing what they typed and moving on
-        leadData.abn = digits;
-        leadData.businessName = leadData.businessName || raw;
-        addMessage("I couldn't verify that ABN right now (" + escapeHtml(err && err.message ? err.message : 'error') + "). No worries — we'll confirm when we call.", 'bot');
-        setTimeout(() => goToStep('business_length'), 1200);
-      });
+  // Amount: only check on blur (NOT on input)
+  const amountInput = document.getElementById('amount');
+  const amountField = document.getElementById('amountField');
+  const amountNotice = document.getElementById('amountNotice');
+  function checkAmount() {
+    const v = parseFloat(amountInput.value);
+    if (!isNaN(v) && v > 0 && v < MIN_LOAN) {
+      amountField.classList.add('below-min');
+      amountNotice.classList.add('show');
     } else {
-      // ----- Name search -----
-      addMessage('<span class="abn-lookup-pending">Searching the ABR for "' + escapeHtml(raw) + '"…</span>', 'bot');
-      searchAbnByName(raw).then(matches => {
-        if (!matches || matches.length === 0) {
-          // No match — store what they typed and move on
-          leadData.businessName = raw;
-          addMessage("I couldn't find a match for <strong>" + escapeHtml(raw) + "</strong> on the ABR. No problem — we'll sort out the details when we call. Let's keep going.", 'bot');
-          setTimeout(() => goToStep('business_length'), 1300);
-          return;
-        }
-        // Take the top match and fetch full details
-        const top = matches[0];
-        const topAbn = (top.Abn || '').replace(/\D/g, '');
-        if (topAbn.length !== 11) {
-          leadData.businessName = top.Name || raw;
-          addMessage("I found <strong>" + escapeHtml(top.Name || raw) + "</strong> on the ABR, but couldn't load the full details. We'll confirm when we call.", 'bot');
-          setTimeout(() => goToStep('business_length'), 1300);
-          return;
-        }
-        lookupAbn(topAbn).then(data => {
-          showAbrConfirmCard(data, step);
-        }).catch(err => {
-          leadData.businessName = top.Name || raw;
-          leadData.abn = topAbn;
-          addMessage("I found <strong>" + escapeHtml(top.Name || raw) + "</strong> on the ABR, but couldn't load full details. We'll confirm when we call.", 'bot');
-          setTimeout(() => goToStep('business_length'), 1300);
-        });
-      }).catch(err => {
-        leadData.businessName = raw;
-        addMessage("I couldn't reach the ABN register right now (" + escapeHtml(err && err.message ? err.message : 'error') + "). No worries — we'll confirm when we call.", 'bot');
-        setTimeout(() => goToStep('business_length'), 1300);
-      });
+      amountField.classList.remove('below-min');
+      amountNotice.classList.remove('show');
     }
-  }, 700);
-}
+  }
+  amountInput.addEventListener('blur', checkAmount);
+  amountInput.addEventListener('change', checkAmount);
 
-function handleAnswer(answer) {
-  addMessage(answer, 'user');
+  // ABN field: show only when "Business (ABN)" selected
+  const abnField = document.getElementById('abnField');
+  const abnInput = document.getElementById('abn');
+  document.querySelectorAll('input[name="entity"]').forEach(r => {
+    r.addEventListener('change', () => {
+      const isBusiness = r.value === 'Business (ABN)' && r.checked;
+      abnField.style.display = isBusiness ? 'block' : 'none';
+      if (!isBusiness) abnInput.value = '';
+    });
+  });
+  // ====================================================================
+  // ABN LOOKUP — Australian Business Register (ABR) JSON web service
+  // --------------------------------------------------------------------
+  // Register for a free GUID at:
+  //   https://abr.business.gov.au/Tools/WebServices
+  // Then paste your GUID below. Without it, lookup is skipped silently
+  // and the form still works — it just won't pre-fill business details.
+  // ====================================================================
+  const ABR_GUID = 'e9d00f80-e531-4bec-8ef7-492c760ed15d';
 
-  if (currentStep.field) {
-    leadData[currentStep.field] = answer;
+  let abnLookupTimer = null;
+  let abnLookupData = null;
+  let abnConfirmed = false;
+  let abnLookupSeq = 0; // race-protection for stale callbacks
+
+  const abnLoading      = document.getElementById('abnLoading');
+  const abnCard         = document.getElementById('abnCard');
+  const abnEntityName   = document.getElementById('abnEntityName');
+  const abnMeta         = document.getElementById('abnMeta');
+  const abnConfirmYes   = document.getElementById('abnConfirmYes');
+  const abnConfirmNo    = document.getElementById('abnConfirmNo');
+  const abnConfirmedTick= document.getElementById('abnConfirmedTick');
+  const abnLookupError  = document.getElementById('abnLookupError');
+
+  function resetAbnLookupUI() {
+    abnLoading.style.display     = 'none';
+    abnCard.style.display        = 'none';
+    abnLookupError.style.display = 'none';
+    abnConfirmedTick.style.display = 'none';
+    document.querySelector('.abn-confirm').style.display = 'block';
+    abnLookupData = null;
+    abnConfirmed = false;
   }
 
-  const nextId = currentStep.next ? currentStep.next(answer) : null;
-  if (nextId) {
-    setTimeout(() => goToStep(nextId), 300);
+  function yearsBetween(isoDate) {
+    if (!isoDate) return null;
+    const d = new Date(isoDate);
+    if (isNaN(d.getTime())) return null;
+    const diff = (Date.now() - d.getTime()) / (1000 * 60 * 60 * 24 * 365.25);
+    return diff >= 0 ? diff.toFixed(1) : null;
   }
-}
 
-function handleSend() {
-  const value = textInput.value.trim();
-  if (!value) return;
-
-  if (currentStep && currentStep.validate) {
-    const error = currentStep.validate(value);
-    if (error) {
-      addMessage(error, 'bot');
+  function performAbnLookup(abnDigits) {
+    if (!ABR_GUID || ABR_GUID === 'YOUR-ABR-GUID-HERE') {
+      // Lookup not configured yet — fail silently
+      console.warn('ABR GUID not configured. Skipping ABN lookup.');
       return;
     }
+    resetAbnLookupUI();
+    abnLoading.style.display = 'flex';
+    const seq = ++abnLookupSeq;
+
+    const cbName = '__abnCb_' + seq;
+    window[cbName] = function(data) {
+      if (seq !== abnLookupSeq) { delete window[cbName]; return; } // stale
+      abnLoading.style.display = 'none';
+      handleAbnResponse(data);
+      cleanup();
+    };
+
+    const script = document.createElement('script');
+    script.src = 'https://abr.business.gov.au/json/AbnDetails.aspx?callback=' +
+                 encodeURIComponent(cbName) +
+                 '&abn=' + encodeURIComponent(abnDigits) +
+                 '&guid=' + encodeURIComponent(ABR_GUID);
+    script.onerror = function() {
+      if (seq !== abnLookupSeq) { cleanup(); return; }
+      abnLoading.style.display = 'none';
+      abnLookupError.textContent = "Couldn't reach the ABN register right now. We'll verify manually when we call.";
+      abnLookupError.style.display = 'block';
+      cleanup();
+    };
+
+    function cleanup() {
+      try { delete window[cbName]; } catch(e) { window[cbName] = undefined; }
+      if (script.parentNode) script.parentNode.removeChild(script);
+    }
+    document.body.appendChild(script);
+
+    // Safety timeout (10s)
+    setTimeout(() => {
+      if (seq === abnLookupSeq && abnLoading.style.display !== 'none') {
+        abnLoading.style.display = 'none';
+        abnLookupError.textContent = "ABN lookup timed out. We'll verify manually when we call.";
+        abnLookupError.style.display = 'block';
+        cleanup();
+      }
+    }, 10000);
   }
 
-  textInput.value = '';
-  setInputMode('none');
-  handleAnswer(value);
-}
+  function handleAbnResponse(data) {
+    if (!data || data.Message) {
+      abnLookupError.textContent = (data && data.Message) || "We couldn't find that ABN. Please check the number.";
+      abnLookupError.style.display = 'block';
+      return;
+    }
+    abnLookupData = data;
 
-// ========== LEAD SUBMISSION (Google Form stub) ==========
-// TODO: replace GOOGLE_FORM_URL with the formResponse URL of your Google Form,
-//       and map each leadData key to its entry.XXXXXXXXX ID below.
-// To find entry IDs: open your Google Form, View Source, search for "entry."
-// or build a pre-filled link and copy the entry IDs from the URL.
-const GOOGLE_FORM_URL = 'https://docs.google.com/forms/d/e/REPLACE_FORM_ID/formResponse';
-const FORM_FIELD_MAP = {
-  firstName:        'entry.111111111',
-  lastName:         'entry.222222222',
-  email:            'entry.333333333',
-  phone:            'entry.444444444',
-  state:            'entry.555555555',
-  enquiryType:      'entry.666666666',
-  businessName:     'entry.777777777',
-  // What the user originally typed in the combined "ABN or business name" step
-  businessIdentifier: 'entry.778778778',
-  abn:              'entry.888888888',
-  // ABR verification result — captured automatically from the Australian Business Register lookup
-  abnVerified:      'entry.881881881',  // 'Yes' if the user confirmed the ABR match, else ''
-  abnEntityName:    'entry.882882882',  // legal entity name from ABR
-  abnEntityType:    'entry.883883883',  // company type / sole trader / etc
-  abnStatus:        'entry.884884884',  // Active / Cancelled
-  abnTradingYears:  'entry.885885885',  // years since ABN registered
-  abnGstStatus:     'entry.886886886',  // GST registration date (or empty if not registered)
-  abnTradingNames:  'entry.887887887',  // any registered business names, comma-separated
-  businessLength:   'entry.999999999',
-  gstRegistered:    'entry.101010101',
-  assetType:        'entry.121212121',
-  assetTypeOther:   'entry.131313131',
-  newOrUsed:        'entry.141414141',
-  assetFound:       'entry.151515151',
-  purchasePrice:    'entry.161616161',
-  hasDeposit:       'entry.171717171',
-  depositAmount:    'entry.181818181',
-  timeframe:        'entry.191919191',
-  employmentStatus: 'entry.202020202',
-  creditHistory:    'entry.212121212',
-  existingFinance:  'entry.232323232',
-  leadSource:       'entry.242424242',
-  referrer:         'entry.252525252',
-  preferredDay:     'entry.262626262',
-  preferredDate:    'entry.272727272',
-  preferredTime:    'entry.282828282',
-  notes:            'entry.292929292',
-  gclid:            'entry.303030303',
-  source:           'entry.313131313',
-  landingPage:      'entry.323232323'
-};
+    const name = data.EntityName || (data.BusinessName && data.BusinessName[0]) || '(no name on register)';
+    abnEntityName.textContent = name;
 
-function submitLead(data){
-  // Flatten the abnLookup object onto the lead so the field-map can pick it up
-  if (data.abnLookup) {
-    data.abnVerified     = 'Yes';
-    data.abnEntityName   = data.abnLookup.entityName || '';
-    data.abnEntityType   = data.abnLookup.entityType || '';
-    data.abnStatus       = data.abnLookup.status || '';
-    data.abnTradingYears = data.abnLookup.tradingYears || '';
-    data.abnGstStatus    = data.abnLookup.gst || '';
-    data.abnTradingNames = data.abnLookup.tradingNames || '';
-  }
-  // Defensive defaults for the new combined Business path
-  if (data.enquiryType === 'Business') {
-    if (!data.employmentStatus) data.employmentStatus = 'Self-employed (ABN)';
-    if (!data.businessName && data.businessIdentifier) data.businessName = data.businessIdentifier;
+    const years = yearsBetween(data.AbnStatusEffectiveFrom);
+    const tradingLine = years
+      ? years + ' year' + (years === '1.0' ? '' : 's') + ' (since ' + (data.AbnStatusEffectiveFrom || '').slice(0,10) + ')'
+      : (data.AbnStatusEffectiveFrom || 'Unknown');
+
+    const tradingNames = (data.BusinessName && data.BusinessName.length)
+      ? data.BusinessName.join(', ')
+      : '—';
+
+    abnMeta.innerHTML =
+      '<div class="row"><span class="lbl">Status</span><span class="val">' + (data.AbnStatus || '—') + '</span></div>' +
+      '<div class="row"><span class="lbl">Trading</span><span class="val">' + tradingLine + '</span></div>' +
+      '<div class="row"><span class="lbl">Entity type</span><span class="val">' + (data.EntityTypeName || '—') + '</span></div>' +
+      '<div class="row"><span class="lbl">GST</span><span class="val">' + (data.Gst ? 'Registered (' + data.Gst.slice(0,10) + ')' : 'Not registered') + '</span></div>' +
+      '<div class="row"><span class="lbl">Trading names</span><span class="val">' + tradingNames + '</span></div>' +
+      '<div class="row"><span class="lbl">Location</span><span class="val">' + ([data.AddressState, data.AddressPostcode].filter(Boolean).join(' ') || '—') + '</span></div>';
+
+    abnCard.style.display = 'block';
   }
 
-  // Log to console for debugging (remove in production if desired)
-  console.log('=== LEAD DATA ===', data);
-
-  // If form URL isn't configured yet, skip the network call but still flow forward
-  if (GOOGLE_FORM_URL.indexOf('REPLACE_FORM_ID') !== -1) {
-    console.warn('Google Form not configured. Set GOOGLE_FORM_URL + FORM_FIELD_MAP in apply.html.');
-    return;
-  }
-
-  // Build form-encoded body and POST in no-cors mode (Google Forms doesn't return CORS headers)
-  var body = new URLSearchParams();
-  Object.keys(FORM_FIELD_MAP).forEach(function(key){
-    if (data[key] != null && data[key] !== '') body.append(FORM_FIELD_MAP[key], data[key]);
+  abnConfirmYes.addEventListener('click', () => {
+    abnConfirmed = true;
+    document.querySelector('.abn-confirm').style.display = 'none';
+    abnConfirmedTick.style.display = 'block';
+    abnField.classList.remove('error');
   });
-  fetch(GOOGLE_FORM_URL, {
-    method: 'POST',
-    mode: 'no-cors',
-    headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-    body: body.toString()
-  }).catch(function(err){ console.error('Form submit error:', err); });
-}
+  abnConfirmNo.addEventListener('click', () => {
+    abnConfirmed = false;
+    abnInput.value = '';
+    resetAbnLookupUI();
+    abnInput.focus();
+  });
 
-// ========== START ==========
-// Capture marketing attribution on load (preserved through to submit)
-(function(){
-  try{
-    var p = new URLSearchParams(location.search);
-    var g = p.get('gclid');
-    if (g) localStorage.setItem('gclid', g);
-  }catch(e){}
+  abnInput.addEventListener('input', () => {
+    const digits = abnInput.value.replace(/\D/g, '').slice(0, 11);
+    let f = digits;
+    if (digits.length > 2) f = digits.slice(0,2) + ' ' + digits.slice(2);
+    if (digits.length > 5) f = digits.slice(0,2) + ' ' + digits.slice(2,5) + ' ' + digits.slice(5);
+    if (digits.length > 8) f = digits.slice(0,2) + ' ' + digits.slice(2,5) + ' ' + digits.slice(5,8) + ' ' + digits.slice(8);
+    abnInput.value = f;
+
+    // Reset confirmation if they edit the ABN
+    if (abnConfirmed || abnLookupData) {
+      resetAbnLookupUI();
+    }
+
+    // Trigger lookup once 11 digits are entered (debounced)
+    if (abnLookupTimer) clearTimeout(abnLookupTimer);
+    if (digits.length === 11) {
+      abnLookupTimer = setTimeout(() => performAbnLookup(digits), 350);
+    }
+  });
+
+  // Residency: visa sub-field + blocking notice for "Other / Not listed"
+  const visaWrap = document.getElementById('visaWrap');
+  const visaSelect = document.getElementById('visa');
+  const visaNotice = document.getElementById('visaNotice');
+  const visaExpiryWrap = document.getElementById('visaExpiryWrap');
+  const visaExpiryInput = document.getElementById('visaExpiry');
+  const visaExpiryNotice = document.getElementById('visaExpiryNotice');
+  const VISA_MIN_MONTHS = 12;
+
+  function monthsUntil(dateStr) {
+    if (!dateStr) return null;
+    const expiry = new Date(dateStr);
+    if (isNaN(expiry.getTime())) return null;
+    const today = new Date();
+    today.setHours(0,0,0,0);
+    const diffMs = expiry.getTime() - today.getTime();
+    return diffMs / (1000 * 60 * 60 * 24 * 30.4375);
+  }
+
+  function updateVisaExpiryNotice() {
+    const months = monthsUntil(visaExpiryInput.value);
+    if (months !== null && months < VISA_MIN_MONTHS) {
+      visaExpiryNotice.classList.add('show');
+    } else {
+      visaExpiryNotice.classList.remove('show');
+    }
+  }
+
+  function updateVisaNotice() {
+    const residencyVal = (document.querySelector('input[name="residency"]:checked') || {}).value;
+    // Other / Not listed = blocking
+    if (residencyVal === 'On a Visa' && visaSelect.value === 'OTHER') {
+      visaNotice.classList.add('show');
+      visaExpiryWrap.style.display = 'none';
+    } else {
+      visaNotice.classList.remove('show');
+      // Show expiry date entry once an acceptable visa is selected
+      if (residencyVal === 'On a Visa' && visaSelect.value && visaSelect.value !== 'OTHER') {
+        visaExpiryWrap.style.display = 'block';
+      } else {
+        visaExpiryWrap.style.display = 'none';
+      }
+    }
+    updateVisaExpiryNotice();
+  }
+
+  document.querySelectorAll('input[name="residency"]').forEach(r => {
+    r.addEventListener('change', () => {
+      if (!r.checked) return;
+      if (r.value === 'On a Visa') {
+        visaWrap.style.display = 'block';
+      } else {
+        visaWrap.style.display = 'none';
+        visaSelect.value = '';
+        visaExpiryInput.value = '';
+      }
+      updateVisaNotice();
+    });
+  });
+  visaSelect.addEventListener('change', updateVisaNotice);
+  visaExpiryInput.addEventListener('change', updateVisaExpiryNotice);
+
+  // Set min date on the expiry picker so users can't pick a past date
+  (function() {
+    const today = new Date();
+    const yyyy = today.getFullYear();
+    const mm = String(today.getMonth() + 1).padStart(2, '0');
+    const dd = String(today.getDate()).padStart(2, '0');
+    visaExpiryInput.min = yyyy + '-' + mm + '-' + dd;
+  })();
+
+  // Income notice + Centrelink percentage sub-field
+  const incomeNotice = document.getElementById('incomeNotice');
+  const centrelinkPctWrap = document.getElementById('centrelinkPctWrap');
+  const centrelinkPctSelect = document.getElementById('centrelinkPct');
+  const CENTRELINK_BLOCK_VALUES = new Set(['51–75%', 'More than 75%']);
+
+  function updateIncomeNotice() {
+    const incomeVal = (document.querySelector('input[name="income"]:checked') || {}).value;
+    if (incomeVal === 'Centrelink only') {
+      incomeNotice.classList.add('show');
+    } else if (incomeVal === 'Employed + Centrelink' && CENTRELINK_BLOCK_VALUES.has(centrelinkPctSelect.value)) {
+      incomeNotice.classList.add('show');
+    } else {
+      incomeNotice.classList.remove('show');
+    }
+  }
+
+  document.querySelectorAll('input[name="income"]').forEach(r => {
+    r.addEventListener('change', () => {
+      if (!r.checked) return;
+      // Show the percentage dropdown only for Employed + Centrelink
+      if (r.value === 'Employed + Centrelink') {
+        centrelinkPctWrap.style.display = 'block';
+      } else {
+        centrelinkPctWrap.style.display = 'none';
+        centrelinkPctSelect.value = '';
+      }
+      updateIncomeNotice();
+    });
+  });
+
+  centrelinkPctSelect.addEventListener('change', updateIncomeNotice);
+
+  // Living: investment-property sub-question for renters/boarders
+  const investmentWrap = document.getElementById('investmentWrap');
+  document.querySelectorAll('input[name="living"]').forEach(r => {
+    r.addEventListener('change', () => {
+      if (!r.checked) return;
+      if (r.value === 'Renting' || r.value === 'Boarding') {
+        investmentWrap.style.display = 'block';
+      } else {
+        investmentWrap.style.display = 'none';
+        document.querySelectorAll('input[name="investmentProperty"]').forEach(i => { i.checked = false; });
+        document.getElementById('investmentError').style.display = 'none';
+      }
+    });
+  });
+
+  // Credit notice (Defaults = informational, NOT blocking)
+  const creditNotice = document.getElementById('creditNotice');
+  document.querySelectorAll('input[name="credit"]').forEach(r => {
+    r.addEventListener('change', () => {
+      if (r.checked && r.value === 'Has defaults') {
+        creditNotice.classList.add('show');
+      } else if (r.checked) {
+        creditNotice.classList.remove('show');
+      }
+    });
+  });
+
+  // Contact method notice — shown when Text message or Email is chosen
+  const contactMethodNotice = document.getElementById('contactMethodNotice');
+  document.querySelectorAll('input[name="contactMethod"]').forEach(r => {
+    r.addEventListener('change', () => {
+      if (r.checked && (r.value === 'Text message' || r.value === 'Email')) {
+        contactMethodNotice.classList.add('show');
+      } else if (r.checked) {
+        contactMethodNotice.classList.remove('show');
+      }
+    });
+  });
+
+  // Step navigation
+  function showStep(n) {
+    steps.forEach(s => s.classList.toggle('active', +s.dataset.step === n));
+    progressSteps.forEach(p => {
+      const sn = +p.dataset.step;
+      p.classList.toggle('active', sn === n);
+      p.classList.toggle('complete', sn < n);
+    });
+    stepLabel.textContent = stepLabels[n];
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function validateStep(n) {
+    let valid = true;
+    if (n === 1) {
+      if (!assetInput.value) {
+        document.getElementById('assetError').style.display = 'block';
+        valid = false;
+      }
+    }
+    if (n === 2) {
+      checkAmount();
+      const amtVal = parseFloat(form.amount.value);
+      const amountOk = !isNaN(amtVal) && amtVal >= MIN_LOAN;
+      const checks = [
+        { field: form.amount, ok: amountOk },
+        { field: form.timeframe, ok: Array.from(form.timeframe).some(r => r.checked) },
+        { field: form.entity, ok: Array.from(form.entity).some(r => r.checked) }
+      ];
+      checks.forEach(c => {
+        const fieldEl = (c.field.length !== undefined ? c.field[0] : c.field).closest('.field');
+        if (fieldEl) fieldEl.classList.toggle('error', !c.ok);
+        if (!c.ok) valid = false;
+      });
+      const entityVal = (form.querySelector('input[name=entity]:checked') || {}).value;
+      if (entityVal === 'Business (ABN)') {
+        const abnDigits = abnInput.value.replace(/\D/g, '');
+        const digitsOk = abnDigits.length === 11;
+        // If the lookup found a match, also require they confirm "Yes, that's us"
+        const lookupOk = !abnLookupData || abnConfirmed;
+        const abnOk = digitsOk && lookupOk;
+        abnField.classList.toggle('error', !abnOk);
+        if (!digitsOk) {
+          abnField.querySelector('.error-msg').textContent = 'Please enter a valid 11-digit ABN.';
+        } else if (!lookupOk) {
+          abnField.querySelector('.error-msg').textContent = 'Please confirm the business shown above is yours.';
+        }
+        if (!abnOk) valid = false;
+      } else {
+        abnField.classList.remove('error');
+      }
+    }
+    if (n === 3) {
+      // Residency
+      const residencyVal = (form.querySelector('input[name=residency]:checked') || {}).value;
+      const residencyFieldEl = document.getElementById('residencyField');
+      const visaError = document.getElementById('visaError');
+      residencyFieldEl.classList.remove('error');
+      visaError.style.display = 'none';
+      if (!residencyVal) {
+        residencyFieldEl.classList.add('error');
+        valid = false;
+      } else if (residencyVal === 'On a Visa') {
+        if (!visaSelect.value) {
+          visaError.style.display = 'block';
+          valid = false;
+        } else if (visaSelect.value === 'OTHER') {
+          // Unacceptable visa — block
+          valid = false;
+        } else {
+          // Acceptable visa — require expiry date with at least 12 months remaining
+          const visaExpiryError = document.getElementById('visaExpiryError');
+          visaExpiryError.style.display = 'none';
+          const months = monthsUntil(visaExpiryInput.value);
+          if (months === null) {
+            visaExpiryError.style.display = 'block';
+            valid = false;
+          } else if (months < VISA_MIN_MONTHS) {
+            // Less than 12 months remaining — block
+            valid = false;
+          }
+        }
+      }
+
+      const incomeVal = (form.querySelector('input[name=income]:checked') || {}).value;
+      const pctVal = centrelinkPctSelect.value;
+      const incomeFieldEl = document.getElementById('incomeField');
+
+      // Reset state
+      incomeFieldEl.classList.remove('error');
+      document.getElementById('centrelinkPctError').style.display = 'none';
+
+      let incomeOk = !!incomeVal;
+      if (!incomeVal) {
+        incomeFieldEl.classList.add('error');
+        incomeOk = false;
+      } else if (incomeVal === 'Centrelink only') {
+        incomeOk = false; // blocked
+      } else if (incomeVal === 'Employed + Centrelink') {
+        if (!pctVal) {
+          // require a percentage selection
+          document.getElementById('centrelinkPctError').style.display = 'block';
+          incomeOk = false;
+        } else if (CENTRELINK_BLOCK_VALUES.has(pctVal)) {
+          incomeOk = false; // blocked
+        }
+      }
+      if (!incomeOk) valid = false;
+
+      const creditVal = (form.querySelector('input[name=credit]:checked') || {}).value;
+      const creditFieldEl = document.getElementById('creditField');
+      creditFieldEl.classList.toggle('error', !creditVal);
+      if (!creditVal) valid = false;
+
+      const livingVal = (form.querySelector('input[name=living]:checked') || {}).value;
+      const livingFieldEl = document.getElementById('livingField');
+      livingFieldEl.classList.toggle('error', !livingVal);
+      if (!livingVal) valid = false;
+
+      // If renting or boarding, require an answer to "Do you own an investment property?"
+      const investmentError = document.getElementById('investmentError');
+      investmentError.style.display = 'none';
+      if (livingVal === 'Renting' || livingVal === 'Boarding') {
+        const ipVal = (form.querySelector('input[name=investmentProperty]:checked') || {}).value;
+        if (!ipVal) {
+          investmentError.style.display = 'block';
+          valid = false;
+        }
+      }
+    }
+    if (n === 4) {
+      const checks = [
+        { el: form.firstName, ok: form.firstName.value.trim().length > 0 },
+        { el: form.surname, ok: form.surname.value.trim().length > 0 },
+        { el: form.mobile, ok: /^[\d\s+()-]{8,}$/.test(form.mobile.value.trim()) },
+        { el: form.email, ok: /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email.value.trim()) },
+        { el: form.state, ok: !!form.state.value }
+      ];
+      checks.forEach(c => {
+        c.el.closest('.field').classList.toggle('error', !c.ok);
+        if (!c.ok) valid = false;
+      });
+      const contactMethodVal = (form.querySelector('input[name=contactMethod]:checked') || {}).value;
+      const contactMethodFieldEl = document.getElementById('contactMethodField');
+      contactMethodFieldEl.classList.toggle('error', !contactMethodVal);
+      if (!contactMethodVal) valid = false;
+    }
+    return valid;
+  }
+
+  // Qualify modal — shown when transitioning from Step 3 to Step 4
+  const qualifyModal     = document.getElementById('qualifyModal');
+  const qualifyIcon      = document.getElementById('qualifyIcon');
+  const qualifyTitle     = document.getElementById('qualifyTitle');
+  const qualifyText      = document.getElementById('qualifyText');
+  const qualifyList      = document.getElementById('qualifyList');
+  const qualifyFooter    = document.getElementById('qualifyFooter');
+  const qualifyContinue  = document.getElementById('qualifyContinue');
+
+  function buildQualifyModal() {
+    const living = (form.querySelector('input[name=living]:checked') || {}).value;
+    const investmentProperty = (form.querySelector('input[name=investmentProperty]:checked') || {}).value;
+    // Top tier: home owners (any kind) OR renters/boarders who own an investment property
+    const isHomeOwner = (living === 'Home owner' || living === 'Mortgaged') ||
+                        ((living === 'Renting' || living === 'Boarding') && investmentProperty === 'Yes');
+
+    if (isHomeOwner) {
+      qualifyIcon.textContent = '⭐';
+      qualifyTitle.textContent = "You've scored in our top tier!";
+      qualifyText.innerHTML =
+        'Home owners are our <strong>most valued clients</strong> — and your profile sits in the strongest borrower tier we work with. ' +
+        'That means our senior brokers will roll out the red carpet for you.';
+      qualifyList.innerHTML =
+        '<li><strong>Priority handling</strong> from our senior broker team</li>' +
+        '<li>Access to our <strong>sharpest lender panel</strong> and rates</li>' +
+        '<li><strong>Off-market deals</strong> not publicly advertised</li>' +
+        '<li><strong>Fastest settlement times</strong> available</li>';
+      qualifyFooter.innerHTML = "Just a few quick details and one of our brokers will be in touch to lock in the best deal for you.";
+    } else {
+      qualifyIcon.textContent = '🎉';
+      qualifyTitle.textContent = "You're pre-qualified!";
+      qualifyText.innerHTML =
+        'Based on your profile, we&rsquo;ve matched you to <strong>4,095 products</strong> across our 63+ bank and non-bank lenders.';
+      qualifyList.innerHTML =
+        '<li>Multiple lender options tailored to your situation</li>' +
+        '<li>Our brokers do the legwork for you</li>' +
+        '<li>Sharper rates than going direct to a single bank</li>' +
+        '<li>One application, dozens of options compared</li>';
+      qualifyFooter.innerHTML = "Just a few quick details and we&rsquo;ll be in touch with options that suit you best.";
+    }
+  }
+
+  let __pendingNextStep = null;
+  function openQualifyModal(nextStep) {
+    buildQualifyModal();
+    __pendingNextStep = nextStep;
+    qualifyModal.style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+  }
+  function closeQualifyModal() {
+    qualifyModal.style.display = 'none';
+    document.body.style.overflow = '';
+    if (__pendingNextStep) {
+      showStep(__pendingNextStep);
+      __pendingNextStep = null;
+    }
+  }
+  qualifyContinue.addEventListener('click', closeQualifyModal);
+  qualifyModal.querySelector('.qualify-modal-backdrop').addEventListener('click', closeQualifyModal);
+
+  document.querySelectorAll('[data-next]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const current = +btn.closest('.step').dataset.step;
+      const next = +btn.dataset.next;
+      if (!validateStep(current)) return;
+      if (current === 3 && next === 4) {
+        openQualifyModal(next);
+      } else {
+        showStep(next);
+      }
+    });
+  });
+  document.querySelectorAll('[data-back]').forEach(btn => {
+    btn.addEventListener('click', () => showStep(+btn.dataset.back));
+  });
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if (!validateStep(4)) return;
+
+    const data = {
+      assetType: assetInput.value,
+      amount: form.amount.value,
+      timeframe: (form.querySelector('input[name=timeframe]:checked') || {}).value,
+      entity: (form.querySelector('input[name=entity]:checked') || {}).value,
+      abn: abnInput.value.replace(/\D/g, '') || null,
+      abnLookup: abnLookupData ? {
+        entityName: abnLookupData.EntityName || null,
+        businessNames: abnLookupData.BusinessName || [],
+        status: abnLookupData.AbnStatus || null,
+        statusEffectiveFrom: abnLookupData.AbnStatusEffectiveFrom || null,
+        entityType: abnLookupData.EntityTypeName || null,
+        gst: abnLookupData.Gst || null,
+        addressState: abnLookupData.AddressState || null,
+        addressPostcode: abnLookupData.AddressPostcode || null,
+        userConfirmed: abnConfirmed
+      } : null,
+      residency: (form.querySelector('input[name=residency]:checked') || {}).value,
+      visaSubclass: visaSelect.value || null,
+      visaExpiry: visaExpiryInput.value || null,
+      income: (form.querySelector('input[name=income]:checked') || {}).value,
+      centrelinkPct: centrelinkPctSelect.value || null,
+      credit: (form.querySelector('input[name=credit]:checked') || {}).value,
+      living: (form.querySelector('input[name=living]:checked') || {}).value,
+      investmentProperty: (form.querySelector('input[name=investmentProperty]:checked') || {}).value || null,
+      firstName: form.firstName.value.trim(),
+      surname: form.surname.value.trim(),
+      mobile: form.mobile.value.trim(),
+      email: form.email.value.trim(),
+      state: form.state.value,
+      contactMethod: (form.querySelector('input[name=contactMethod]:checked') || {}).value,
+      submittedAt: new Date().toISOString(),
+      source: (window.location.ancestorOrigins && window.location.ancestorOrigins[0]) || document.referrer || window.location.href
+    };
+
+    // Marketing attribution — pulled from URL or persisted localStorage
+    try {
+      const params = new URLSearchParams(location.search);
+      data.gclid = params.get('gclid') || localStorage.getItem('gclid') || '';
+      data.landingPage = params.get('from') || '';
+      data.source = data.source || document.referrer || 'direct';
+    } catch(e) {}
+
+    const submitBtn = document.getElementById('submitBtn');
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Sending...';
+
+    try {
+      // Submit to Google Form (no-cors so we can't read the response, but Forms still accepts it)
+      submitToGoogleForm(data);
+
+      // Fire Google Ads conversion event before redirect
+      if (typeof gtag === 'function') {
+        gtag('event', 'conversion', {
+          'send_to': 'AW-XXXXXXXXXX/AAAAAAAA',
+          'value': 1.0,
+          'currency': 'AUD'
+        });
+      }
+
+      console.log('Lead captured:', data);
+
+      // Notify iframe parent (legacy support if embedded)
+      if (window.parent !== window) {
+        window.parent.postMessage({ type: 'afs-lead-submitted', data }, '*');
+      }
+
+      // Give the form post + conversion a brief moment, then redirect
+      await new Promise(r => setTimeout(r, 600));
+      window.location.href = 'thank-you.html';
+    } catch (err) {
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Submit Enquiry';
+      alert('Something went wrong. Please try again or call us directly on 1300 235 255.');
+    }
+  });
+
+  // ================================================================
+  // GOOGLE FORM SUBMISSION (stub — wire up your form ID + entry IDs)
+  // ----------------------------------------------------------------
+  // 1. Build a Google Form with one question per field below
+  // 2. Find the entry IDs (View Source on /viewform, search "entry.")
+  //    or use Get Pre-filled Link from the 3-dot menu
+  // 3. Paste the form's /formResponse URL + entry IDs below
+  // ================================================================
+  const GOOGLE_FORM_URL = 'https://docs.google.com/forms/d/e/REPLACE_FORM_ID/formResponse';
+  const FORM_FIELD_MAP = {
+    // Asset / loan
+    assetType:        'entry.100100100',
+    amount:           'entry.100100101',
+    timeframe:        'entry.100100102',
+    // Entity / ABN
+    entity:           'entry.100100103',
+    abn:              'entry.100100104',
+    abnEntityName:    'entry.100100105',
+    abnEntityType:    'entry.100100106',
+    abnStatus:        'entry.100100107',
+    abnTradingFrom:   'entry.100100108',
+    abnGst:           'entry.100100109',
+    abnTradingNames:  'entry.100100110',
+    abnState:         'entry.100100111',
+    abnPostcode:      'entry.100100112',
+    abnConfirmed:     'entry.100100113',
+    // Residency
+    residency:        'entry.100100114',
+    visaSubclass:     'entry.100100115',
+    visaExpiry:       'entry.100100116',
+    // Income & credit
+    income:           'entry.100100117',
+    centrelinkPct:    'entry.100100118',
+    credit:           'entry.100100119',
+    living:           'entry.100100120',
+    investmentProperty:'entry.100100121',
+    // Contact
+    firstName:        'entry.100100122',
+    surname:          'entry.100100123',
+    mobile:           'entry.100100124',
+    email:            'entry.100100125',
+    state:            'entry.100100126',
+    contactMethod:    'entry.100100127',
+    // Attribution
+    gclid:            'entry.100100128',
+    landingPage:      'entry.100100129',
+    source:           'entry.100100130',
+    submittedAt:      'entry.100100131'
+  };
+
+  function submitToGoogleForm(data) {
+    // Flatten abnLookup into top-level fields so the field map can pick them up
+    if (data.abnLookup) {
+      data.abnEntityName   = data.abnLookup.entityName || '';
+      data.abnEntityType   = data.abnLookup.entityType || '';
+      data.abnStatus       = data.abnLookup.status || '';
+      data.abnTradingFrom  = data.abnLookup.statusEffectiveFrom || '';
+      data.abnGst          = data.abnLookup.gst || '';
+      data.abnTradingNames = (data.abnLookup.businessNames || []).join(', ');
+      data.abnState        = data.abnLookup.addressState || '';
+      data.abnPostcode     = data.abnLookup.addressPostcode || '';
+      data.abnConfirmed    = data.abnLookup.userConfirmed ? 'Yes' : 'No';
+    }
+
+    if (GOOGLE_FORM_URL.indexOf('REPLACE_FORM_ID') !== -1) {
+      console.warn('Google Form not configured. Set GOOGLE_FORM_URL + entry IDs in apply.html.');
+      return;
+    }
+
+    const body = new URLSearchParams();
+    Object.keys(FORM_FIELD_MAP).forEach(key => {
+      const v = data[key];
+      if (v != null && v !== '') body.append(FORM_FIELD_MAP[key], v);
+    });
+
+    // no-cors: Google Forms doesn't return CORS headers but still accepts the POST
+    fetch(GOOGLE_FORM_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: body.toString()
+    }).catch(err => console.error('Form submit error:', err));
+  }
+
+  // Capture gclid on page load and persist for later submission
+  (function captureGclid(){
+    try {
+      const g = new URLSearchParams(location.search).get('gclid');
+      if (g) localStorage.setItem('gclid', g);
+    } catch(e) {}
+  })();
+
+  // Pre-set assetType from URL ?from= param (set by the landing-page CTAs)
+  (function presetAssetType(){
+    try {
+      const from = new URLSearchParams(location.search).get('from') || '';
+      const map = {
+        'car-finance':  'Car / Vehicle finance',
+        'abn-business': 'Business / ABN asset finance'
+      };
+      const v = map[from] || (from ? from : 'Vehicle finance');
+      if (assetInput && !assetInput.value) assetInput.value = v;
+    } catch(e) {}
+  })();
 })();
-
-goToStep('welcome');
 </script>
 
 </body>

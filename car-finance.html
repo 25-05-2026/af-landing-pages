@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="icon" href="https://www.acquiredfinance.com/wp-content/uploads/2023/08/logo.png">
+<link rel="icon" href="branding/logo.png">
 
 <!-- GOOGLE ADS CONVERSION TRACKING — replace AW-XXXXXXXXXX -->
 <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=AW-XXXXXXXXXX"></script>
@@ -106,6 +106,11 @@
   .hero h1 .hl{color:var(--green);background:linear-gradient(180deg,transparent 60%,rgba(141,198,63,.18) 60%);padding:0 .12em}
   .hero-sub{font-size:1.2rem;color:#C8D0E0;max-width:620px;margin:0 auto 30px;line-height:1.5}
   .hero-cta-row{display:flex;gap:14px;flex-wrap:wrap;justify-content:center;margin-bottom:30px}
+  .hero-cred{display:flex;align-items:center;justify-content:center;gap:22px;flex-wrap:wrap;margin:0 0 26px;position:relative;z-index:3}
+  .hero-cred img{height:78px;width:auto;filter:drop-shadow(0 8px 18px rgba(0,0,0,.35));transition:transform .2s}
+  .hero-cred img:hover{transform:translateY(-3px) scale(1.04)}
+  .hero-cred .cred-divider{width:1px;height:46px;background:rgba(255,255,255,.18)}
+  @media (max-width:600px){.hero-cred{gap:14px}.hero-cred img{height:62px}.hero-cred .cred-divider{display:none}}
   .hero-stats{display:flex;gap:36px;flex-wrap:wrap;justify-content:center;color:#D9E0EE;font-size:.95rem;font-weight:500}
   .hero-stat{display:flex;align-items:center;gap:8px}
   .hero-stat svg{width:18px;height:18px;fill:var(--green);flex:none}
@@ -283,7 +288,7 @@
 </style>
 
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"FinancialService","name":"Acquired Financial Services","image":"https://www.acquiredfinance.com/wp-content/uploads/2023/08/logo.png","url":"https://acquiredfinance.com","telephone":"+61-1300-235-255","address":{"@type":"PostalAddress","streetAddress":"3/114 Colemans Road","addressLocality":"Carrum Downs","addressRegion":"VIC","postalCode":"3934","addressCountry":"AU"},"areaServed":"AU","description":"Car &amp; lifestyle asset finance brokers. 63+ Australian lenders. ACL 488607."}
+{"@context":"https://schema.org","@type":"FinancialService","name":"Acquired Financial Services","image":"branding/logo.png","url":"https://acquiredfinance.com","telephone":"+61-1300-235-255","address":{"@type":"PostalAddress","streetAddress":"3/114 Colemans Road","addressLocality":"Carrum Downs","addressRegion":"VIC","postalCode":"3934","addressCountry":"AU"},"areaServed":"AU","description":"Car &amp; lifestyle asset finance brokers. 63+ Australian lenders. ACL 488607."}
 </script>
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
@@ -300,7 +305,7 @@
 <header class="topbar">
   <div class="topbar-inner">
     <a href="#" class="logo" aria-label="Acquired Financial Services">
-      <img src="https://www.acquiredfinance.com/wp-content/uploads/2023/08/logo.png" alt="Acquired Financial Services">
+      <img src="branding/logo.png" alt="Acquired Financial Services">
     </a>
     <div class="topbar-cta">
       <a href="tel:1300235255" class="tel-pill" aria-label="Call 1300 235 255">
@@ -326,6 +331,12 @@
         1300 235 255
       </a>
     </div>
+    <div class="hero-cred" aria-label="Awards and ratings">
+      <img src="branding/google-5-star.png" alt="5-Star Google Rating" loading="lazy" decoding="async">
+      <div class="cred-divider" aria-hidden="true"></div>
+      <img src="branding/award-fintelligence.png" alt="Winner — Best Commercial Brokerage VIC/TAS, Fintelligence Awards 2023" loading="lazy" decoding="async">
+    </div>
+
     <div class="hero-stats">
       <div class="hero-stat"><svg viewBox="0 0 24 24"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg> Approval in as little as <strong>1 hour</strong></div>
       <div class="hero-stat"><svg viewBox="0 0 24 24"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg> <strong>63+</strong> banks &amp; non-banks</div>
@@ -613,7 +624,7 @@
 <footer>
   <div class="wrap">
     <div>
-      <img src="https://www.acquiredfinance.com/wp-content/uploads/2023/08/logo.png" alt="Acquired Financial Services" style="height:42px;margin-bottom:14px;filter:brightness(0) invert(1)">
+      <img src="branding/logo.png" alt="Acquired Financial Services" style="height:42px;margin-bottom:14px;filter:brightness(0) invert(1)">
       <p>The best service finance brokers in Australia. Comparing 63+ bank and non-bank lenders for cars, lifestyle assets and business finance.</p>
       <p>3/114 Colemans Road<br>Carrum Downs VIC 3934</p>
     </div>

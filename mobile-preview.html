@@ -40,8 +40,6 @@
   .device iframe{display:block;width:100%;height:100%;border:0;background:#fff}
   /* iPhone-style notch */
   .device::before{content:"";position:absolute;top:22px;left:50%;transform:translateX(-50%);width:110px;height:28px;background:#000;border-radius:18px;z-index:2;pointer-events:none}
-  /* Status bar fake */
-  .device::after{content:attr(data-time);position:absolute;top:32px;left:42px;font:700 .82rem 'Inter',sans-serif;color:#fff;z-index:3;pointer-events:none;letter-spacing:-.02em}
 
   footer{padding:18px 22px 26px;text-align:center;font-size:.78rem;color:#7B83A0}
   footer a{color:#8DC63F;text-decoration:none;font-weight:600}
@@ -50,7 +48,6 @@
     .device{padding:10px;border-radius:36px}
     .device-screen{border-radius:26px}
     .device::before{width:84px;height:22px;top:18px}
-    .device::after{font-size:.72rem;top:26px;left:30px}
     header,.tabs,.sizes{padding-left:14px;padding-right:14px}
   }
 </style>

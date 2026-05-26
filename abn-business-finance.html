@@ -171,11 +171,8 @@
   .lender-strip::after{right:0;background:linear-gradient(-90deg,#fff,transparent)}
   .lender-track{display:flex;gap:46px;align-items:center;animation:scroll-lenders 32s linear infinite;width:max-content}
   .lender-track:hover{animation-play-state:paused}
-  .lender-item{display:inline-flex;flex-direction:column;align-items:center;gap:8px;flex:none;width:88px;opacity:.85;transition:opacity .2s,transform .2s}
-  .lender-item:hover{opacity:1;transform:translateY(-2px)}
-  .lender-logo{width:48px;height:48px;object-fit:contain;border-radius:12px;background:#fff;padding:6px;border:1px solid var(--line);box-shadow:var(--shadow-sm)}
-  .lender-name{font-family:'Inter',sans-serif;font-size:.78rem;font-weight:600;color:var(--navy);white-space:nowrap;text-align:center;line-height:1.15;letter-spacing:-.01em}
-  .lender-track{gap:30px}
+  .lender-logo{height:42px;width:auto;max-width:170px;object-fit:contain;flex:none;opacity:.78;transition:opacity .2s,transform .2s}
+  .lender-logo:hover{opacity:1;transform:translateY(-1px)}
   @keyframes scroll-lenders{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 
   /* AUTHORITY STATS */

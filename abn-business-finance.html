@@ -240,6 +240,10 @@
     .industry-grid{grid-template-columns:repeat(2,1fr)}
     footer .wrap{grid-template-columns:1fr}
     .topbar-cta .btn{display:none}
+    .topbar-inner{padding:10px 16px;gap:10px}
+    .tel-pill{padding:7px 12px;font-size:.92rem;background:transparent;border:1.5px solid var(--green-dk2);color:var(--green-dk2)}
+    .tel-pill svg{width:15px;height:15px}
+    .tel-pill:hover{background:var(--green-soft);color:var(--green-dk2)}
     .sticky-cta{display:flex}
     body{padding-bottom:74px}
     .final-cta{margin:0 14px;padding:52px 20px}
@@ -262,7 +266,10 @@
 <header class="topbar">
   <div class="topbar-inner">
     <a href="#" class="logo" aria-label="Acquired Financial Services">
-      <img src="https://www.acquiredfinance.com/wp-content/uploads/2023/08/logo.png" alt="Acquired Financial Services">
+      <picture>
+        <source media="(max-width:880px)" srcset="branding/logo.png">
+        <img src="https://www.acquiredfinance.com/wp-content/uploads/2023/08/logo.png" alt="Acquired Financial Services">
+      </picture>
     </a>
     <div class="topbar-cta">
       <a href="tel:1300235255" class="tel-pill"><svg viewBox="0 0 24 24"><path d="M20 15.5c-1.25 0-2.45-.2-3.57-.57a1 1 0 0 0-1.02.24l-2.2 2.2a15.07 15.07 0 0 1-6.59-6.59l2.2-2.21a1 1 0 0 0 .25-1.02A11.36 11.36 0 0 1 8.5 4a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1c0 9.39 7.61 17 17 17a1 1 0 0 0 1-1v-3.5a1 1 0 0 0-1-1z"/></svg>1300 235 255</a>

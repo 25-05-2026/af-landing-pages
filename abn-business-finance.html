@@ -177,6 +177,15 @@
   .lender-logo[alt="Commonwealth Bank"]{height:54px}
   @keyframes scroll-lenders{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 
+  /* ===== RINGING PHONE ICON (every tel: link) ===== */
+  @keyframes phoneRing{
+    0%,72%,100%{transform:rotate(0)}
+    74%,80%,86%,92%{transform:rotate(-14deg)}
+    77%,83%,89%,95%{transform:rotate(14deg)}
+  }
+  a[href^="tel:"] svg{transform-origin:center;animation:phoneRing 3.4s ease-in-out infinite;animation-delay:1.5s}
+  @media (prefers-reduced-motion: reduce){a[href^="tel:"] svg{animation:none}}
+
   /* AUTHORITY STATS */
   .auth-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;margin-top:34px;text-align:center}
   .auth-stat{padding:28px 16px;border-radius:16px;background:rgba(141,198,63,.08);border:1px solid rgba(141,198,63,.25)}

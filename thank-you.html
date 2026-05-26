@@ -60,6 +60,15 @@
   @keyframes floatA{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(140px,90px) scale(1.18)}}
   @keyframes floatB{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(-120px,-70px) scale(1.12)}}
   @keyframes floatC{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(-180px,50px) scale(1.25)}}
+
+  /* ===== RINGING PHONE ICON (every tel: link) ===== */
+  @keyframes phoneRing{
+    0%,72%,100%{transform:rotate(0)}
+    74%,80%,86%,92%{transform:rotate(-14deg)}
+    77%,83%,89%,95%{transform:rotate(14deg)}
+  }
+  a[href^="tel:"] svg{transform-origin:center;animation:phoneRing 3.4s ease-in-out infinite;animation-delay:1.5s}
+  @media (prefers-reduced-motion: reduce){a[href^="tel:"] svg{animation:none}}
   .bg-grid{position:fixed;inset:0;z-index:-1;background-image:radial-gradient(rgba(255,255,255,.045) 1px,transparent 1px);background-size:32px 32px;mask-image:radial-gradient(ellipse at center,#000 30%,transparent 80%);pointer-events:none}
 
   /* ===== HEADER ===== */

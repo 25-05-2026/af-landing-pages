@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Mobile preview · Acquired landing pages</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="icon" href="branding/logo.png">
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%;background:#0F1424;font-family:'Inter',system-ui,sans-serif;color:#E2E6F1;overflow-x:hidden}
+  /* Floating animated mesh */
+  body::before,body::after{content:"";position:fixed;border-radius:50%;filter:blur(110px);pointer-events:none;z-index:-1}
+  body::before{width:540px;height:540px;background:linear-gradient(135deg,#8DC63F,#5C8A28);top:-180px;left:-180px;opacity:.35;animation:fA 24s ease-in-out infinite}
+  body::after{width:480px;height:480px;background:linear-gradient(135deg,#74A832,#3E5F1B);bottom:-180px;right:-180px;opacity:.3;animation:fB 28s ease-in-out infinite}
+  @keyframes fA{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(140px,90px) scale(1.18)}}
+  @keyframes fB{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(-120px,-70px) scale(1.12)}}
+
+  header{display:flex;align-items:center;justify-content:space-between;padding:16px 22px;gap:18px;flex-wrap:wrap;border-bottom:1px solid rgba(255,255,255,.08)}
+  .h-title{display:flex;align-items:center;gap:12px}
+  .h-title img{height:32px;filter:brightness(0) invert(1)}
+  .h-title span{font-weight:800;letter-spacing:-.01em}
+  .h-sub{font-size:.8rem;color:#A1A8BC}
+
+  .tabs{display:flex;gap:6px;padding:14px 22px;flex-wrap:wrap;border-bottom:1px solid rgba(255,255,255,.08)}
+  .tab{padding:9px 16px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:999px;color:#D9E0EE;font:600 .88rem 'Inter',sans-serif;cursor:pointer;transition:all .15s}
+  .tab:hover{background:rgba(141,198,63,.18);border-color:rgba(141,198,63,.4);color:#fff}
+  .tab.is-active{background:#8DC63F;color:#0E1A04;border-color:#8DC63F;box-shadow:0 6px 14px rgba(141,198,63,.32)}
+
+  .sizes{display:flex;gap:6px;padding:10px 22px 18px;flex-wrap:wrap;font-size:.82rem;color:#A1A8BC;align-items:center}
+  .sizes label{display:inline-flex;align-items:center;gap:6px;cursor:pointer;padding:6px 12px;background:rgba(255,255,255,.04);border-radius:999px;border:1px solid rgba(255,255,255,.08);font-weight:600;transition:all .15s}
+  .sizes label:hover{background:rgba(255,255,255,.08)}
+  .sizes label.is-active{background:rgba(141,198,63,.2);border-color:rgba(141,198,63,.4);color:#fff}
+  .sizes input{display:none}
+
+  .stage{display:flex;justify-content:center;align-items:flex-start;padding:30px 20px 60px;min-height:calc(100dvh - 200px)}
+  .device{position:relative;flex:none;background:#1A2138;border-radius:48px;padding:14px;box-shadow:0 30px 60px rgba(0,0,0,.45),0 8px 16px rgba(0,0,0,.3),inset 0 0 0 2px rgba(255,255,255,.08);transition:all .25s ease}
+  .device-screen{position:relative;background:#000;border-radius:36px;overflow:hidden;transition:all .25s ease}
+  .device iframe{display:block;width:100%;height:100%;border:0;background:#fff}
+  /* iPhone-style notch */
+  .device::before{content:"";position:absolute;top:22px;left:50%;transform:translateX(-50%);width:110px;height:28px;background:#000;border-radius:18px;z-index:2;pointer-events:none}
+  /* Status bar fake */
+  .device::after{content:attr(data-time);position:absolute;top:32px;left:42px;font:700 .82rem 'Inter',sans-serif;color:#fff;z-index:3;pointer-events:none;letter-spacing:-.02em}
+
+  footer{padding:18px 22px 26px;text-align:center;font-size:.78rem;color:#7B83A0}
+  footer a{color:#8DC63F;text-decoration:none;font-weight:600}
+
+  @media (max-width:560px){
+    .device{padding:10px;border-radius:36px}
+    .device-screen{border-radius:26px}
+    .device::before{width:84px;height:22px;top:18px}
+    .device::after{font-size:.72rem;top:26px;left:30px}
+    header,.tabs,.sizes{padding-left:14px;padding-right:14px}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="h-title">
+    <img src="branding/logo.png" alt="">
+    <span>Mobile preview</span>
+  </div>
+  <div class="h-sub" id="dim-readout">390 × 844 (iPhone 14 Pro)</div>
+</header>
+
+<nav class="tabs" id="tabs" role="tablist">
+  <button class="tab is-active" data-src="car-finance.html?from=preview" role="tab">Car finance</button>
+  <button class="tab" data-src="abn-business-finance.html?from=preview" role="tab">Business / ABN</button>
+  <button class="tab" data-src="apply.html?from=car-finance" role="tab">Apply form</button>
+  <button class="tab" data-src="thank-you.html" role="tab">Thank you</button>
+</nav>
+
+<div class="sizes" id="sizes" role="radiogroup" aria-label="Device width">
+  <span style="font-weight:700;color:#D9E0EE;margin-right:4px">Width:</span>
+  <label class="is-active"><input type="radio" name="w" value="390" data-h="844" data-label="iPhone 14 Pro" checked>iPhone 14 Pro</label>
+  <label><input type="radio" name="w" value="375" data-h="812" data-label="iPhone SE">iPhone SE</label>
+  <label><input type="radio" name="w" value="412" data-h="915" data-label="Pixel 7">Pixel 7</label>
+  <label><input type="radio" name="w" value="360" data-h="800" data-label="Galaxy / small Android">Galaxy</label>
+  <label><input type="radio" name="w" value="320" data-h="568" data-label="iPhone SE 1st gen">320 narrow</label>
+</div>
+
+<div class="stage">
+  <div class="device" id="device" data-time="9:41">
+    <div class="device-screen" id="screen">
+      <iframe id="frame" src="car-finance.html?from=preview" title="Preview"></iframe>
+    </div>
+  </div>
+</div>
+
+<footer>
+  Open this preview in your browser at <a href="https://25-05-2026.github.io/af-landing-pages/mobile-preview.html">25-05-2026.github.io/af-landing-pages/mobile-preview.html</a> — works on phone or desktop.
+</footer>
+
+<script>
+  const frame = document.getElementById('frame');
+  const device = document.getElementById('device');
+  const screen = document.getElementById('screen');
+  const tabs = document.querySelectorAll('#tabs .tab');
+  const sizes = document.querySelectorAll('#sizes input[type=radio]');
+  const readout = document.getElementById('dim-readout');
+
+  function applySize(w, h, label){
+    screen.style.width = w + 'px';
+    screen.style.height = h + 'px';
+    readout.textContent = w + ' × ' + h + ' (' + label + ')';
+  }
+
+  tabs.forEach(t => t.addEventListener('click', () => {
+    tabs.forEach(x => x.classList.remove('is-active'));
+    t.classList.add('is-active');
+    frame.src = t.dataset.src;
+  }));
+
+  sizes.forEach(s => s.addEventListener('change', () => {
+    document.querySelectorAll('#sizes label').forEach(l => l.classList.remove('is-active'));
+    s.closest('label').classList.add('is-active');
+    applySize(+s.value, +s.dataset.h, s.dataset.label);
+  }));
+
+  // Initial size
+  applySize(390, 844, 'iPhone 14 Pro');
+</script>
+
+</body>
+</html>

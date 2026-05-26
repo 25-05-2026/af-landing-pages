@@ -1691,6 +1691,46 @@
       if (assetInput && !assetInput.value) assetInput.value = v;
     } catch(e) {}
   })();
+
+  // ================================================================
+  // AUTO-SCROLL to next visible question after each answer
+  // ================================================================
+  (function setupAutoScroll(){
+    function scrollToNextField(currentField){
+      if (!currentField) return;
+      const step = currentField.closest('.step') || form;
+      const fields = Array.from(step.querySelectorAll('.field')).filter(function(f){
+        const cs = getComputedStyle(f);
+        return cs.display !== 'none' && cs.visibility !== 'hidden';
+      });
+      const idx = fields.indexOf(currentField);
+      if (idx === -1 || idx >= fields.length - 1) return;
+      const next = fields[idx + 1];
+      // Account for sticky topbar (~80px) so the question sits below it
+      const stickyOffset = 80;
+      const targetY = window.pageYOffset + next.getBoundingClientRect().top - stickyOffset;
+      window.scrollTo({ top: targetY, behavior: 'smooth' });
+    }
+
+    // Radios, checkboxes, and selects fire 'change' — auto-scroll on those
+    form.addEventListener('change', function(e){
+      const t = e.target;
+      if (!t) return;
+      if (t.type === 'radio' || t.type === 'checkbox' || t.tagName === 'SELECT') {
+        const field = t.closest('.field');
+        // Small delay so any conditional sub-question that reveals is included in the visible-list calc
+        setTimeout(function(){ scrollToNextField(field); }, 220);
+      }
+    });
+
+    // Asset-type tile buttons (and other .option-btn clicks)
+    form.addEventListener('click', function(e){
+      const btn = e.target.closest && e.target.closest('.option-btn');
+      if (!btn) return;
+      const field = btn.closest('.field');
+      setTimeout(function(){ scrollToNextField(field); }, 220);
+    });
+  })();
 })();
 </script>
 

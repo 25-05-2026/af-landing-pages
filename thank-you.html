@@ -64,7 +64,8 @@
 
   /* ===== HEADER ===== */
   header.topbar{flex:none;padding:16px 22px;display:flex;align-items:center;justify-content:space-between;gap:16px;max-width:1180px;width:100%;margin:0 auto}
-  .logo img{height:34px;width:auto;filter:brightness(0) invert(1)}
+  .logo img{height:48px;width:auto}
+  @media (max-width:560px){.logo img{height:42px}}
   .tel-link{display:inline-flex;align-items:center;gap:8px;font-weight:700;color:#fff;font-size:.95rem;padding:8px 16px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);border-radius:999px;transition:all .15s}
   .tel-link:hover{background:rgba(141,198,63,.18);border-color:rgba(141,198,63,.4)}
   .tel-link svg{width:16px;height:16px;fill:var(--green)}
@@ -192,7 +193,7 @@
 
 <header class="topbar">
   <a href="https://acquiredfinance.com" class="logo" aria-label="Acquired Financial Services">
-    <img src="branding/logo.png" alt="Acquired Financial Services">
+    <img src="branding/logo-white.png" alt="Acquired Financial Services">
   </a>
   <a href="tel:1300235255" class="tel-link">
     <svg viewBox="0 0 24 24"><path d="M20 15.5c-1.25 0-2.45-.2-3.57-.57a1 1 0 0 0-1.02.24l-2.2 2.2a15.07 15.07 0 0 1-6.59-6.59l2.2-2.21a1 1 0 0 0 .25-1.02A11.36 11.36 0 0 1 8.5 4a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1c0 9.39 7.61 17 17 17a1 1 0 0 0 1-1v-3.5a1 1 0 0 0-1-1z"/></svg>

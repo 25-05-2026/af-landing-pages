@@ -113,7 +113,16 @@
   }
   .option-btn:hover { border-color: var(--accent); background: #F8FCEF; }
   .option-btn.selected { border-color: var(--brand); background: var(--accent-soft); color: var(--brand-dark); }
-  .option-btn .icon { font-size: 20px; }
+  .option-btn .icon {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 32px; height: 32px; border-radius: 9px;
+    background: var(--accent-soft); flex: none;
+    transition: background .15s, transform .15s;
+  }
+  .option-btn .icon svg { width: 19px; height: 19px; fill: var(--brand-dark); transition: fill .15s; }
+  .option-btn:hover .icon { background: #E2EFCB; }
+  .option-btn.selected .icon { background: var(--brand); }
+  .option-btn.selected .icon svg { fill: #fff; }
   .field {
     margin-bottom: 22px;
     padding-bottom: 22px;
@@ -591,14 +600,14 @@
       <div class="step active" data-step="1">
         <h2>What are you looking to finance?</h2>
         <div class="options" id="assetOptions">
-          <button type="button" class="option-btn" data-value="Vehicle"><span class="icon">🚗</span> Vehicle</button>
-          <button type="button" class="option-btn" data-value="Truck or Trailer"><span class="icon">🚛</span> Truck or Trailer</button>
-          <button type="button" class="option-btn" data-value="Equipment or Machinery"><span class="icon">⚙️</span> Equipment / Machinery</button>
-          <button type="button" class="option-btn" data-value="Leisure Vehicle"><span class="icon">🚐</span> Leisure (Caravan / Motorbike)</button>
-          <button type="button" class="option-btn" data-value="Marine"><span class="icon">🚤</span> Marine (Boat / Jetski)</button>
-          <button type="button" class="option-btn" data-value="Business cashflow / overdraft"><span class="icon">💼</span> Business cashflow / overdraft</button>
-          <button type="button" class="option-btn" data-value="Personal Loan"><span class="icon">💳</span> Personal Loan</button>
-          <button type="button" class="option-btn" data-value="Other"><span class="icon">✨</span> Something Else</button>
+          <button type="button" class="option-btn" data-value="Vehicle"><span class="icon"><svg viewBox="0 0 24 24"><path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.5 16c-.83 0-1.5-.67-1.5-1.5S5.67 13 6.5 13s1.5.67 1.5 1.5S7.33 16 6.5 16zm11 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zM5 11l1.5-4.5h11L19 11H5z"/></svg></span> Vehicle</button>
+          <button type="button" class="option-btn" data-value="Truck or Trailer"><span class="icon"><svg viewBox="0 0 24 24"><path d="M20 8h-3V4H3v13h2c0 1.66 1.34 3 3 3s3-1.34 3-3h6c0 1.66 1.34 3 3 3s3-1.34 3-3h2v-5l-3-4zM6 18.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zM19.5 9.5l1.96 2.5H17V9.5h2.5zM18 18.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></svg></span> Truck or Trailer</button>
+          <button type="button" class="option-btn" data-value="Equipment or Machinery"><span class="icon"><svg viewBox="0 0 24 24"><path d="M19.43 12.98c.04-.32.07-.64.07-.98 0-.34-.03-.66-.07-.98l2.11-1.65c.19-.15.24-.42.12-.64l-2-3.46c-.12-.22-.39-.3-.61-.22l-2.49 1c-.52-.4-1.08-.73-1.69-.98l-.38-2.65C14.46 2.18 14.25 2 14 2h-4c-.25 0-.46.18-.49.42l-.38 2.65c-.61.25-1.17.59-1.69.98l-2.49-1c-.23-.09-.49 0-.61.22l-2 3.46c-.13.22-.07.49.12.64l2.11 1.65c-.04.32-.07.65-.07.98 0 .33.03.66.07.98l-2.11 1.65c-.19.15-.24.42-.12.64l2 3.46c.12.22.39.3.61.22l2.49-1c.52.4 1.08.73 1.69.98l.38 2.65c.03.24.24.42.49.42h4c.25 0 .46-.18.49-.42l.38-2.65c.61-.25 1.17-.59 1.69-.98l2.49 1c.23.09.49 0 .61-.22l2-3.46c.12-.22.07-.49-.12-.64l-2.11-1.65zM12 15.5c-1.93 0-3.5-1.57-3.5-3.5s1.57-3.5 3.5-3.5 3.5 1.57 3.5 3.5-1.57 3.5-3.5 3.5z"/></svg></span> Equipment / Machinery</button>
+          <button type="button" class="option-btn" data-value="Leisure Vehicle"><span class="icon"><svg viewBox="0 0 24 24"><path d="M22 8v7h-2c0 1.66-1.34 3-3 3s-3-1.34-3-3h-4c0 1.66-1.34 3-3 3s-3-1.34-3-3H3v-1l1-1V8c0-1.1.9-2 2-2h14c1.1 0 2 .9 2 2zm-2 3V8H6v3h14zM7 14a2 2 0 100 4 2 2 0 000-4zm10 0a2 2 0 100 4 2 2 0 000-4z"/></svg></span> Leisure (Caravan / Motorbike)</button>
+          <button type="button" class="option-btn" data-value="Marine"><span class="icon"><svg viewBox="0 0 24 24"><path d="M20 21c-1.39 0-2.78-.47-4-1.32-2.44 1.71-5.56 1.71-8 0C6.78 20.53 5.39 21 4 21H2v2h2c1.38 0 2.74-.35 4-.99 2.52 1.29 5.48 1.29 8 0 1.26.65 2.62.99 4 .99h2v-2h-2zM3.95 19H4c1.6 0 3.02-.88 4-2 .98 1.12 2.4 2 4 2s3.02-.88 4-2c.98 1.12 2.4 2 4 2h.05l1.89-6.68c.08-.26.06-.54-.06-.78s-.34-.42-.6-.5L20 10.62V6c0-1.1-.9-2-2-2h-3V1H9v3H6c-1.1 0-2 .9-2 2v4.62l-1.29.42c-.26.08-.48.26-.6.5s-.15.52-.06.78L3.95 19zM6 6h12v3.97L12 8 6 9.97V6z"/></svg></span> Marine (Boat / Jetski)</button>
+          <button type="button" class="option-btn" data-value="Business cashflow / overdraft"><span class="icon"><svg viewBox="0 0 24 24"><path d="M20 6h-4V4c0-1.11-.89-2-2-2h-4c-1.11 0-2 .89-2 2v2H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-6 0h-4V4h4v2z"/></svg></span> Business cashflow / overdraft</button>
+          <button type="button" class="option-btn" data-value="Personal Loan"><span class="icon"><svg viewBox="0 0 24 24"><path d="M20 4H4c-1.11 0-1.99.89-1.99 2L2 18c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V6c0-1.11-.89-2-2-2zm0 14H4v-6h16v6zm0-10H4V6h16v2z"/></svg></span> Personal Loan</button>
+          <button type="button" class="option-btn" data-value="Other"><span class="icon"><svg viewBox="0 0 24 24"><path d="M19 9l1.25-2.75L23 5l-2.75-1.25L19 1l-1.25 2.75L15 5l2.75 1.25zm-7.5.5L9 4 6.5 9.5 1 12l5.5 2.5L9 20l2.5-5.5L17 12zM19 15l-1.25 2.75L15 19l2.75 1.25L19 23l1.25-2.75L23 19l-2.75-1.25z"/></svg></span> Something Else</button>
         </div>
         <input type="hidden" name="assetType" id="assetType" required>
         <div class="error-msg" id="assetError">Please choose what you'd like to finance.</div>

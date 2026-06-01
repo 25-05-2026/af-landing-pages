@@ -169,9 +169,44 @@
     .head{margin-bottom:22px}
   }
   @media (max-width:560px){
-    .cta-strip{flex-direction:column;align-items:stretch;text-align:center;padding:20px;gap:14px;overflow:visible}
+    /* Aggressively compact so the whole confirmation fits one mobile fold */
+    .topbar{padding:8px 14px}
+    .logo img{height:36px}
+    .tel-link{font-size:.85rem;padding:6px 12px}
+    .stage{padding:8px 12px 10px}
+    .card{padding:18px 16px 16px;border-radius:18px}
+    .head{margin-bottom:12px}
+    .badge{font-size:.66rem;padding:4px 10px;margin-bottom:8px;letter-spacing:.04em}
+    .check{width:44px;height:44px;margin-bottom:8px;box-shadow:0 6px 16px rgba(141,198,63,.35)}
+    .check svg{width:22px;height:22px}
+    h1{font-size:1.25rem;margin-bottom:.25em}
+    .sub{font-size:.82rem;line-height:1.4;margin:0 auto}
+    /* Steps as compact horizontal pills */
+    .steps{display:flex;flex-direction:row;gap:6px;margin-bottom:12px}
+    .step{flex:1;padding:9px 6px 8px;border-radius:10px;text-align:center}
+    .step:hover{transform:none;box-shadow:none}
+    .step-n{width:22px;height:22px;font-size:.72rem;margin:0 auto 5px;box-shadow:none}
+    .step h3{font-size:.74rem;margin-bottom:0;line-height:1.1;letter-spacing:-.005em}
+    .step p{display:none}
+    /* Tight insight + CTA */
+    .bottom-row{gap:8px}
+    .insight{padding:12px 14px;border-radius:14px;gap:10px}
+    .insight-icon{width:32px;height:32px}
+    .insight-icon svg{width:18px;height:18px}
+    .insight h3{font-size:.92rem;margin-bottom:.2em}
+    .insight p{font-size:.76rem;line-height:1.4}
+    .cta-strip{flex-direction:column;align-items:stretch;text-align:center;padding:14px 16px;gap:10px;overflow:visible}
     .cta-strip .cta-copy{flex:0 1 auto;width:100%}
-    .cta-strip .cta-btn{display:flex;width:100%;align-self:stretch;justify-content:center;white-space:nowrap}
+    .cta-q{font-size:.95rem}
+    .cta-sub{font-size:.74rem;line-height:1.35}
+    .cta-strip .cta-btn{display:flex;width:100%;align-self:stretch;justify-content:center;white-space:nowrap;padding:11px 16px;font-size:.92rem}
+    /* Tiny footer */
+    footer{padding:8px 14px 10px;font-size:.66rem;line-height:1.4}
+  }
+  /* Smallest phones — squeeze a touch more */
+  @media (max-width:380px){
+    .step h3{font-size:.7rem}
+    h1{font-size:1.18rem}
   }
   /* Short laptop viewports — compress to keep above the fold */
   @media (max-height:800px) and (min-width:821px){

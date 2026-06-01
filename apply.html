@@ -12,6 +12,18 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="icon" href="branding/logo.png">
 
+<script>
+  // Embed mode — strip standalone page chrome when this form is opened
+  // inside the modal iframe on the landing pages. Set on <html> before
+  // anything renders to avoid a flash of un-embedded styling.
+  (function(){
+    try{
+      var p = new URLSearchParams(location.search);
+      if(p.get('embed') === '1') document.documentElement.classList.add('is-embedded');
+    }catch(e){}
+  })();
+</script>
+
 <!-- GOOGLE ADS CONVERSION TRACKING — replace AW-XXXXXXXXXX -->
 <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=AW-XXXXXXXXXX"></script>
 <script>
@@ -565,6 +577,28 @@
     .form-card { padding: 22px 18px; }
     .options { grid-template-columns: 1fr; }
     .radio-row { flex-direction: column; }
+  }
+
+  /* ===== EMBED MODE (loaded inside the modal iframe on landing pages) =====
+     Strips standalone page chrome so the form sits cleanly inside the popup
+     instead of looking like a card-within-a-card. */
+  html.is-embedded, html.is-embedded body { background: transparent !important; min-height: 0; }
+  html.is-embedded .bg-stage,
+  html.is-embedded .bg-grid { display: none !important; }
+  html.is-embedded .logo-bar { display: none; }
+  html.is-embedded .form-wrapper { max-width: 100%; margin: 0; padding: 0; }
+  html.is-embedded .form-card {
+    box-shadow: none;
+    border: 0;
+    border-radius: 0;
+    background: #fff;
+    padding: 26px 30px 24px;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+  html.is-embedded .form-card::before { display: none; }
+  @media (max-width: 560px) {
+    html.is-embedded .form-card { padding: 22px 20px 20px; }
   }
 </style>
 </head>

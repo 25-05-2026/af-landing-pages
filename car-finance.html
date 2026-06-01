@@ -694,8 +694,8 @@
   .apply-modal.is-loaded .apply-modal-loading{display:none}
   @media (min-width:900px){
     .apply-modal.is-open{padding:30px;align-items:center}
-    .apply-modal-frame{border-radius:18px;height:calc(100vh - 60px);max-height:920px;max-width:960px}
-    .apply-modal-close{top:14px;right:14px}
+    .apply-modal-frame{border-radius:20px;height:calc(100vh - 60px);max-height:880px;max-width:640px}
+    .apply-modal-close{top:18px;right:18px}
   }
   body.apply-modal-open{overflow:hidden}
 </style>
@@ -769,16 +769,28 @@
       a.addEventListener('click', function(e){
         if(e.metaKey || e.ctrlKey || e.shiftKey || e.button === 1) return;
         e.preventDefault();
-        // Forward the gclid through to the form, if we have one stashed
         var href = a.getAttribute('href');
+        // Flag the iframe so apply.html strips its standalone-page chrome
+        if(href.indexOf('embed=') === -1){
+          href += (href.indexOf('?') === -1 ? '?' : '&') + 'embed=1';
+        }
+        // Forward the gclid through to the form, if we have one stashed
         try{
           var g = localStorage.getItem('gclid');
           if(g && href.indexOf('gclid=') === -1){
-            href += (href.indexOf('?') === -1 ? '?' : '&') + 'gclid=' + encodeURIComponent(g);
+            href += '&gclid=' + encodeURIComponent(g);
           }
         }catch(err){}
         openModal(href);
       });
+    });
+    // After successful submit, lift the parent up to thank-you.html so the
+    // user sees the full confirmation page (and Google Ads conversion fires
+    // at top-level, not inside the iframe).
+    window.addEventListener('message', function(e){
+      if(e && e.data && e.data.type === 'afs-lead-submitted'){
+        setTimeout(function(){ window.location.href = 'thank-you.html'; }, 400);
+      }
     });
   })();
 </script>

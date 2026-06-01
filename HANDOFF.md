@@ -68,6 +68,8 @@ Upload them to **the same folder** as the HTML pages in WordPress so relative pa
 
 ## 4. Update inter-page links
 
+> **How the form works now:** clicking any "Check Eligibility" / "Get A Business Quote" CTA on a landing page opens `apply.html` in an iframe popup **on top of** the landing page — the user never leaves. After they submit, the parent page navigates to `thank-you.html`. `apply.html` is still deployed as a real page (it's both the iframe target and the JS-disabled / direct-link fallback) — nothing changes about how you install it. The popup behaviour is self-contained in the landing-page HTML/JS.
+
 Once the WordPress slugs are decided, search & replace across all four HTML files **before pasting into WordPress**:
 
 | Find | Replace with |
@@ -78,7 +80,7 @@ Once the WordPress slugs are decided, search & replace across all four HTML file
 | `car-finance.html` | `/car-finance-quote` |
 | `abn-business-finance.html` | `/business-finance-quote` |
 
-Skip this if you keep the `.html` suffixes.
+Skip this if you keep the `.html` suffixes. The `?embed=1` parameter the popup appends to the iframe URL is handled inside `apply.html` automatically — no change needed for it.
 
 ---
 

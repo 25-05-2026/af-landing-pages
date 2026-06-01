@@ -681,6 +681,33 @@
   <a href="apply.html?from=abn-business" class="btn btn--primary">Start Chat</a>
 </div>
 
+<!-- ============ APPLY FORM MODAL ============ -->
+<style>
+  .apply-modal{position:fixed;inset:0;z-index:9999;display:none;background:rgba(7,9,26,.78);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
+  .apply-modal.is-open{display:flex;align-items:stretch;justify-content:center;animation:applyFade .22s ease-out}
+  @keyframes applyFade{from{opacity:0}to{opacity:1}}
+  .apply-modal-frame{flex:1 1 auto;border:0;width:100%;max-width:100%;height:100vh;background:#fff;box-shadow:0 30px 80px rgba(0,0,0,.5)}
+  .apply-modal-close{position:absolute;top:12px;right:12px;width:42px;height:42px;border-radius:50%;background:#fff;border:0;cursor:pointer;color:#1A2138;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 18px rgba(0,0,0,.35);transition:transform .15s ease,box-shadow .15s ease;z-index:2}
+  .apply-modal-close:hover,.apply-modal-close:focus{transform:scale(1.08);outline:none;box-shadow:0 8px 22px rgba(0,0,0,.45)}
+  .apply-modal-loading{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#E5EAF5;font-size:.95rem;letter-spacing:.04em;pointer-events:none}
+  .apply-modal-loading::after{content:"";width:38px;height:38px;border:3px solid rgba(255,255,255,.25);border-top-color:#8DC63F;border-radius:50%;animation:applySpin 1s linear infinite;margin-left:14px}
+  @keyframes applySpin{to{transform:rotate(360deg)}}
+  .apply-modal.is-loaded .apply-modal-loading{display:none}
+  @media (min-width:900px){
+    .apply-modal.is-open{padding:30px;align-items:center}
+    .apply-modal-frame{border-radius:18px;height:calc(100vh - 60px);max-height:920px;max-width:960px}
+    .apply-modal-close{top:14px;right:14px}
+  }
+  body.apply-modal-open{overflow:hidden}
+</style>
+<div class="apply-modal" id="applyModal" role="dialog" aria-modal="true" aria-label="Get a quote">
+  <div class="apply-modal-loading">Loading</div>
+  <button class="apply-modal-close" type="button" aria-label="Close" id="applyModalClose">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg>
+  </button>
+  <iframe class="apply-modal-frame" title="Apply" src="about:blank" loading="lazy"></iframe>
+</div>
+
 <script>
   document.getElementById('yr').textContent = new Date().getFullYear();
 
@@ -703,6 +730,49 @@
       entries.forEach(function(e){ sticky.style.transform = e.isIntersecting ? 'translateY(100%)' : 'translateY(0)'; });
     },{threshold:.2});
     io.observe(anchor);
+  })();
+
+  // Apply form modal — intercepts every apply.html link and opens it in an iframe overlay
+  (function(){
+    var modal = document.getElementById('applyModal');
+    if(!modal) return;
+    var iframe = modal.querySelector('.apply-modal-frame');
+    var closeBtn = document.getElementById('applyModalClose');
+    function openModal(src){
+      iframe.src = src;
+      modal.classList.add('is-open');
+      modal.classList.remove('is-loaded');
+      document.body.classList.add('apply-modal-open');
+    }
+    function closeModal(){
+      modal.classList.remove('is-open');
+      document.body.classList.remove('apply-modal-open');
+      setTimeout(function(){ iframe.src = 'about:blank'; modal.classList.remove('is-loaded'); }, 220);
+    }
+    iframe.addEventListener('load', function(){
+      if(iframe.src && iframe.src !== 'about:blank') modal.classList.add('is-loaded');
+    });
+    closeBtn.addEventListener('click', closeModal);
+    modal.addEventListener('click', function(e){
+      if(e.target === modal) closeModal();
+    });
+    document.addEventListener('keydown', function(e){
+      if(e.key === 'Escape' && modal.classList.contains('is-open')) closeModal();
+    });
+    document.querySelectorAll('a[href^="apply.html"]').forEach(function(a){
+      a.addEventListener('click', function(e){
+        if(e.metaKey || e.ctrlKey || e.shiftKey || e.button === 1) return;
+        e.preventDefault();
+        var href = a.getAttribute('href');
+        try{
+          var g = localStorage.getItem('gclid');
+          if(g && href.indexOf('gclid=') === -1){
+            href += (href.indexOf('?') === -1 ? '?' : '&') + 'gclid=' + encodeURIComponent(g);
+          }
+        }catch(err){}
+        openModal(href);
+      });
+    });
   })();
 </script>
 

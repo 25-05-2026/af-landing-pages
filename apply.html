@@ -12,18 +12,6 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="icon" href="branding/logo.png">
 
-<script>
-  // Embed mode — strip standalone page chrome when this form is opened
-  // inside the modal iframe on the landing pages. Set on <html> before
-  // anything renders to avoid a flash of un-embedded styling.
-  (function(){
-    try{
-      var p = new URLSearchParams(location.search);
-      if(p.get('embed') === '1') document.documentElement.classList.add('is-embedded');
-    }catch(e){}
-  })();
-</script>
-
 <!-- GOOGLE ADS CONVERSION TRACKING — replace AW-XXXXXXXXXX -->
 <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=AW-XXXXXXXXXX"></script>
 <script>
@@ -579,28 +567,44 @@
     .radio-row { flex-direction: column; }
   }
 
-  /* ===== EMBED MODE (loaded inside the modal iframe on landing pages) =====
-     Strips standalone page chrome so the form sits cleanly inside the popup
-     instead of looking like a card-within-a-card. */
-  html.is-embedded, html.is-embedded body { background: transparent !important; min-height: 0; }
-  html.is-embedded .bg-stage,
-  html.is-embedded .bg-grid { display: none !important; }
-  html.is-embedded .logo-bar { display: none; }
-  html.is-embedded .form-wrapper { max-width: 100%; margin: 0; padding: 0; }
-  html.is-embedded .form-card {
-    box-shadow: none;
-    border: 0;
-    border-radius: 0;
-    background: #fff;
-    padding: 26px 30px 24px;
-    backdrop-filter: none;
-    -webkit-backdrop-filter: none;
+  /* ===================================================================
+     EMBEDDED MODE — applied automatically when the form is iframed.
+     Strips the standalone-page chrome (dark mesh background, card shadow,
+     logo bar) so the form sits flush inside the parent modal.
+     The standalone page on the landing-pages site is unaffected.
+     =================================================================== */
+  html.embedded,
+  html.embedded body {
+    background: transparent !important;
+    min-height: 0 !important;
   }
-  html.is-embedded .form-card::before { display: none; }
-  @media (max-width: 560px) {
-    html.is-embedded .form-card { padding: 22px 20px 20px; }
+  html.embedded .bg-stage,
+  html.embedded .bg-grid,
+  html.embedded .logo-bar { display: none !important; }
+  html.embedded .form-wrapper {
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 8px 4px !important;
   }
+  html.embedded .form-card {
+    background: white !important;
+    border: none !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    padding: 24px 22px !important;
+  }
+  html.embedded .form-card::before { display: none !important; }
 </style>
+<script>
+  // Detect iframe embedding BEFORE first paint so the .embedded class is on <html>
+  // when the browser applies the styles above. No flash of standalone styling.
+  try { if (window.self !== window.top) document.documentElement.classList.add('embedded'); } catch (e) {
+    // Cross-origin frame access throws — but that itself means we're embedded.
+    document.documentElement.classList.add('embedded');
+  }
+</script>
 </head>
 <body>
 <!-- Animated mesh background — matches thank-you page tone -->
@@ -1700,7 +1704,29 @@
 
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
-    if (!validateStep(4)) return;
+    e.stopPropagation();
+
+    // Defence in depth: re-validate EVERY step on final submit, not just step 4.
+    // If a visitor managed to skip / bypass earlier validation (browser back, devtools,
+    // a stale state, or a future migration that broke our per-step gating), this catches it.
+    const failedStep = [1, 2, 3, 4].find(n => !validateStep(n));
+    if (failedStep) {
+      // Jump back to the first step with a missing/invalid field, scroll its first
+      // visible error into view, and put focus on the offending input.
+      if (typeof showStep === 'function' && failedStep !== current) showStep(failedStep);
+      const firstError = document.querySelector('.step.active .field.error, .step.active [style*="display: block"][class*="error"]');
+      if (firstError) {
+        firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        const focusable = firstError.querySelector('input, select, textarea, [tabindex]');
+        if (focusable) try { focusable.focus({ preventScroll: true }); } catch (_) {}
+      }
+      return;
+    }
+
+    // Belt-and-braces: prevent double-submit by disabling the button immediately,
+    // even before the existing "Sending..." swap below.
+    const submitBtnEarly = document.getElementById('submitBtn');
+    if (submitBtnEarly) submitBtnEarly.disabled = true;
 
     const data = {
       assetType: assetInput.value,
@@ -1769,9 +1795,26 @@
         window.parent.postMessage({ type: 'afs-lead-submitted', data }, '*');
       }
 
-      // Give the form post + conversion a brief moment, then redirect
+      // Give the form post + conversion a brief moment, then swap to the inline success screen.
+      // (Previously redirected to thank-you.html — that file isn't in the website-redesign /forms folder,
+      //  so when the form is embedded as an iframe the redirect just rendered a blank page.)
       await new Promise(r => setTimeout(r, 600));
-      window.location.href = 'thank-you.html';
+
+      // Hide the form chrome (progress bar, steps, submit) and reveal the success screen
+      const progress = document.querySelector('.progress');
+      const stepLabel = document.querySelector('.step-label');
+      const formHeader = document.querySelector('.form-header');
+      if (progress) progress.style.display = 'none';
+      if (stepLabel) stepLabel.style.display = 'none';
+      if (formHeader) formHeader.style.display = 'none';
+      steps.forEach(function (s) { s.style.display = 'none'; s.classList.remove('active'); });
+      successScreen.classList.add('active');
+      // Scroll the iframe back to the top so the visitor sees the confirmation
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      // Let the parent page know if it wants to react (e.g. close the modal after a delay)
+      if (window.parent !== window) {
+        window.parent.postMessage({ type: 'afs-lead-success' }, '*');
+      }
     } catch (err) {
       submitBtn.disabled = false;
       submitBtn.textContent = 'Submit Enquiry';

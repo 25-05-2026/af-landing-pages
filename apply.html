@@ -1914,18 +1914,10 @@
     } catch(e) {}
   })();
 
-  // Pre-set assetType from URL ?from= param (set by the landing-page CTAs)
-  (function presetAssetType(){
-    try {
-      const from = new URLSearchParams(location.search).get('from') || '';
-      const map = {
-        'car-finance':  'Car / Vehicle finance',
-        'abn-business': 'Business / ABN asset finance'
-      };
-      const v = map[from] || (from ? from : 'Vehicle finance');
-      if (assetInput && !assetInput.value) assetInput.value = v;
-    } catch(e) {}
-  })();
+  // NOTE: We deliberately do NOT pre-fill assetType from the ?from= URL param.
+  // The visitor must actively pick a tile so step-1 validation has something
+  // to check — otherwise they could click Continue without choosing anything
+  // and the form would silently accept the URL-derived default.
 
   // ================================================================
   // AUTO-SCROLL to next visible question after each answer

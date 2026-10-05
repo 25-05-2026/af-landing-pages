@@ -1,137 +1,77 @@
 <!DOCTYPE html>
-<html lang="en-AU">
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Homepage Preview — acquiredfinance.com</title>
-<link rel="icon" href="branding/logo.png">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Acquired Finance &mdash; Australia's Best Service Finance Brokers</title>
+<link rel="icon" type="image/png" href="assets/images/logo.png" />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&display=swap" rel="stylesheet">
-<style>
-  :root{
-    --ink:#1a1a1a;
-    --navy:#0f1424;
-    --navy-2:#1a2138;
-    --green:#95c93d;
-    --green-dk:#7aaa2e;
-    --text:#374151;
-    --grey-500:#6b7280;
-    --radius-lg:16px;
-    --shadow-lg:0 25px 60px rgba(0,0,0,.28);
-  }
-  *{box-sizing:border-box;margin:0;padding:0}
-  body{font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;background:#f7f7f5;color:#2a2a2a;line-height:1.6;-webkit-font-smoothing:antialiased}
-
-  .preview-banner{background:#1A2138;color:#fff;padding:14px 24px;font-size:13px;text-align:center;border-bottom:2px solid #8DC63F;position:relative;z-index:50}
-  .preview-banner strong{color:#8DC63F;letter-spacing:.1em;text-transform:uppercase;font-size:12px}
-  .preview-banner code{background:rgba(141,198,63,.2);padding:2px 7px;border-radius:4px;font-family:monospace;color:#8DC63F;font-size:12px}
-
-  /* Topbar + Header (matches live site) */
-  .mock-topbar{background:#101828;color:rgba(255,255,255,.75);font-size:12.5px;padding:7px 0;text-align:center;letter-spacing:.03em}
-  .mock-header{background:#fff;padding:16px 0;border-bottom:1px solid #e5e7eb;position:relative;z-index:10}
-  .mock-header .container{display:flex;align-items:center;justify-content:space-between}
-  .mock-logo{display:flex;align-items:center;gap:10px;font-family:'Fraunces',serif;font-size:22px;font-weight:600;color:#1a1a1a}
-  .mock-logo-mark{width:32px;height:32px;background:linear-gradient(135deg,#95c93d,#7aaa2e);clip-path:polygon(50% 0%,100% 100%,0% 100%)}
-  .mock-logo small{display:block;font-size:11px;color:#6b7280;font-weight:500;font-family:'Inter',sans-serif;letter-spacing:.02em;margin-top:-2px}
-  .mock-header-right{display:flex;align-items:center;gap:14px}
-  .mock-phone{display:inline-flex;align-items:center;gap:8px;background:#f0fdf4;border:1px solid rgba(149,201,61,.3);padding:9px 18px;border-radius:100px;font-size:14px;font-weight:700;color:#1a1a1a}
-  .mock-cta{background:#8DC63F;color:#0a1a02;padding:10px 20px;border-radius:100px;font-size:13.5px;font-weight:700;text-decoration:none}
-  .mock-cta:hover{background:#7aaa2e}
-
-  .container{max-width:1240px;margin:0 auto;padding:0 24px}
-
-  /* Hero */
-  .hero{
-    position:relative;overflow:hidden;
-    background:
-      radial-gradient(ellipse at 70% 30%, rgba(149,201,61,.14) 0%, transparent 55%),
-      radial-gradient(ellipse at 15% 85%, rgba(149,201,61,.08) 0%, transparent 50%),
-      linear-gradient(180deg,var(--navy-2) 0%,var(--navy) 100%);
-    color:#fff;padding:60px 0;min-height:700px;
-  }
-  .hero::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 65% 50%, rgba(149,201,61,.08), transparent 40%);animation:heroFloat 20s ease-in-out infinite}
-  @keyframes heroFloat{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(30px,-20px) scale(1.05)}}
-  .hero .container{position:relative;z-index:2;display:grid;grid-template-columns:1.1fr 0.9fr;gap:60px;align-items:center;min-height:700px}
-
-  .hero-eyebrow{display:inline-flex;align-items:center;gap:8px;background:rgba(149,201,61,.13);border:1px solid rgba(149,201,61,.35);color:var(--green);padding:8px 16px;border-radius:100px;font-size:13px;font-weight:600;margin-bottom:24px}
-  .hero-eyebrow svg{color:var(--green)}
-  .hero h1{font-family:'Fraunces',serif;font-size:clamp(40px,5.2vw,66px);font-weight:600;line-height:1.05;letter-spacing:-.02em;margin-bottom:24px;color:#fff}
-  .hero h1 .accent{color:var(--green);font-style:italic;font-weight:500}
-  .hero p.lead{font-size:19px;color:rgba(255,255,255,.82);line-height:1.6;margin-bottom:36px;max-width:540px}
-  .hero-ctas{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:48px}
-  .btn{display:inline-flex;align-items:center;gap:8px;font-weight:700;font-size:15px;padding:14px 26px;border-radius:100px;text-decoration:none;transition:transform .15s,box-shadow .15s,background .15s;cursor:pointer;border:0}
-  .btn-lg{padding:16px 28px;font-size:15.5px}
-  .btn-primary{background:var(--green);color:#0a1a02;box-shadow:0 4px 14px rgba(149,201,61,.35)}
-  .btn-primary:hover{background:var(--green-dk);transform:translateY(-1px);box-shadow:0 6px 20px rgba(149,201,61,.45)}
-  .btn-ghost{background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,.3)}
-  .btn-ghost:hover{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.5)}
-  .hero-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;padding-top:32px;border-top:1px solid rgba(255,255,255,.12)}
-  .stat-number{font-family:'Fraunces',serif;font-size:38px;font-weight:700;color:#fff;line-height:1;margin-bottom:6px}
-  .stat-number .plus{color:var(--green)}
-  .stat-label{font-size:13px;color:rgba(255,255,255,.65);line-height:1.4}
-
-  /* Embedded form card */
-  .quote-card--embedded{
-    position:relative;width:100%;max-width:500px;justify-self:end;
-    padding:0;overflow:hidden;display:flex;min-height:640px;
-    background:#fff;border-radius:var(--radius-lg);box-shadow:var(--shadow-lg);
-    border:1px solid rgba(141,198,63,.3);
-  }
-  .quote-iframe{flex:1;width:100%;min-height:640px;border:0;display:block;background:#fff}
-
-  /* After-hero note */
-  .after-hero-note{max-width:1200px;margin:40px auto 60px;padding:24px 32px;background:#fff;border-radius:12px;border:1px solid #e5e7eb;box-shadow:0 2px 8px rgba(0,0,0,.04);font-size:14px;color:#4b5563;line-height:1.6}
-  .after-hero-note strong{color:#1a1a1a}
-  .after-hero-note code{background:#eef6e0;color:#5c8a28;padding:2px 7px;border-radius:4px;font-family:monospace;font-size:13px;font-weight:600}
-
-  @media (max-width:980px){
-    .hero{padding:40px 0}
-    .hero .container{grid-template-columns:1fr;min-height:0;gap:32px}
-    .quote-card--embedded{justify-self:center;max-width:100%;width:100%;min-height:640px}
-    .quote-iframe{min-height:640px}
-    .hero-stats{grid-template-columns:1fr 1fr;gap:16px}
-    .mock-header-right .mock-cta{display:none}
-  }
-  @media (max-width:560px){
-    .mock-logo{font-size:19px}
-    .quote-card--embedded{border-radius:14px;min-height:600px}
-    .quote-iframe{min-height:600px}
-    .hero h1{font-size:36px}
-    .hero p.lead{font-size:16px}
-    .hero-stats{grid-template-columns:1fr}
-  }
-</style>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css" />
 </head>
 <body>
 
-<div class="preview-banner">
-  <strong>LIVE PREVIEW</strong> &middot; Proposed homepage for acquiredfinance.com with embedded enquiry form. Chatbot is fully interactive. SMS test code: <code>123456</code>.
-</div>
-
-<div class="mock-topbar">
-  100% Australian-owned &middot; Australian Credit Licence 488607
-</div>
-
-<header class="mock-header">
+<!-- Top bar -->
+<div class="topbar">
   <div class="container">
-    <div class="mock-logo">
-      <div class="mock-logo-mark"></div>
-      <div>acquired
-        <small>Financial Services</small>
-      </div>
+    <div>100% Australian-owned &middot; Australian Credit Licence 488607</div>
+    <div class="badges">
+      <span><span class="star">&#9733;&#9733;&#9733;&#9733;&#9733;</span> Hundreds of 5-star Google reviews</span>
+      <span>&middot;</span>
+      <span><a href="mailto:customerservice@acquiredfinance.com">customerservice@acquiredfinance.com</a></span>
     </div>
-    <div class="mock-header-right">
-      <div class="mock-phone">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M20.01 15.38c-1.23 0-2.42-.2-3.53-.56-.35-.12-.74-.03-1.01.24l-1.57 1.97c-2.83-1.35-5.48-3.9-6.89-6.83l1.95-1.66c.27-.28.35-.67.24-1.02-.37-1.11-.56-2.3-.56-3.53 0-.54-.45-.99-.99-.99H4.19C3.65 3 3 3.24 3 3.99 3 13.28 10.73 21 20.01 21c.71 0 .99-.63.99-1.18v-3.45c0-.54-.45-.99-.99-.99z"/></svg>
+  </div>
+</div>
+
+
+<!-- Header -->
+<header class="main">
+  <div class="container">
+    <a href="#" class="logo" aria-label="Acquired Finance">
+      <img src="assets/images/logo.png" alt="Acquired Financial Services" />
+    </a>
+    <nav class="primary">
+      <a href="#finance">What We Finance</a>
+      <a href="#calculator">Finance Calculator</a>
+      <a href="#process">How it works</a>
+      <a href="#why">Why us</a>
+      <a href="#reviews">Reviews</a>
+      <a href="#about">About</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+    <div class="header-cta">
+      <a href="tel:1300235255" class="phone-link">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
         1300 235 255
-      </div>
-      <a href="#quote" class="mock-cta">Check Eligibility</a>
+      </a>
+      <a href="#quote" class="btn btn-primary">Get a quote</a>
     </div>
   </div>
 </header>
 
+
+<!-- Hero -->
 <section class="hero">
+  <div class="hero-slide-stack" aria-hidden="true">
+    <img class="hero-slide active" src="assets/images/hero/1-truck.jpg"     alt="" />
+    <img class="hero-slide"        src="assets/images/hero/2-excavator.jpg" alt="" />
+    <img class="hero-slide"        src="assets/images/hero/3-caravan.jpg"   alt="" />
+    <img class="hero-slide"        src="assets/images/hero/4-boat.jpg"      alt="" />
+    <img class="hero-slide"        src="assets/images/hero/5-moto.jpg"      alt="" />
+    <img class="hero-slide"        src="assets/images/hero/7-car.jpg"       alt="" />
+    <img class="hero-slide"        src="assets/images/hero/6-forklift.jpg"  alt="" />
+  </div>
+  <div class="hero-dots" aria-label="Hero scene selector">
+    <button class="hero-dot active" data-i="0" aria-label="Scene 1"></button>
+    <button class="hero-dot"        data-i="1" aria-label="Scene 2"></button>
+    <button class="hero-dot"        data-i="2" aria-label="Scene 3"></button>
+    <button class="hero-dot"        data-i="3" aria-label="Scene 4"></button>
+    <button class="hero-dot"        data-i="4" aria-label="Scene 5"></button>
+    <button class="hero-dot"        data-i="5" aria-label="Scene 6"></button>
+    <button class="hero-dot"        data-i="6" aria-label="Scene 7"></button>
+  </div>
+  <div class="hero-overlay" aria-hidden="true"></div>
   <div class="container">
     <div class="hero-text">
       <div class="hero-eyebrow">
@@ -146,15 +86,26 @@
         </a>
         <a href="tel:1300235255" class="btn btn-ghost btn-lg">Speak to a broker</a>
       </div>
+
       <div class="hero-stats">
-        <div><div class="stat-number">63<span class="plus">+</span></div><div class="stat-label">Bank &amp; non-bank lenders on panel</div></div>
-        <div><div class="stat-number">50<span class="plus">+</span></div><div class="stat-label">Years of combined broker experience</div></div>
-        <div><div class="stat-number">&lt;1<span class="plus">hr</span></div><div class="stat-label">Pre-approval, credit score protected</div></div>
+        <div>
+          <div class="stat-number">63<span class="plus">+</span></div>
+          <div class="stat-label">Bank &amp; non-bank lenders on panel</div>
+        </div>
+        <div>
+          <div class="stat-number">50<span class="plus">+</span></div>
+          <div class="stat-label">Years of combined broker experience</div>
+        </div>
+        <div>
+          <div class="stat-number">&lt;1<span class="plus">hr</span></div>
+          <div class="stat-label">Pre-approval, credit score protected</div>
+        </div>
       </div>
     </div>
 
-    <!-- LIVE iframe to the real chatbot with ?variant=hero for dark header styling -->
-    <div class="quote-card--embedded" id="quote">
+    <!-- Enquiry form embedded in the hero (replaces the old quote-card modal trigger).
+         Other site CTAs that anchor to #quote still work: they smooth-scroll back up to this form instead of opening the modal. -->
+    <div class="quote-card quote-card--embedded" id="quote">
       <iframe
         class="quote-iframe"
         src="enquiry-form.html?variant=hero"
@@ -165,16 +116,945 @@
   </div>
 </section>
 
-<div class="after-hero-note">
-  <strong>Try it:</strong>
-  <ul style="margin:10px 0 0 20px;padding:0">
-    <li>The form on the right is <strong>the real chatbot v2</strong>, fully interactive. Click through the questions, hit Submit, enter <code>123456</code> as the SMS verification code to see the success screen.</li>
-    <li>ABN search works: pick "Through a business" at the Who's Applying step, then try <code>53004085616</code> or start typing <code>Bunnings</code> to see the business-name lookup.</li>
-    <li>Try knockout paths: enter a loan amount <strong>under $20,000</strong>, pick <strong>Under 18</strong>, pick <strong>Centrelink benefits only</strong>, or <strong>Casual + 0-60 days + employment gap</strong>.</li>
-    <li>Resize your browser narrower than 980px wide to see the mobile stacking (form drops below the headline).</li>
-    <li>Hero background here is a solid navy gradient. On the live site, the existing rotating truck/car/caravan/boat photos still cycle behind.</li>
-  </ul>
+
+<!-- Trust strip (awards & reviews) -->
+<div class="lenders-strip trust-strip">
+  <div class="container">
+    <div class="trust-heading">Trusted &amp; Awarded</div>
+    <div class="trust-row" aria-label="Awards and reviews">
+      <div>
+        <img src="assets/images/branding/google-5-star.png" alt="Google 5-star Reviews" />
+      </div>
+      <div>
+        <img class="award-round" src="assets/images/branding/award-fintelligence.png" alt="Winner — Best Commercial Brokerage VIC/TAS, Fintelligence Awards 2023" />
+      </div>
+      <div>
+        <img class="award-round" src="assets/images/branding/award-connective-finalist.png" alt="Finalist — Asset Finance Brokerage of the Year, Connective Excellence Awards" />
+      </div>
+    </div>
+  </div>
 </div>
 
+
+<!-- Repayment Calculator -->
+<section class="calc-section" id="calculator">
+  <div class="container">
+    <div class="calc-shell">
+      <!-- Inputs -->
+      <div class="calc-inputs">
+        <span class="calc-eyebrow">Repayment calculator</span>
+        <h3>What will it <span class="accent">actually cost?</span></h3>
+        <p>Drag the sliders to see your indicative repayment. Final rate depends on the lender, your profile, the asset and any set up fees.</p>
+
+        <div class="slider-group">
+          <div class="slider-row">
+            <label for="calc-amount">Loan amount</label>
+            <div class="slider-value">
+              <span class="currency">$</span><input class="calc-input calc-input-amount" id="val-amount" type="text" inputmode="numeric" autocomplete="off" value="45,000" aria-label="Loan amount" />
+            </div>
+          </div>
+          <input type="range" class="calc-slider" id="calc-amount" min="10000" max="500000" step="1" value="45000" />
+          <div class="slider-bounds"><span>$10,000</span><span>$500,000</span></div>
+        </div>
+
+        <div class="slider-group">
+          <div class="slider-row">
+            <label for="calc-term">Loan term</label>
+            <div class="slider-value">
+              <input class="calc-input calc-input-narrow" id="val-term" type="text" inputmode="numeric" autocomplete="off" value="5" aria-label="Loan term in years" /><span class="unit">years</span>
+            </div>
+          </div>
+          <input type="range" class="calc-slider" id="calc-term" min="1" max="7" step="1" value="5" />
+          <div class="slider-bounds"><span>1 yr</span><span>7 yrs</span></div>
+        </div>
+
+        <div class="slider-group">
+          <div class="slider-row">
+            <label for="calc-rate">Interest rate (p.a.)</label>
+            <div class="slider-value">
+              <input class="calc-input calc-input-rate" id="val-rate" type="text" inputmode="decimal" autocomplete="off" value="8.95" aria-label="Interest rate" /><span class="unit">%</span>
+            </div>
+          </div>
+          <input type="range" class="calc-slider" id="calc-rate" min="5" max="25" step="0.05" value="8.95" />
+          <div class="slider-bounds"><span>5.00%</span><span>25.00%</span></div>
+        </div>
+
+        <div class="slider-group" style="margin-bottom: 0;">
+          <div class="slider-row">
+            <label for="calc-residual">Residual / balloon</label>
+            <div class="slider-value">
+              <input class="calc-input calc-input-narrow" id="val-residual-pct" type="text" inputmode="numeric" autocomplete="off" value="0" aria-label="Residual percentage" /><span class="unit">%</span>
+              <span class="unit" style="margin-left:10px;">($<span id="val-residual-amt">0</span>)</span>
+            </div>
+          </div>
+          <input type="range" class="calc-slider" id="calc-residual" min="0" max="50" step="1" value="0" />
+          <div class="slider-bounds"><span>0%</span><span>50%</span></div>
+        </div>
+      </div>
+
+      <!-- Results -->
+      <div class="calc-results">
+        <span class="calc-eyebrow">Your indicative repayment</span>
+        <div class="calc-headline">Monthly</div>
+        <div class="calc-monthly">
+          <span class="currency">$</span><span id="res-monthly">931</span>
+          <span class="period">/ month</span>
+        </div>
+        <div class="calc-equiv">
+          <div>Weekly<strong>$<span id="res-weekly">215</span></strong></div>
+          <div>Fortnightly<strong>$<span id="res-fortnightly">430</span></strong></div>
+          <div>Residual<strong>$<span id="res-residual">0</span></strong></div>
+        </div>
+
+        <div class="calc-cta">
+          <a href="#quote" class="btn btn-primary btn-lg">Get my real rate
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
+          <a href="tel:1300235255" class="btn btn-ghost btn-lg">Call a broker</a>
+        </div>
+
+        <button type="button" id="open-schedule" class="calc-schedule-link">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          View full amortisation schedule
+        </button>
+
+        <p class="calc-disclaimer">Indicative only. Calculation assumes a fixed rate, equal monthly repayments and excludes fees. Actual rates depend on lender, credit profile, asset type and term. Get a personal quote for your real numbers.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- Lenders strip — "We compare 63+ trusted lenders" + scrolling logo marquee -->
+<div class="lenders-strip">
+  <div class="container">
+    <div class="lenders-label">
+      We compare
+      <strong>63+ trusted lenders</strong>
+    </div>
+  </div>
+  <div class="lenders-marquee">
+    <div class="lenders-track" id="lenders-track">
+      <!-- logos injected by script -->
+    </div>
+  </div>
+</div>
+
+
+<!-- Finance options -->
+<section class="block" id="finance">
+  <div class="container">
+    <div class="section-head">
+      <div class="eyebrow">What we finance</div>
+      <h2>Whatever you're chasing, we'll <span class="accent">help fund it.</span></h2>
+      <p>From the daily commute to the weekend dream &mdash; and every business asset in between &mdash; we tailor finance that fits your life and circumstances.</p>
+    </div>
+
+    <div class="finance-grid">
+      <div class="finance-card fc-vehicle">
+        <div class="finance-icon">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 16H9m10 0h3v-3.15a1 1 0 0 0-.84-.99L16 11l-2.7-3.6a1 1 0 0 0-.8-.4H5.24a2 2 0 0 0-1.8 1.1L2 11v5h3"/><circle cx="6.5" cy="16.5" r="2.5"/><circle cx="16.5" cy="16.5" r="2.5"/></svg>
+        </div>
+        <h3>Vehicle Finance</h3>
+        <p>New or used cars, dealer or private sale. Competitive rates from our full lender panel.</p>
+        <button type="button" class="link" data-finance="vehicle">Explore vehicle loans
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+      </div>
+
+      <div class="finance-card fc-marine">
+        <div class="finance-icon">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 21c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1s1.2 1 2.5 1c2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/><path d="M19.38 20A11.6 11.6 0 0 0 21 14l-9-4-9 4c0 2.9.94 5.34 2.81 7.76"/><path d="M19 13V7a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2v6"/><path d="M12 10v4"/></svg>
+        </div>
+        <h3>Marine Finance</h3>
+        <p>If it gets you on the water, we'll finance it. Flexible terms designed for life on the water.</p>
+        <button type="button" class="link" data-finance="marine">Explore marine loans
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+      </div>
+
+      <div class="finance-card fc-caravan">
+        <div class="finance-icon">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="8" width="16" height="9" rx="1"/><path d="M18 11h4v4a1 1 0 0 1-1 1h-3"/><circle cx="7" cy="18" r="2"/><circle cx="17" cy="18" r="2"/></svg>
+        </div>
+        <h3>Caravan Finance</h3>
+        <p>Hit the open road with finance tailored to caravans, campers and motorhomes.</p>
+        <button type="button" class="link" data-finance="caravan">Explore caravan loans
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+      </div>
+
+      <div class="finance-card fc-business">
+        <div class="finance-icon">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+        </div>
+        <h3>Business Finance</h3>
+        <p>Working capital, equipment, vehicles, chattel mortgages &mdash; solutions for every ABN.</p>
+        <button type="button" class="link" data-finance="business">Explore business finance
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+      </div>
+
+      <div class="finance-card fc-equipment">
+        <div class="finance-icon">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h18M3 12h18M3 17h18"/><path d="M7 5v4M17 15v4"/></svg>
+        </div>
+        <h3>Equipment &amp; Machinery</h3>
+        <p>From skid steers to manufacturing kit &mdash; keep your business moving with the right gear.</p>
+        <button type="button" class="link" data-finance="equipment">Explore equipment finance
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+      </div>
+
+      <div class="finance-card fc-truck">
+        <div class="finance-icon">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 17h2l2-5h12l2 5h2"/><path d="M5 12V7h14v5"/><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/></svg>
+        </div>
+        <h3>Truck &amp; Trailer Finance</h3>
+        <p>Light rigid to prime movers. Specialist lenders, fast turnarounds, owner-operator friendly.</p>
+        <button type="button" class="link" data-finance="truck">Explore truck loans
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+      </div>
+
+      <div class="finance-card fc-personal">
+        <div class="finance-icon">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="13" rx="2"/><path d="M3 10h18"/><path d="M8 14h4"/></svg>
+        </div>
+        <h3>Personal Finance</h3>
+        <p>Holidays, weddings, debt consolidation and more. Honest advice on the right product for you.</p>
+        <button type="button" class="link" data-finance="personal">Explore personal loans
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+      </div>
+
+      <div class="finance-card fc-insurance">
+        <div class="finance-icon">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <h3>Insurance &amp; Warranty</h3>
+        <p>Protect your asset with comprehensive cover and extended warranty options.</p>
+        <button type="button" class="link" data-finance="insurance">Explore protection
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- Process -->
+<section class="block process-section" id="process">
+  <div class="container">
+    <div class="section-head">
+      <div class="eyebrow">How it works</div>
+      <h2>Three steps. <span class="accent">No surprises.</span></h2>
+      <p>We've cut the noise so you can get the keys, the boat, or the equipment without the paperwork headache.</p>
+    </div>
+
+    <div class="process-grid">
+      <div class="process-step">
+        <div class="step-number">1</div>
+        <h3>Tell us what you need</h3>
+        <p>A quick form or a phone call &mdash; give us the basics about you and what you're financing.</p>
+      </div>
+      <div class="process-step">
+        <div class="step-number">2</div>
+        <h3>We do the shopping</h3>
+        <p>After a quick chat, your dedicated broker checks 63+ lenders, negotiates rates, and brings back the best fit.</p>
+      </div>
+      <div class="process-step">
+        <div class="step-number">3</div>
+        <h3>Approved &amp; on the road</h3>
+        <p>Pre-approval in under an hour. Settlement handled. You drive, sail, or get to work.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- Why us -->
+<section class="block" id="why">
+  <div class="container">
+    <div class="why-grid">
+      <div class="why-content">
+        <div class="eyebrow">Why Acquired</div>
+        <h2>Bigger than any bank's reach. <span class="accent">Personal service.</span></h2>
+        <p>We're a 100% Australian-owned brokerage that's spent 50+ years sweating the details so you don't have to. Every client gets a dedicated specialist &mdash; not a call centre &mdash; and we'll fight for the right outcome, even when the situation is complicated.</p>
+
+        <ul class="why-list">
+          <li>
+            <div class="why-check"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <div>
+              <h4>Pre-approved in under an hour</h4>
+              <p>Move fast when the right deal comes up. We turn applications around quickly without cutting corners.</p>
+            </div>
+          </li>
+          <li>
+            <div class="why-check"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <div>
+              <h4>We protect your credit score</h4>
+              <p>Smart lender matching means no unnecessary enquiries damaging your file.</p>
+            </div>
+          </li>
+          <li>
+            <div class="why-check"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <div>
+              <h4>Bad credit? New ABN? Not a citizen?</h4>
+              <p>No problem &mdash; leave it with us. We know which lenders say yes when others say no.</p>
+            </div>
+          </li>
+          <li>
+            <div class="why-check"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <div>
+              <h4>One specialist, start to finish</h4>
+              <p>The same broker who takes your call sees the deal through to settlement.</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <div class="why-visual" aria-label="Live approvals panel">
+        <div class="live-header">
+          <div class="live-indicator" id="live-indicator">
+            <span class="live-dot" aria-hidden="true"></span>
+            <span class="live-text">Live activity</span>
+          </div>
+          <div class="live-rating">
+            <span class="star">&#9733;</span> 5.0 &middot; Google
+          </div>
+        </div>
+
+        <div class="live-stats">
+          <div>
+            <span class="live-stat-num">63<span class="plus">+</span></span>
+            <span class="live-stat-lbl">Active lenders on panel</span>
+          </div>
+          <div>
+            <span class="live-stat-num">$5M<span class="plus">+</span></span>
+            <span class="live-stat-lbl">Funded each month</span>
+          </div>
+          <div>
+            <span class="live-stat-num">&lt;1<span class="plus">hr</span></span>
+            <span class="live-stat-lbl">Pre-approval turnaround</span>
+          </div>
+          <div>
+            <span class="live-stat-num">100<span class="plus">%</span></span>
+            <span class="live-stat-lbl">Credit score protected</span>
+          </div>
+        </div>
+
+        <div>
+          <div class="live-feed-head">Recent activity</div>
+          <div class="live-feed" id="live-feed">
+            <div class="live-row">
+              <span class="status-pill approved">Approved</span>
+              <span class="asset">Vehicle finance</span>
+              <span class="time">Just now</span>
+            </div>
+            <div class="live-row">
+              <span class="status-pill settled">Settled</span>
+              <span class="asset">Caravan finance</span>
+              <span class="time">3 min ago</span>
+            </div>
+            <div class="live-row">
+              <span class="status-pill pre-approved">Pre-approved</span>
+              <span class="asset">Business equipment</span>
+              <span class="time">11 min ago</span>
+            </div>
+            <div class="live-row">
+              <span class="status-pill approved">Approved</span>
+              <span class="asset">Marine finance</span>
+              <span class="time">18 min ago</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- About -->
+<section class="block about-section" id="about">
+  <div class="container">
+    <div class="section-head">
+      <div class="eyebrow">About us</div>
+      <h2>Customer-obsessed <span class="accent">since day one.</span></h2>
+      <p>Built on respect, trust, value, rapport &mdash; and a stubborn belief that finance should be done as if it were our own.</p>
+    </div>
+
+    <div class="about-grid">
+      <div class="about-story">
+        <h3>You're more than a number. <span class="accent">Always.</span></h3>
+        <p>Acquired Financial Services was formed with a simple idea: most brokers treat finance like a transaction. We treat it like a relationship. Ten years and millions in settlements later, we still answer the phone the same way we did on day one &mdash; like the call matters. Because it does.</p>
+        <p>Today, our team supports Australians across every state &mdash; first-time borrowers, business owners, repeat clients, people who've been knocked back elsewhere. Whatever the situation, we'll either find a way or tell you straight that we can't. No pressure, no padding.</p>
+
+        <ul class="about-values">
+          <li>
+            <div class="val-bullet">R</div>
+            <div>
+              <h4>Respect</h4>
+              <p>Every client gets honest answers and real time &mdash; not a script.</p>
+            </div>
+          </li>
+          <li>
+            <div class="val-bullet">T</div>
+            <div>
+              <h4>Trust</h4>
+              <p>We say what we mean, even when it's not what you wanted to hear.</p>
+            </div>
+          </li>
+          <li>
+            <div class="val-bullet">V</div>
+            <div>
+              <h4>Value</h4>
+              <p>63+ lenders on panel means we shop hard so you don't have to.</p>
+            </div>
+          </li>
+          <li>
+            <div class="val-bullet">R</div>
+            <div>
+              <h4>Rapport</h4>
+              <p>One dedicated specialist, start to finish &mdash; never a call centre.</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <aside class="about-stats" aria-label="Acquired Finance at a glance">
+        <div class="about-stat">
+          <span class="num">10<span class="plus">+</span></span>
+          <span class="lbl">years serving Australians</span>
+        </div>
+        <div class="about-stat">
+          <span class="num">50<span class="plus">+</span></span>
+          <span class="lbl">Years of combined broker experience across the team</span>
+        </div>
+        <div class="about-stat">
+          <span class="num">63<span class="plus">+</span></span>
+          <span class="lbl">Bank &amp; non-bank lenders on our panel</span>
+        </div>
+        <div class="about-stat">
+          <span class="num">&lt;1<span class="plus">hr</span></span>
+          <span class="lbl">Pre-approval &mdash; with your credit score protected</span>
+        </div>
+      </aside>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- Testimonials / Reviews — live Google reviews via Trustindex widget -->
+<section class="block testimonials-section" id="reviews">
+  <div class="container">
+    <div class="section-head">
+      <div class="eyebrow">Reviews</div>
+      <h2>Straight from <span class="accent">Google.</span></h2>
+      <p>Live reviews from real Australians who've worked with us. Updated automatically.</p>
+    </div>
+
+    <!--
+      ====================================================================
+      LIVE GOOGLE REVIEWS — TRUSTINDEX WIDGET
+      Static HTML (this page):  use the <script> tag below
+      WordPress (after migration): use the shortcode instead
+                                   [trustindex data-widget-id=808b7ca72f45872ef33663424e6]
+      Widget ID: 808b7ca72f45872ef33663424e6
+      ====================================================================
+    -->
+    <div id="trustindex-mount" class="trustindex-mount">
+      <script defer async src="https://cdn.trustindex.io/loader.js?808b7ca72f45872ef33663424e6"></script>
+    </div>
+  </div>
+</section>
+
+
+<!-- FAQ -->
+<section class="block faq-section" id="faq">
+  <div class="container">
+    <div class="section-head">
+      <div class="eyebrow">FAQ</div>
+      <h2>Common questions, <span class="accent">clear answers.</span></h2>
+      <p>What people ask us before getting started. If yours isn't here, give us a call &mdash; we'll cover it in plain English.</p>
+    </div>
+
+    <div class="faq-grid">
+      <details class="faq-item">
+        <summary>
+          <span>Will checking my rate impact my credit score?</span>
+          <span class="faq-chevron" aria-hidden="true">
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 2v8M2 6h8"/></svg>
+          </span>
+        </summary>
+        <div class="faq-answer">No. We use soft pre-assessments to compare lenders before any formal credit check. Your file isn't touched until we've found the right lender. Funnelling everything through us actually protects your credit far better than applying to multiple lenders direct.</div>
+      </details>
+
+      <details class="faq-item">
+        <summary>
+          <span>How fast can I get approved?</span>
+          <span class="faq-chevron" aria-hidden="true">
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 2v8M2 6h8"/></svg>
+          </span>
+        </summary>
+        <div class="faq-answer">Most straightforward pre-approvals come back within 1 business hour (lender dependant). More complex scenarios &mdash; self-employed, past credit issues, unusual assets &mdash; are typically approved within 24 hours.</div>
+      </details>
+
+      <details class="faq-item">
+        <summary>
+          <span>Can I get pre-approved before choosing the asset?</span>
+          <span class="faq-chevron" aria-hidden="true">
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 2v8M2 6h8"/></svg>
+          </span>
+        </summary>
+        <div class="faq-answer">Yes &mdash; and we strongly recommend it. Pre-approvals are valid for 90 days, lock in your borrowing power, and give you serious negotiating leverage at dealerships and private sales.</div>
+      </details>
+
+      <details class="faq-item">
+        <summary>
+          <span>Can you beat dealership finance?</span>
+          <span class="faq-chevron" aria-hidden="true">
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 2v8M2 6h8"/></svg>
+          </span>
+        </summary>
+        <div class="faq-answer">Almost always. Dealers push one or two lenders that pay them the highest commission. We compare 63+ bank and non-bank lenders for the best rate, structure and lender for your specific situation.</div>
+      </details>
+
+      <details class="faq-item">
+        <summary>
+          <span>Do you finance private sales and interstate?</span>
+          <span class="faq-chevron" aria-hidden="true">
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 2v8M2 6h8"/></svg>
+          </span>
+        </summary>
+        <div class="faq-answer">Yes. We regularly settle private sales, auction purchases and interstate deals &mdash; handling PPSR checks, encumbrance clearance and direct payment to the seller.</div>
+      </details>
+
+      <details class="faq-item">
+        <summary>
+          <span>Is there a fee for your service?</span>
+          <span class="faq-chevron" aria-hidden="true">
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 2v8M2 6h8"/></svg>
+          </span>
+        </summary>
+        <div class="faq-answer">Our pre-approval process is cost-free and commitment-free &mdash; there's nothing to pay to see your options. If you choose to proceed, an origination fee applies; it's only ever payable from the proceeds of your loan contract, so nothing comes out of your pocket. Because every lender's pricing is slightly different, we'll walk you through all fees upfront once your pre-approval is in place &mdash; no surprises.</div>
+      </details>
+
+      <details class="faq-item">
+        <summary>
+          <span>What if I'm self-employed?</span>
+          <span class="faq-chevron" aria-hidden="true">
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 2v8M2 6h8"/></svg>
+          </span>
+        </summary>
+        <div class="faq-answer">We're specialists. Low-doc loans (from 6 months ABN), new ABN options, GST-registered and non-registered, sole trader or company &mdash; whatever the structure, we'll find the right fit.</div>
+      </details>
+
+      <details class="faq-item">
+        <summary>
+          <span>Do I need to be an Australian citizen?</span>
+          <span class="faq-chevron" aria-hidden="true">
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 2v8M2 6h8"/></svg>
+          </span>
+        </summary>
+        <div class="faq-answer">No. We finance Australian residents, work visa holders and non-citizens regularly. The lender list narrows for some scenarios but we'll usually find a fit. Bring your visa details and we'll work backwards from there.</div>
+      </details>
+
+      <details class="faq-item">
+        <summary>
+          <span>How long does my ABN need to be active?</span>
+          <span class="faq-chevron" aria-hidden="true">
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 2v8M2 6h8"/></svg>
+          </span>
+        </summary>
+        <div class="faq-answer">For most low-doc options, from 6 months. Full-doc deals (with financials) need even less. For new ABNs under 6 months, we have specialist lenders that consider industry trading history.</div>
+      </details>
+
+      <details class="faq-item">
+        <summary>
+          <span>Do I need to provide financials?</span>
+          <span class="faq-chevron" aria-hidden="true">
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 2v8M2 6h8"/></svg>
+          </span>
+        </summary>
+        <div class="faq-answer">Not always. Low-doc and bank-statement lenders approve based on business activity, not tax returns. We assess your situation first and only request what's actually needed.</div>
+      </details>
+
+      <details class="faq-item">
+        <summary>
+          <span>What's the maximum I can borrow?</span>
+          <span class="faq-chevron" aria-hidden="true">
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 2v8M2 6h8"/></svg>
+          </span>
+        </summary>
+        <div class="faq-answer">Asset-dependent. Single-asset low-doc up to $500K is available. Larger amounts ($500K&ndash;$1M+) usually need financials or asset-backing. We've settled multi-asset deals into 7 figures. Consumer lending is capped at $400K.</div>
+      </details>
+
+      <details class="faq-item">
+        <summary>
+          <span>What's a balloon and should I use one?</span>
+          <span class="faq-chevron" aria-hidden="true">
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 2v8M2 6h8"/></svg>
+          </span>
+        </summary>
+        <div class="faq-answer">A balloon (or residual) is a lump sum at the end of your loan term that lowers your regular repayments. Common on vehicles and yellow goods. It improves cashflow but you'll pay more interest, or need to refinance/sell at term end. Try our calculator to model both scenarios.</div>
+      </details>
+    </div>
+  </div>
+</section>
+
+
+<!-- CTA band -->
+<section class="cta-band">
+  <div class="container">
+    <div>
+      <h2>Not sure where to start? <span class="accent">Just call.</span></h2>
+      <p>One conversation with a real broker beats a thousand online quotes. We'll tell you straight if we can help &mdash; and how.</p>
+    </div>
+    <div class="cta-actions">
+      <a href="tel:1300235255" class="phone-big">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        1300 235 255
+      </a>
+      <span class="small">Mon&ndash;Fri 8:30am &ndash; 6:00pm &middot; Sat 9:00am &ndash; 5:00pm AEST</span>
+    </div>
+  </div>
+</section>
+
+
+<!-- Footer -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-col footer-about">
+        <a href="#" class="logo logo-footer" aria-label="Acquired Finance">
+          <img src="assets/images/logo.png" alt="Acquired Financial Services" />
+        </a>
+        <p>Australia's best-service finance brokers. 100% Australian-owned, with over 50 years of combined experience and access to 63+ bank and non-bank lenders.</p>
+        <div class="footer-contact">
+          <div>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            3/114 Colemans Road, Carrum Downs VIC 3201
+          </div>
+          <div>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            1300 235 255
+          </div>
+          <div>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            customerservice@acquiredfinance.com
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <h5>Finance</h5>
+        <ul>
+          <li><a href="#finance" data-finance="vehicle">Vehicle Finance</a></li>
+          <li><a href="#finance" data-finance="marine">Marine Finance</a></li>
+          <li><a href="#finance" data-finance="caravan">Caravan Finance</a></li>
+          <li><a href="#finance" data-finance="business">Business Finance</a></li>
+          <li><a href="#finance" data-finance="equipment">Equipment Finance</a></li>
+          <li><a href="#finance" data-finance="personal">Personal Finance</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Company</h5>
+        <ul>
+          <li><a href="#about">About Us</a></li>
+          <li><a href="#reviews">Reviews</a></li>
+          <li><a href="#faq">FAQ</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Resources</h5>
+        <ul>
+          <li><a href="#calculator">Loan Calculator</a></li>
+          <li><a href="#quote">Apply Now</a></li>
+          <li><a href="#" data-doc="privacy">Privacy Policy</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div>&copy; 2026 Acquired Financial Services &middot; Australian Credit Licence 488607</div>
+      <div>Proudly Australian, we operate Australia wide</div>
+    </div>
+  </div>
+</footer>
+
+
+<!-- Amortisation Schedule modal -->
+<div class="sched-modal" id="sched-modal" aria-hidden="true">
+  <div class="sched-modal-backdrop" data-sched-close></div>
+  <div class="sched-modal-card" role="dialog" aria-modal="true" aria-labelledby="sched-title">
+    <header class="sched-header">
+      <div class="sched-header-text">
+        <span class="eyebrow">Amortisation schedule</span>
+        <h2 id="sched-title">Loan repayment schedule</h2>
+      </div>
+      <img class="sched-logo" src="assets/images/logo.png" alt="Acquired Finance" />
+      <button class="sched-close" data-sched-close aria-label="Close">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </header>
+
+    <div class="sched-summary" id="sched-summary">
+      <!-- populated by JS -->
+    </div>
+
+    <div class="sched-body">
+      <table class="sched-table" id="sched-table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Date</th>
+            <th>Payment</th>
+            <th>Principal</th>
+            <th>Interest</th>
+            <th>Balance</th>
+          </tr>
+        </thead>
+        <tbody id="sched-rows"></tbody>
+      </table>
+    </div>
+
+    <div class="sched-footer">
+      <p class="sched-disclaim">Indicative only. Assumes a fixed rate and equal monthly repayments. Excludes lender fees, government charges and broker fees. Real schedule depends on the lender, settlement date and any deferred first payment.</p>
+      <div class="sched-actions">
+        <button type="button" id="sched-csv" class="btn btn-secondary">Download CSV</button>
+        <button type="button" id="sched-print" class="btn btn-primary">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:6px;"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+          Print / Save PDF
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Privacy Policy modal -->
+<div class="doc-modal" id="privacy-modal" aria-hidden="true">
+  <div class="doc-modal-backdrop" data-close></div>
+  <div class="doc-modal-card" role="dialog" aria-modal="true" aria-labelledby="privacy-modal-title">
+    <header class="doc-modal-header">
+      <div>
+        <span class="eyebrow">Legal</span>
+        <h2 id="privacy-modal-title">Privacy Policy</h2>
+      </div>
+      <button class="doc-modal-close" data-close aria-label="Close">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </header>
+    <div class="doc-modal-body">
+
+      <p>This Privacy Policy sets out how Acquired Financial Services Pty Ltd aims to protect the privacy of your personal information, your rights in relation to your personal information managed by us, and the way in which we collect, hold, use and disclose your personal information.</p>
+      <p>In handling your personal information, Acquired Financial Services Pty Ltd will comply with the Australian <em>Privacy Act 1988</em> (including the 13 Australian Privacy Principles) and/or the New Zealand <em>Privacy Act 1993</em> (including the 12 New Zealand Privacy Principles, where relevant), and all other relevant laws, regulations and codes relating to privacy and personal information ("Privacy Law").</p>
+      <p>Unless stated otherwise, this Privacy Policy is relevant to the personal information of individuals who are our current or former customers, as well as any other individuals we may deal with (for example, our customers' guarantors, directors and shareholders or individuals we deal with in other capacities as part of our business).</p>
+      <p>This Privacy Policy may be updated from time to time. You should review it periodically so that you are aware of any changes.</p>
+
+      <h3>What kind of personal information do we collect?</h3>
+      <p>Personal information is information or an opinion about an identified, or reasonably identifiable, individual. The kinds of personal information we collect and hold vary according to the specific product or service being provided and may include, but is not limited to, your:</p>
+      <ol class="alpha-list">
+        <li>contact and identification information, such as your name, address, email address, telephone number and date of birth;</li>
+        <li>information about your assets, occupation and income, account balances, account activities, payment history and transactions with us or third parties;</li>
+        <li>government identifiers and related information, such as your driver's licence, passport and visa particulars obtained, for example, to verify your identity or eligibility at the time you request a product or service;</li>
+        <li>other details relating to your relationship with us, including if we deal with you in a capacity other than a customer (for example, information about agreements or other arrangements or transactions you may have with us); and</li>
+        <li>any other information lawfully obtainable under relevant Privacy Law.</li>
+      </ol>
+
+      <h3>How do we collect your personal information?</h3>
+      <p>Where practicable we aim to collect your personal information directly from you. The circumstances in which we may do so will vary depending on the context in which we are dealing with you, but can include, for example, when you are:</p>
+      <ul>
+        <li>registering or logging in to use our website;</li>
+        <li>submitting applications and other forms through our online services and/or in hard copy;</li>
+        <li>subscribing to receive alerts/e-brochures and filling in surveys or research, or participating in promotions and competitions we offer;</li>
+        <li>contacting us for any reason including, but not limited to, reporting a problem with one of our services or website, requesting further services or otherwise seeking our assistance;</li>
+        <li>using our services and any credit provided by us in connection with those.</li>
+      </ul>
+      <p>There may be occasions when we collect your personal information from other sources, such as from:</p>
+      <ul>
+        <li>a public or commercial information services provider (such as providers of government, business or credit information);</li>
+        <li>a third party assisting us to process an application or other transaction, confirming information in an application or other request or assisting us to locate or communicate with you;</li>
+        <li>vehicle dealers and other businesses involved in dealings with you and us;</li>
+        <li>your employer, such as where we are providing a novated lease.</li>
+      </ul>
+      <p>Generally, we will only collect your personal information from sources other than you if it is unreasonable or impracticable to collect the personal information from you, and the collection of that personal information complies with all relevant Privacy Law.</p>
+
+      <h3>How we use your personal information</h3>
+      <p>We collect, hold, use and disclose your personal information where it is reasonably necessary for the purposes of providing our products and services, for our other business purposes and for any necessary related purposes. These purposes include, but are not limited to:</p>
+      <ol class="alpha-list">
+        <li>provision of commercial and consumer vehicle leasing arrangements;</li>
+        <li>processing a product application or service request;</li>
+        <li>managing our products and services or other relationships and arrangements;</li>
+        <li>processing receipts, invoices and payments and servicing customer accounts;</li>
+        <li>responding to customer enquiries about applications, accounts, products or services;</li>
+        <li>understanding customer needs and offering products and services to meet those needs;</li>
+        <li>assessing, processing and investigating insurance risks or claims;</li>
+        <li>accounting, billing and other internal administrative purposes;</li>
+        <li>identifying and informing customers of products and services that may be of interest;</li>
+        <li>notifying you about changes to our products and services;</li>
+        <li>any other legal and regulatory requirements (see below);</li>
+        <li>enforcing our rights, including undertaking debt collection activities and legal proceedings; and</li>
+        <li>undertaking business funding and development activities.</li>
+      </ol>
+
+      <h4>Australian legal requirements</h4>
+      <p>In Australia such laws include the Anti-Money Laundering and Counter-Terrorism Financing Act (for example, to comply with identity verification requirements), the Personal Property Securities Act and State and Territory real property and security interests laws, the National Consumer Credit Protection Act (for example, to comply with responsible lending requirements), the Financial Sector (Collection of Data) Act, the Corporations Act and other regulatory legislation (for example, requiring us to maintain client and transaction records, or to make reports and provide other information to regulators such as ASIC) and the Taxation Administration Act, the Income Tax Assessment Act and other taxation laws.</p>
+
+      <h4>New Zealand legal requirements</h4>
+      <p>In New Zealand such laws include the Anti-Money Laundering and Countering Financing of Terrorism Act 2013, the Tax Administration Act 1993 and, to the extent necessary, the Credit Contracts and Consumer Finance Act 2003.</p>
+
+      <p>Where personal information is used and disclosed, we take steps reasonable in the circumstances to ensure the personal information is relevant to the purposes for which it is to be used and disclosed. You are under no obligation to provide your personal information to us. However, without certain information from you, we may not be able to provide our services to you or any other relevant customer.</p>
+
+      <h3>Disclosures of your personal information</h3>
+      <p>We may disclose your personal information for purposes such as those listed above and we will always do so consistently with our privacy obligations. Third parties to whom we may disclose your personal information include:</p>
+      <ol class="alpha-list">
+        <li>our related entities in Australia, New Zealand and overseas;</li>
+        <li>administrative services providers, such as mailing houses, printers and call centre operators;</li>
+        <li>legal, settlement and valuation service providers;</li>
+        <li>data processing and market research service providers;</li>
+        <li>regulatory bodies, law enforcement authorities and toll operators in New Zealand, Australia and overseas;</li>
+        <li>financial and other advisors;</li>
+        <li>other participants in financial and payment systems, such as other banks, credit providers, clearing entities and credit card associations;</li>
+        <li>insurers, assessors and underwriters;</li>
+        <li>brokers and other distributors;</li>
+        <li>your guarantors and security providers;</li>
+        <li>debt collectors; and</li>
+        <li>credit reporting bodies and other information providers.</li>
+      </ol>
+
+      <h3>Credit reporting</h3>
+      <p>We comply with all Privacy Law that applies to the collection, use and disclosure of credit information, including the Australian Credit Reporting Privacy Code and the New Zealand Credit Reporting Privacy Code 2004 (as applicable) in our handling of your credit-related personal information.</p>
+      <p>Credit-related personal information is a type of personal information which includes information:</p>
+      <ol class="alpha-list">
+        <li>about your credit history or creditworthiness;</li>
+        <li>about your past experiences with us and other lenders;</li>
+        <li>about the kinds of credit products you have had or sought;</li>
+        <li>about how you have managed your obligations;</li>
+        <li>contained in a credit report about you which is obtained by us from a credit reporting body (CRB); and</li>
+        <li>about your creditworthiness that has been derived by us from such a credit report about you.</li>
+      </ol>
+
+      <h4>Credit-related personal information we collect and hold</h4>
+      <p>Credit-related personal information that we may collect and hold includes:</p>
+      <ul>
+        <li>your name, address and date of birth, occupation (including the name of your employer or organisation and any previous employers) and your driver's licence number;</li>
+        <li>your banking or credit card details and certain financial information about you including a statement of your assets and liabilities;</li>
+        <li>the fact that you have applied for consumer credit, or you are a guarantor in respect of that credit application and we have accessed your credit report to assess that application;</li>
+        <li>the fact that your organisation has applied for commercial credit, or you are a guarantor in respect of that credit application, and we have accessed your credit report to assess that credit application;</li>
+        <li>the fact that we provide goods and services on credit terms to your organisation;</li>
+        <li>certain publicly available information that relates to your activities in Australia and New Zealand, and your creditworthiness;</li>
+        <li>information that, in our opinion, you have committed a serious credit infringement or credit non-compliance action;</li>
+        <li>insolvency information, including adjudications, discharges, suspensions of discharges and annulments of bankruptcy, and entry into, and termination and discharge from, the no asset procedure;</li>
+        <li>assessments, evaluations, scores, ratings, summaries and other information relating to your creditworthiness which is derived by a CRB or us, wholly or partly based on the above; and</li>
+        <li>administrative information relating to credit provided by us.</li>
+      </ul>
+      <p>We collect your credit-related personal information through your dealings with us or from those acting on your behalf. We may also obtain credit-related personal information from CRBs, who may include this information in reports provided to credit providers to assist them to assess your creditworthiness.</p>
+
+      <h4>Use and disclosure of credit-related personal information</h4>
+      <p>We collect, hold, use and disclose your credit-related personal information as reasonably necessary for our business purposes and as permitted by law, including:</p>
+      <ol class="alpha-list">
+        <li>to assess, complete and process your application for credit that you make or for which you are a guarantor;</li>
+        <li>to derive assessments, evaluations, scores, ratings, summaries relating to your creditworthiness that we use in our decision-making processes;</li>
+        <li>for account review and management;</li>
+        <li>to participate in the credit reporting system;</li>
+        <li>to undertake debt recovery and enforcement activities; or</li>
+        <li>to deal with serious credit infringements.</li>
+      </ol>
+      <p>We may disclose your credit-related personal information to Equifax (formerly Veda Advantage) and other CRBs, other credit providers, our affiliates and related entities in New Zealand, Australia and overseas, current or prospective guarantors or security providers, your agents, referees, employer, executors, administrators, trustees, guardians or attorneys, your and our professional advisers, organisations involved in securitisation arrangements or debt assignments, and administrative service providers.</p>
+
+      <h4>Equifax contact details</h4>
+      <p>Equifax's policy about the management of credit-related personal information for Australia can be found at <a href="https://www.equifax.com.au/credit-reporting-policy" target="_blank" rel="noopener">equifax.com.au/credit-reporting-policy</a> or for New Zealand at <a href="https://www.equifax.co.nz" target="_blank" rel="noopener">equifax.co.nz</a>.</p>
+      <div class="contact-block">
+        <p><strong>Australia &mdash; Equifax</strong></p>
+        <p>Customer Resolutions, PO Box 964, North Sydney NSW 2059<br>Phone: 1300 762 207<br>Email: corrections@equifax.com.au</p>
+      </div>
+      <div class="contact-block">
+        <p><strong>New Zealand &mdash; Equifax</strong></p>
+        <p>Public Access Information Services &amp; Solutions (NZ), Equifax (NZ) Ltd, Private Bag 92156, Victoria Street, Auckland<br>Phone: 0800 692 733<br>Email: publicaccess.nz@equifax.co.nz</p>
+      </div>
+
+      <h4>Fraud protection</h4>
+      <p>In Australia you can ask a CRB not to use or disclose your credit-related personal information for a period of 21 days without your consent if you believe on reasonable grounds that you are, or are likely to be, a victim of fraud, including identity fraud. In New Zealand, the equivalent period is 10 working days. CRBs may use credit-related personal information they hold to respond to requests from us or other credit providers to "pre-screen" you for direct marketing. You can ask a CRB not to do this.</p>
+
+      <h3>Overseas disclosures</h3>
+      <p>We may disclose your personal information (including your credit-related personal information) to overseas recipients in order to provide our services and products and for administrative, data storage or other business management purposes. It is not practicable to list all of the countries to which your information may be transmitted from time to time, but we transfer information between Australia and New Zealand, and it is likely that other such countries will include the United States of America, Japan, Singapore and Hong Kong.</p>
+      <p>Before disclosing any personal information to an overseas recipient, we take steps reasonable in the circumstances to ensure the overseas recipient complies with relevant Privacy Laws or is bound by a substantially similar privacy scheme to that which is in place in New Zealand and Australia, unless you specifically consent to the overseas disclosure or the disclosure is otherwise required or permitted by law.</p>
+
+      <h3>Direct marketing</h3>
+      <p>We may use and disclose your personal information in order to inform you of products and services that may be of interest to you. In the event that you do not wish to receive such communications, you can opt out by following the instructions for doing so in the communications we send to you.</p>
+
+      <h3>Security of your personal information</h3>
+      <p>We may hold your personal information (including your credit-related personal information) in physical form or in electronic form on our systems or the systems of our service providers. We take steps reasonable in the circumstances to ensure that the personal information we hold is protected from misuse, interference and loss and from unauthorised access, modification or disclosure. We hold personal information in both hard copy and electronic forms in secure databases on secure premises, accessible only by authorised staff, and follow procedural safeguards that meet or exceed the relevant Privacy Law.</p>
+      <p>We require third parties handling personal information on our behalf to follow equally compliant standards of security and confidentiality. We will destroy or de-identify personal information in circumstances where it is no longer required, unless we are otherwise required or authorised by law to retain the information.</p>
+
+      <h3>Access and correction</h3>
+      <p>We take steps reasonable in the circumstances to ensure that personal information we hold is accurate, up-to-date, complete, relevant and not misleading. You have a right to access and seek correction of your personal information (including your credit-related personal information) that is collected and held by us, subject to some exceptions specified in the Privacy Act 1988 (Cth) (Australia), and the Privacy Act 1993 (New Zealand).</p>
+      <p>If at any time you would like to access or amend the personal information we hold about you, or you would like more information on our approach to privacy, please contact our Privacy Officer in accordance with the contact details below.</p>
+      <p>To obtain access to your personal information:</p>
+      <ol class="alpha-list">
+        <li>you will have to provide proof of identity;</li>
+        <li>we request that you be reasonably specific about the information you require; and</li>
+        <li>we may charge you a reasonable administration fee which reflects the cost to us for providing access in accordance with your request. We will not charge you for making the request.</li>
+      </ol>
+      <p>If we refuse your request to access or correct your personal information, we will provide you with written reasons for the refusal and details of the ways in which you can make a complaint. If you are dissatisfied with a refusal, you may make a complaint to the Australian Information Commissioner / New Zealand Privacy Commissioner or to an applicable external dispute resolution scheme.</p>
+
+      <h3>Complaints and disputes</h3>
+      <p>If you wish to complain about the way in which we collect or handle your personal information, including your credit-related personal information, or if you believe we have breached any Privacy Law, you can contact our Privacy Officer using the details below. Following a complaint, our Privacy Officer will commence an investigation and you will be informed of the outcome. At all times, privacy complaints:</p>
+      <ol class="alpha-list">
+        <li>will be treated seriously;</li>
+        <li>will be dealt with promptly;</li>
+        <li>will be dealt with in a confidential manner; and</li>
+        <li>will not affect your existing obligations or impact on the commercial arrangements between you and us.</li>
+      </ol>
+      <p>If you are dissatisfied with the outcome of your complaint, you may refer the complaint to the Australian Information Commissioner / New Zealand Privacy Commissioner or an applicable external dispute resolution scheme.</p>
+
+      <h3>How to contact us</h3>
+      <div class="contact-block">
+        <p><strong>Privacy Officer, Acquired Financial Services Pty Ltd</strong></p>
+        <p>3/114 Colemans Road, Carrum Downs VIC 3201<br>Phone: 1300 235 255<br>Email: <a href="mailto:enquiries@acquiredfinance.com">enquiries@acquiredfinance.com</a><br>Australian Credit Licence: 488607</p>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+<!-- Quote (Finance Enquiry) modal -->
+<div class="quote-modal" id="quote-modal" aria-hidden="true">
+  <div class="quote-modal-backdrop" id="quote-modal-backdrop"></div>
+  <div class="quote-modal-card" role="dialog" aria-modal="true" aria-label="Finance enquiry form">
+    <button class="quote-modal-close" id="quote-modal-close" aria-label="Close form">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+    <iframe
+      class="enquiry-iframe"
+      id="quote-modal-iframe"
+      src="about:blank"
+      data-src="forms/eligibility-chatbot.html"
+      title="Finance Enquiry Form"
+    ></iframe>
+  </div>
+</div>
+
+
+<!-- Finance category detail modal -->
+<div class="finance-modal" id="finance-modal" aria-hidden="true">
+  <div class="finance-modal-backdrop" id="finance-modal-backdrop"></div>
+  <div class="finance-modal-card" role="dialog" aria-modal="true" aria-labelledby="finance-modal-title">
+    <button class="finance-modal-close" id="finance-modal-close" aria-label="Close">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+    <div id="finance-modal-content"></div>
+  </div>
+</div>
+
+
+
+<script src="assets/js/script.js"></script>
 </body>
 </html>

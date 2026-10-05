@@ -1974,33 +1974,22 @@
 
 
 /* ============================================================
-   PREVIEW v2: Punchier embedded form card — makes it clearly a
-   hero element, not a floating white sheet.
+   PREVIEW v3: Embedded form card, dulled glow, no float.
    ============================================================ */
 .hero .quote-card--embedded {
-  border-radius: 24px;
-  border: 3px solid #8DC63F;
+  border-radius: 22px;
+  border: 2px solid rgba(141,198,63,.55);
   box-shadow:
-    0 0 0 1px rgba(255,255,255,.15),
-    0 0 0 10px rgba(141,198,63,.18),
-    0 0 60px rgba(141,198,63,.6),
-    0 0 120px rgba(141,198,63,.3),
-    0 50px 100px rgba(0,0,0,.6),
-    0 20px 40px rgba(0,0,0,.35);
-  animation: cardGentleFloat 6s ease-in-out infinite;
+    0 0 0 4px rgba(141,198,63,.08),
+    0 0 40px rgba(141,198,63,.22),
+    0 40px 80px rgba(0,0,0,.5),
+    0 15px 30px rgba(0,0,0,.3);
   position: relative;
 }
 .hero .quote-card--embedded::before {
   content: "";
   position: absolute; inset: 0;
-  border-radius: 21px;
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.9), inset 0 0 30px rgba(141,198,63,.08);
+  border-radius: 20px;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.8);
   pointer-events: none; z-index: 5;
-}
-@keyframes cardGentleFloat {
-  0%,100% { transform: translateY(0); }
-  50%     { transform: translateY(-10px); }
-}
-@media (prefers-reduced-motion: reduce) {
-  .hero .quote-card--embedded { animation: none; }
 }

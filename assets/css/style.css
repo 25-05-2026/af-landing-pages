@@ -1971,3 +1971,26 @@
   .hero .quote-card--embedded { border-radius: 14px; min-height: 600px; }
   .hero .quote-card--embedded .quote-iframe { min-height: 600px; }
 }
+
+/* ============================================================
+   PREVIEW: Make embedded form feel integrated with the hero
+   Replaces the "slapped-on white rectangle" look with a glowing,
+   gently floating card that reads as a hero element.
+   ============================================================ */
+.hero .quote-card--embedded {
+  border-radius: 22px;
+  border: 2px solid rgba(141, 198, 63, 0.45);
+  box-shadow:
+    0 0 0 6px rgba(141, 198, 63, 0.08),
+    0 0 80px rgba(141, 198, 63, 0.22),
+    0 40px 80px rgba(0, 0, 0, 0.5),
+    0 15px 30px rgba(0, 0, 0, 0.3);
+  animation: cardGentleFloat 7s ease-in-out infinite;
+}
+@keyframes cardGentleFloat {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-5px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero .quote-card--embedded { animation: none; }
+}

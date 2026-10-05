@@ -1,0 +1,1738 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#1A2138">
+<title>Quick Finance Enquiry | Acquired Financial Services</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#1A2138;
+    --navy-2:#252E4F;
+    --green:#8DC63F;
+    --green-dk:#74A832;
+    --green-dk2:#5C8A28;
+    --green-soft:#EEF6E0;
+    --ink:#0F1424;
+    --body:#374151;
+    --muted:#6B7280;
+    --line:#E5E7EB;
+    --line-2:#EEF1F5;
+    --bg:#FFFFFF;
+    --bg-alt:#F7F9FB;
+    --danger:#DC3545;
+    --danger-soft:#FEF2F2;
+    --shadow-sm:0 1px 2px rgba(15,20,36,.06),0 1px 3px rgba(15,20,36,.08);
+    --shadow:0 4px 14px rgba(15,20,36,.08),0 2px 6px rgba(15,20,36,.06);
+    --shadow-lg:0 18px 40px rgba(15,20,36,.14);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  /* Keep hidden screens hidden: .chatbot/.btn set display, which otherwise overrides the [hidden] attribute */
+  [hidden]{display:none !important}
+  html,body{min-height:100%}
+  body{
+    font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+    color:var(--body);background:var(--bg-alt);line-height:1.5;
+    -webkit-font-smoothing:antialiased;font-size:15px;
+    padding:16px 12px;
+    display:flex;justify-content:center;align-items:flex-start;
+  }
+  html.embedded body{background:transparent;padding:0}
+
+  .chatbot{
+    width:100%;max-width:560px;
+    background:#fff;border-radius:18px;
+    box-shadow:var(--shadow-lg);
+    overflow:hidden;
+    position:relative;
+    display:flex;flex-direction:column;
+  }
+  /* Embedded on the AF site: no card chrome, sit naturally at its content height (parent modal handles sizing) */
+  html.embedded .chatbot{border-radius:0;box-shadow:none}
+
+  /* ---------- HEADER ---------- */
+  .chatbot-header{
+    padding:14px 22px 12px;
+    background:linear-gradient(180deg,#fff 0%,#fafbfd 100%);
+    border-bottom:1px solid var(--line-2);
+  }
+  .chatbot-title{
+    font-family:'Fraunces',Georgia,serif;
+    font-size:19px;font-weight:700;
+    color:var(--green-dk);letter-spacing:-.015em;
+    line-height:1.15;
+    margin-bottom:3px;
+  }
+  .chatbot-subtitle{
+    font-size:12.5px;color:var(--muted);line-height:1.4;
+    margin-bottom:11px;
+  }
+  .chatbot-title .dot{
+    width:9px;height:9px;background:var(--green);border-radius:50%;
+    box-shadow:0 0 0 0 rgba(141,198,63,.7);
+    animation:livePulse 2s ease-out infinite;
+  }
+  @keyframes livePulse{
+    0%{box-shadow:0 0 0 0 rgba(141,198,63,.7)}
+    70%{box-shadow:0 0 0 8px rgba(141,198,63,0)}
+    100%{box-shadow:0 0 0 0 rgba(141,198,63,0)}
+  }
+
+  .progress-bar{
+    height:5px;background:var(--line-2);border-radius:100px;overflow:hidden;
+  }
+  .progress-fill{
+    height:100%;background:linear-gradient(90deg,var(--green) 0%,var(--green-dk) 100%);
+    border-radius:100px;
+    transition:width .35s cubic-bezier(.4,0,.2,1);
+    width:0;
+  }
+  .progress-meta{
+    display:flex;justify-content:space-between;align-items:center;
+    margin-top:7px;
+    font-size:11px;font-weight:600;color:var(--muted);
+    letter-spacing:.03em;
+  }
+  .progress-meta .step-label{color:var(--green-dk)}
+
+  /* ---------- VARIANT: HERO ----------
+     Only applies when iframe src has ?variant=hero. Makes the chatbot header
+     match the acquiredfinance.com hero so the embedded form reads as a
+     continuation of the hero rather than a floating white card on top of it. */
+  html.variant-hero .chatbot-header{
+    background:
+      radial-gradient(ellipse at 100% 0%, rgba(141,198,63,.22) 0%, transparent 55%),
+      linear-gradient(180deg,#1A2138 0%,#0F1424 100%);
+    border-bottom:2px solid var(--green);
+    padding:18px 22px 14px;
+  }
+  html.variant-hero .chatbot-title{color:#fff}
+  html.variant-hero .chatbot-subtitle{color:rgba(255,255,255,.72)}
+  html.variant-hero .progress-bar{background:rgba(255,255,255,.14)}
+  html.variant-hero .progress-fill{box-shadow:0 0 10px rgba(141,198,63,.5)}
+  html.variant-hero .progress-meta{color:rgba(255,255,255,.65)}
+  html.variant-hero .progress-meta #progressLabel{color:var(--green)}
+
+  /* ---------- MAIN ---------- */
+  .chatbot-main{
+    padding:20px 22px 14px;
+    display:flex;flex-direction:column;
+    min-height:200px; /* keeps very short questions from looking tiny, but no forced stretching */
+  }
+  html.embedded .chatbot-main{padding:16px 18px 12px}
+
+  .question-card{
+    animation:qFadeIn .24s ease-out;
+  }
+  @keyframes qFadeIn{
+    from{opacity:0;transform:translateY(5px)}
+    to{opacity:1;transform:translateY(0)}
+  }
+  .question-eyebrow{
+    display:inline-block;
+    font-size:10px;font-weight:800;
+    letter-spacing:.14em;text-transform:uppercase;
+    color:var(--green-dk);
+    background:rgba(141,198,63,.12);
+    padding:3px 9px;
+    border-radius:100px;
+    margin-bottom:8px;
+  }
+  .question-text{
+    font-family:'Fraunces',Georgia,serif;
+    font-size:20px;font-weight:600;
+    color:var(--ink);line-height:1.2;
+    letter-spacing:-.015em;
+    margin-bottom:5px;
+  }
+  .question-help{
+    font-size:13px;color:var(--muted);margin-bottom:14px;line-height:1.45;
+  }
+  .question-footnote{
+    margin-top:14px;
+    padding:10px 12px;
+    background:var(--bg-alt);
+    border-left:3px solid var(--line);
+    border-radius:6px;
+    font-size:11.5px;color:var(--muted);
+    line-height:1.5;
+  }
+
+  /* ---------- OPTIONS ---------- */
+  .options{display:grid;gap:7px}
+  .options.grid-2{grid-template-columns:1fr 1fr}
+  @media (max-width:520px){.options.grid-2{grid-template-columns:1fr}}
+  .option{
+    display:flex;align-items:center;gap:11px;
+    padding:10px 13px;
+    background:#fff;border:2px solid var(--line);
+    border-radius:12px;
+    cursor:pointer;
+    transition:border-color .15s, background .15s, transform .1s;
+    text-align:left;font-family:inherit;
+    font-size:14px;font-weight:700;color:var(--ink);
+    width:100%;
+    line-height:1.25;
+  }
+  .option:hover{border-color:var(--green);background:#fafcf5}
+  .option.selected{border-color:var(--green);background:var(--green-soft)}
+  .option:active{transform:scale(.99)}
+  .option .icon{
+    width:36px;height:36px;flex:none;
+    display:flex;align-items:center;justify-content:center;
+    background:var(--green-soft);
+    border-radius:10px;
+    color:var(--green-dk);
+    transition:background .15s, color .15s;
+  }
+  .option .icon svg{width:20px;height:20px}
+  .option:hover .icon,
+  .option.selected .icon{
+    background:#dbedb0;
+    color:var(--green-dk2);
+  }
+  .option.selected{
+    border-color:var(--green-dk);background:var(--green-soft);
+  }
+  .option.selected::after{
+    content:"✓";
+    margin-left:auto;
+    color:var(--green-dk);
+    font-weight:800;font-size:18px;
+  }
+  .option .opt-body{display:flex;flex-direction:column}
+  .option .opt-label{line-height:1.2}
+  .option .opt-hint{font-size:12px;font-weight:500;color:var(--muted);margin-top:2px}
+
+  /* ---------- TEXT INPUTS ---------- */
+  .field{margin-bottom:10px}
+  .field label{
+    display:block;font-size:12px;font-weight:700;
+    color:var(--ink);margin-bottom:5px;letter-spacing:.01em;
+  }
+  .field input, .field select{
+    width:100%;padding:12px 14px;
+    font-size:15px;font-family:inherit;
+    border:2px solid var(--line);border-radius:10px;
+    background:#fff;color:var(--ink);
+    transition:border-color .15s, box-shadow .15s;
+  }
+  .field input:focus, .field select:focus{
+    outline:none;border-color:var(--green);
+    box-shadow:0 0 0 4px rgba(141,198,63,.16);
+  }
+  .field input.error{border-color:var(--danger);background:var(--danger-soft)}
+  .field .error-msg{
+    display:none;color:var(--danger);
+    font-size:13px;font-weight:600;margin-top:6px;
+  }
+  .field.has-error .error-msg{display:block}
+
+  .field-amount{position:relative}
+  .field-amount .prefix{
+    position:absolute;left:16px;top:50%;transform:translateY(-50%);
+    color:var(--muted);font-size:16px;font-weight:600;pointer-events:none;
+  }
+  .field-amount input{padding-left:30px}
+
+  .abn-lookup{
+    margin-top:10px;padding:14px 16px;
+    background:var(--green-soft);border:2px solid var(--green);
+    border-radius:12px;
+    display:none;
+  }
+  .abn-lookup.show{display:block;animation:qFadeIn .3s ease-out}
+  .abn-lookup.lookup-error{background:var(--danger-soft);border-color:var(--danger)}
+  .abn-lookup .abn-label{
+    font-size:11px;font-weight:800;
+    letter-spacing:.14em;text-transform:uppercase;
+    color:var(--green-dk);margin-bottom:4px;
+  }
+  .abn-lookup.lookup-error .abn-label{color:var(--danger)}
+  .abn-lookup .abn-entity{
+    font-size:16px;font-weight:700;color:var(--ink);
+    line-height:1.3;
+  }
+  .abn-lookup .abn-meta{
+    font-size:13px;color:var(--muted);margin-top:2px;
+  }
+  .abn-name-results{
+    margin-top:10px;
+    display:flex;flex-direction:column;gap:6px;
+    max-height:280px;
+    overflow-y:auto;
+  }
+  .abn-name-result{
+    display:flex;flex-direction:column;
+    padding:12px 14px;
+    background:#fff;border:2px solid var(--line);
+    border-radius:10px;
+    text-align:left;font-family:inherit;
+    cursor:pointer;
+    transition:border-color .15s, background .15s, transform .1s;
+    width:100%;
+  }
+  .abn-name-result:hover{
+    border-color:var(--green);
+    background:#fafcf5;
+  }
+  .abn-name-result:active{transform:scale(.99)}
+  .abn-name-title{
+    font-size:14px;font-weight:700;color:var(--ink);
+    line-height:1.3;
+  }
+  .abn-name-meta{
+    font-size:12px;color:var(--muted);
+    margin-top:3px;
+    font-weight:500;
+  }
+
+  /* ---------- NAV ---------- */
+  .chatbot-footer{
+    padding:12px 22px 16px;
+    display:flex;gap:10px;justify-content:space-between;align-items:center;
+    border-top:1px solid var(--line-2);
+    background:#fff;
+  }
+  html.embedded .chatbot-footer{padding:10px 18px 14px}
+  .btn{
+    padding:11px 18px;
+    font-size:14px;font-weight:700;font-family:inherit;
+    border:0;border-radius:12px;cursor:pointer;
+    transition:background .15s, transform .1s, box-shadow .15s;
+    letter-spacing:.005em;
+    display:inline-flex;align-items:center;justify-content:center;gap:6px;
+  }
+  .btn:active{transform:scale(.99)}
+  .btn-primary{
+    background:var(--green);color:#fff;
+    box-shadow:0 3px 12px rgba(141,198,63,.28);
+  }
+  .btn-primary:hover{background:var(--green-dk);box-shadow:0 4px 14px rgba(141,198,63,.36)}
+  .btn-primary:disabled{background:#cfd5c5;color:#888;cursor:not-allowed;box-shadow:none}
+  .btn-primary-block{
+    flex:1;width:100%;
+    padding:13px 22px;
+    font-size:15px;
+    border-radius:12px;
+  }
+  .btn-secondary{background:transparent;color:var(--muted);border:2px solid var(--line);border-radius:100px;padding:10px 16px;font-size:13px}
+  .btn-secondary:hover{border-color:var(--muted);color:var(--ink)}
+  .btn-ghost{background:transparent;color:var(--muted);padding:8px 12px;font-size:13px}
+  .btn-ghost:hover{color:var(--ink)}
+
+  /* ---------- KNOCKOUT / SUCCESS SCREENS ---------- */
+  .full-screen{
+    padding:44px 28px;
+    display:flex;flex-direction:column;align-items:center;
+    text-align:center;
+    animation:qFadeIn .32s ease-out;
+  }
+  .full-screen[hidden]{display:none !important}
+  .fs-icon{
+    width:64px;height:64px;
+    display:flex;align-items:center;justify-content:center;
+    border-radius:50%;
+    font-size:32px;margin-bottom:16px;
+  }
+  .fs-icon.ok{background:var(--green-soft);color:var(--green-dk2);border:3px solid var(--green)}
+
+  /* Knockout icon — muted, neutral, professional. Not a stop sign. */
+  .knockout-icon{
+    background:#f4f6fa;
+    border:2px solid #dde3ec;
+    color:#4b5563;
+  }
+  .knockout-icon svg{width:32px;height:32px}
+  .knockout-help-text{
+    font-size:13.5px !important;
+    color:var(--muted);
+    max-width:420px;
+    margin:6px auto 18px !important;
+    line-height:1.55;
+  }
+  .full-screen h2{
+    font-family:'Fraunces',Georgia,serif;
+    font-size:26px;font-weight:700;color:var(--ink);
+    margin-bottom:10px;letter-spacing:-.01em;line-height:1.2;
+  }
+  .full-screen p{
+    font-size:15px;color:var(--body);
+    max-width:440px;margin:0 auto 22px;line-height:1.6;
+  }
+  .full-screen .actions{
+    display:flex;gap:10px;flex-wrap:wrap;justify-content:center;
+    margin-top:8px;
+  }
+  .callout{
+    background:var(--green-soft);border:1px solid rgba(141,198,63,.4);
+    border-radius:12px;padding:14px 18px;
+    max-width:440px;margin:16px auto 22px;
+    font-size:14px;color:var(--ink);text-align:left;
+  }
+  .callout strong{color:var(--green-dk2)}
+
+  /* ---------- SUCCESS SCREEN (v3 — red urgency, no brown) ---------- */
+  .chatbot-success{
+    display:flex;flex-direction:column;
+    animation:qFadeIn .3s ease-out;
+  }
+  .success-header{
+    padding:26px 24px 16px;
+    text-align:center;
+    background:linear-gradient(180deg,#fafbfd 0%,#fff 100%);
+    border-bottom:1px solid var(--line-2);
+  }
+  .success-header .fs-icon{
+    margin:0 auto 12px;
+    width:56px;height:56px;
+    background:var(--green-soft);border:2.5px solid var(--green);
+    color:var(--green-dk2);
+    border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    box-shadow:0 6px 16px rgba(141,198,63,.28);
+  }
+  .success-header .fs-icon svg{width:28px;height:28px}
+  .success-h1{
+    font-family:'Fraunces',Georgia,serif;
+    font-size:23px;font-weight:700;
+    color:var(--ink);line-height:1.15;letter-spacing:-.02em;
+    margin-bottom:5px;
+  }
+  .success-h2{
+    font-size:14.5px;font-weight:600;
+    color:var(--body);
+    line-height:1.4;
+    max-width:400px;margin:0 auto;
+  }
+
+  /* RED URGENT WARNING BOX */
+  .success-warning{
+    margin:16px 18px 4px;
+    padding:16px 16px 14px;
+    background:linear-gradient(135deg,#fff2f1 0%,#ffe1de 100%);
+    border:2px solid #E5354A;
+    border-radius:14px;
+    display:flex;gap:12px;align-items:flex-start;
+    box-shadow:0 4px 14px rgba(229,53,74,.14);
+  }
+  .success-warning-icon{
+    width:38px;height:38px;flex:none;
+    display:flex;align-items:center;justify-content:center;
+    background:#DC3545;color:#fff;
+    border-radius:50%;
+    box-shadow:0 4px 10px rgba(220,53,69,.4);
+  }
+  .success-warning-icon svg{width:20px;height:20px}
+  .success-warning-body{flex:1;min-width:0}
+  .success-warning-eyebrow{
+    display:inline-block;
+    font-size:10px;font-weight:800;
+    letter-spacing:.14em;text-transform:uppercase;
+    color:#B01D2E;
+    margin-bottom:5px;
+  }
+  .success-warning-headline{
+    font-family:'Fraunces',Georgia,serif;
+    font-size:19px;font-weight:700;
+    color:#4A0A11;line-height:1.15;letter-spacing:-.01em;
+    margin:0 0 8px;
+  }
+  .success-warning-text{
+    font-size:13px;color:#3A1010;line-height:1.5;
+    margin:0 0 7px;
+  }
+  .success-warning-text:last-child{margin-bottom:0}
+  .success-warning-text strong{color:#8B0F1E;font-weight:800}
+  .success-warning-emphasis{
+    font-weight:700;color:#4A0A11 !important;
+    padding-top:8px;margin-top:4px !important;
+    border-top:1px dashed rgba(139,15,30,.28);
+  }
+
+  .success-body-text{
+    font-size:13.5px;color:var(--body);line-height:1.55;
+    margin:0 0 8px;
+  }
+  .success-body-text:last-child{margin-bottom:0}
+  .success-body-text strong{color:var(--ink);font-weight:700}
+
+  .success-section{
+    padding:18px 24px 4px;
+  }
+  .success-h3{
+    font-family:'Fraunces',Georgia,serif;
+    font-size:18px;font-weight:700;
+    color:var(--ink);line-height:1.2;letter-spacing:-.01em;
+    margin-bottom:8px;
+  }
+
+  .success-brand-band{
+    margin:16px 18px 4px;
+    padding:18px 20px;
+    background:linear-gradient(135deg,var(--navy) 0%,var(--navy-2) 100%);
+    color:#fff;
+    border-radius:14px;
+    text-align:center;
+    box-shadow:0 8px 20px rgba(15,20,36,.22);
+  }
+  .success-brand-tag{
+    font-family:'Fraunces',Georgia,serif;
+    font-size:20px;font-weight:700;
+    color:var(--green);
+    letter-spacing:.015em;text-transform:uppercase;
+    line-height:1.15;
+    margin-bottom:12px;
+    text-shadow:0 2px 8px rgba(141,198,63,.28);
+  }
+  .success-benefits{
+    list-style:none;padding:0;margin:0;
+    display:flex;flex-direction:column;gap:7px;
+    max-width:320px;margin:0 auto;text-align:left;
+  }
+  .success-benefits li{
+    display:flex;align-items:center;gap:10px;
+    font-size:13.5px;font-weight:600;color:#fff;
+  }
+  .success-tick{
+    width:22px;height:22px;flex:none;
+    display:flex;align-items:center;justify-content:center;
+    background:rgba(141,198,63,.22);
+    border:1.5px solid var(--green);
+    color:var(--green);
+    border-radius:50%;
+  }
+  .success-tick svg{width:12px;height:12px}
+
+  .success-footer{
+    padding:18px 24px 24px;
+    text-align:center;
+  }
+  .success-final{
+    font-family:'Fraunces',Georgia,serif;
+    font-size:16px;font-weight:600;
+    color:var(--ink);letter-spacing:-.005em;
+    margin-bottom:12px;
+    line-height:1.35;
+  }
+  .btn-xl{padding:13px 24px;font-size:14.5px}
+  .success-fineprint{
+    margin-top:12px;font-size:11px;color:var(--muted);
+    letter-spacing:.02em;
+  }
+  @media (max-width:520px){
+    .success-header{padding:22px 18px 14px}
+    .success-h1{font-size:20px}
+    .success-warning{margin:14px 14px 2px;padding:14px;gap:10px}
+    .success-warning-icon{width:32px;height:32px}
+    .success-warning-headline{font-size:17px}
+    .success-section{padding:14px 18px 2px}
+    .success-h3{font-size:16.5px}
+    .success-brand-band{margin:14px 14px 2px;padding:16px 14px}
+    .success-brand-tag{font-size:18px}
+    .success-footer{padding:14px 18px 20px}
+  }
+
+  /* ---------- SMS VERIFY MODAL ---------- */
+  .verify-modal{position:fixed;inset:0;z-index:10000;display:flex;align-items:center;justify-content:center;padding:20px}
+  .verify-modal[hidden]{display:none !important}
+  .verify-modal-backdrop{position:absolute;inset:0;background:rgba(15,20,36,.62);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+  .verify-modal-card{position:relative;background:#fff;padding:32px 30px 28px;border-radius:18px;max-width:420px;width:100%;box-shadow:0 30px 80px rgba(0,0,0,.45);text-align:center;animation:qFadeIn .22s ease-out}
+  .verify-modal-icon{width:56px;height:56px;margin:0 auto 16px;background:rgba(141,198,63,.16);border:2px solid rgba(141,198,63,.35);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#74A832;font-size:26px}
+  .verify-modal h3{font-family:'Fraunces',serif;margin:0 0 8px;font-size:22px;color:#1a1a1a;font-weight:700;line-height:1.25}
+  .verify-modal p.sub{margin:0 0 20px;color:#555;font-size:14.5px;line-height:1.5}
+  .verify-modal p.sub strong{color:#1a1a1a}
+  .verify-code-input{width:100%;padding:16px;font-size:28px;text-align:center;letter-spacing:.35em;border:2px solid #d5d5d5;border-radius:10px;font-weight:700;font-family:'SFMono-Regular','Menlo',monospace;box-sizing:border-box;margin-bottom:12px;background:#fafafa;color:#1a1a1a}
+  .verify-code-input:focus{outline:none;border-color:#95c93d;background:#fff;box-shadow:0 0 0 3px rgba(141,198,63,.18)}
+  .verify-code-input.error{border-color:#dc3545;background:#fff5f5}
+  .verify-error{display:none;color:#dc3545;font-size:13.5px;margin:0 0 14px;font-weight:600}
+  .verify-error.show{display:block}
+  .verify-actions{display:flex;gap:10px;margin-top:18px}
+  .verify-actions .btn{flex:1}
+  .verify-resend{margin:16px 0 0;font-size:13px;color:#666}
+  .verify-link-btn{background:none;border:0;color:#74A832;font-weight:700;cursor:pointer;padding:0;text-decoration:underline;font-size:inherit;font-family:inherit}
+  .verify-link-btn:hover{color:#5C8A28}
+  .verify-link-btn:disabled{color:#999;cursor:default;text-decoration:none}
+  .verify-spinner{display:inline-block;width:14px;height:14px;border:2px solid rgba(26,26,26,.2);border-top-color:#1a1a1a;border-radius:50%;animation:verifySpin .8s linear infinite;vertical-align:-3px;margin-right:6px}
+  @keyframes verifySpin{to{transform:rotate(360deg)}}
+
+  /* ---------- MOBILE ---------- */
+  @media (max-width:520px){
+    body{padding:0}
+    .chatbot{border-radius:0;min-height:100vh}
+    .chatbot-header{padding:18px 20px 14px}
+    .chatbot-main{padding:24px 20px 16px}
+    .chatbot-footer{padding:14px 20px 20px}
+    .question-text{font-size:22px}
+    .full-screen{padding:36px 22px}
+  }
+</style>
+<script>
+  // Detect iframe embedding BEFORE first paint
+  try { if (window.self !== window.top) document.documentElement.classList.add('embedded'); } catch(e) { document.documentElement.classList.add('embedded'); }
+  // Hero-variant styling: dark navy header that blends into the acquiredfinance.com hero.
+  // Only applies when iframe src includes ?variant=hero. Does not affect landing-page embeds.
+  try { if (new URLSearchParams(location.search).get('variant') === 'hero') document.documentElement.classList.add('variant-hero'); } catch(e){}
+</script>
+</head>
+<body>
+
+<div class="chatbot" id="chatbot">
+  <header class="chatbot-header">
+    <div class="chatbot-title">Quick Finance Enquiry</div>
+    <div class="chatbot-subtitle">A few quick details and we&rsquo;ll be in touch with options that fit your situation.</div>
+    <div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="progress-meta">
+      <span id="progressLabel">Getting started</span>
+      <span id="progressCount">Question 1</span>
+    </div>
+  </header>
+
+  <main class="chatbot-main">
+    <div class="question-card" id="questionCard">
+      <!-- rendered dynamically -->
+    </div>
+  </main>
+
+  <footer class="chatbot-footer">
+    <button class="btn btn-ghost" id="btnBack" hidden>← Back</button>
+    <button class="btn btn-primary btn-primary-block" id="btnNext" hidden>Continue →</button>
+  </footer>
+</div>
+
+<!-- KNOCKOUT SCREEN -->
+<div class="chatbot" id="knockoutScreen" hidden>
+  <div class="full-screen">
+    <div class="fs-icon knockout-icon" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+    </div>
+    <h2 id="knockoutTitle">Sorry, we can't help you this time</h2>
+    <p id="knockoutMessage">We've reviewed your details and unfortunately we can't proceed with a loan for you right now.</p>
+    <div class="callout" id="knockoutCallout" hidden></div>
+    <p class="knockout-help-text">If you have any questions or would like to talk your situation through with someone, please feel free to call and speak with our team.</p>
+    <div class="actions">
+      <a href="tel:1300235255" class="btn btn-primary">Call 1300 235 255</a>
+      <button class="btn btn-secondary" id="knockoutBack">← Change my answer</button>
+    </div>
+  </div>
+</div>
+
+<!-- SUCCESS SCREEN — urgent/scary tone, no brown -->
+<div class="chatbot chatbot-success" id="successScreen" hidden>
+  <div class="success-header">
+    <div class="fs-icon ok" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+    </div>
+    <h1 class="success-h1">Thanks, we&rsquo;ve received your enquiry.</h1>
+    <p class="success-h2">You&rsquo;ve done your part. Now let us do ours.</p>
+  </div>
+
+  <!-- RED URGENT WARNING — the scary one -->
+  <div class="success-warning">
+    <div class="success-warning-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+    </div>
+    <div class="success-warning-body">
+      <div class="success-warning-eyebrow">Stop &middot; Read this first</div>
+      <p class="success-warning-headline">Do NOT apply anywhere else.</p>
+      <p class="success-warning-text">Every finance enquiry you make from here on <strong>hits your credit file</strong>. Multiple enquiries in a short window are a <strong>red flag to lenders</strong>. You could be knocked back by the exact lender we were going to place you with, simply because you shopped around.</p>
+      <p class="success-warning-text success-warning-emphasis">One enquiry through us. That&rsquo;s all it takes.</p>
+    </div>
+  </div>
+
+  <!-- Why us -->
+  <div class="success-section">
+    <h3 class="success-h3">That&rsquo;s exactly why you came to us.</h3>
+    <p class="success-body-text">At <strong>Acquired Financial Services</strong> we compare <strong>63+ lenders</strong> for you. We know which ones say yes to your circumstances, which will fight for your business, and which to avoid. Our job is to place your file with the right lender the first time so your credit score stays intact.</p>
+  </div>
+
+  <!-- Sit tight -->
+  <div class="success-section">
+    <h3 class="success-h3">Sit tight. Let us do the work.</h3>
+    <p class="success-body-text">Do not apply to your bank. Do not apply on comparison sites. Do not apply at a dealership. Every single one hits your file and hurts the rate we can get for you.</p>
+  </div>
+
+  <!-- Brand statement -->
+  <div class="success-brand-band">
+    <div class="success-brand-tag">Right lender. First time.</div>
+    <ul class="success-benefits">
+      <li>
+        <span class="success-tick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span>
+        Your credit score stays protected
+      </li>
+      <li>
+        <span class="success-tick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span>
+        63+ lenders reviewed in one enquiry
+      </li>
+      <li>
+        <span class="success-tick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span>
+        A dedicated broker, start to finish
+      </li>
+    </ul>
+  </div>
+
+  <!-- Closing -->
+  <div class="success-footer">
+    <p class="success-final">One of our brokers will call you<span id="successBestTime"></span>.</p>
+    <a href="tel:1300235255" class="btn btn-primary btn-xl">
+      <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" style="margin-right:6px"><path d="M20.01 15.38c-1.23 0-2.42-.2-3.53-.56-.35-.12-.74-.03-1.01.24l-1.57 1.97c-2.83-1.35-5.48-3.9-6.89-6.83l1.95-1.66c.27-.28.35-.67.24-1.02-.37-1.11-.56-2.3-.56-3.53 0-.54-.45-.99-.99-.99H4.19C3.65 3 3 3.24 3 3.99 3 13.28 10.73 21 20.01 21c.71 0 .99-.63.99-1.18v-3.45c0-.54-.45-.99-.99-.99z"/></svg>
+      Or call us now on 1300 235 255
+    </a>
+    <p class="success-fineprint">Acquired Financial Services &middot; ACL 488607</p>
+  </div>
+</div>
+
+<!-- SMS VERIFY MODAL -->
+<div class="verify-modal" id="verifyModal" hidden role="dialog" aria-modal="true" aria-labelledby="verifyTitle">
+  <div class="verify-modal-backdrop"></div>
+  <div class="verify-modal-card">
+    <div class="verify-modal-icon" aria-hidden="true">📱</div>
+    <h3 id="verifyTitle">Verify your mobile</h3>
+    <p class="sub">We've texted a 6-digit code to <strong id="verifyMobileDisplay"></strong>. Enter it below to submit your enquiry.</p>
+    <input id="verifyCode" class="verify-code-input" type="text" inputmode="numeric" maxlength="6" pattern="\d{6}" placeholder="––––––" autocomplete="one-time-code" aria-label="6-digit verification code">
+    <p class="verify-error" id="verifyError"></p>
+    <div class="verify-actions">
+      <button type="button" class="btn btn-secondary" id="verifyCancel">Cancel</button>
+      <button type="button" class="btn btn-primary" id="verifySubmit">Verify &amp; Send</button>
+    </div>
+    <p class="verify-resend">
+      Didn't get it?
+      <button type="button" class="verify-link-btn" id="verifyResend" disabled>Resend in <span id="verifyResendTimer">60</span>s</button>
+    </p>
+  </div>
+</div>
+
+<script>
+/* ============================================================
+   ELIGIBILITY CHATBOT v2 — one question per screen, branching flow.
+   Reads/writes answers in `state.answers`. On final Submit, triggers
+   SMS verification then submits to the same downstream systems the
+   v1 chatbot did (Google Form → Ambition CRM).
+   ============================================================ */
+
+const AF_VERIFY_API = (window.AF_VERIFY_API || '/wp-json/af-verify/v1').replace(/\/$/, '');
+// ABR (Australian Business Register) GUID for live ABN + business-name lookup.
+// Registered under Acquired Financial Services, reused from the v1 chatbot at wordpress-package/forms/eligibility-chatbot.html.
+// Override with window.AF_ABR_GUID before this script loads if you ever re-register.
+const AF_ABR_GUID = window.AF_ABR_GUID || 'e9d00f80-e531-4bec-8ef7-492c760ed15d';
+
+// ================================================================
+// DEMO MODE. Mocks /send /verify + Google Form. Removed in production.
+// ================================================================
+const AF_DEMO_MODE = true;
+if (AF_DEMO_MODE) {
+  const originalFetch = window.fetch;
+  window.fetch = function(url, opts){
+    if (typeof url === 'string' && url.indexOf('/af-verify/v1/') > -1){
+      return new Promise((resolve) => {
+        setTimeout(() => {
+          if (url.endsWith('/send')){
+            resolve({ ok:true, json: async () => ({ success:true, expires_in:300 }) });
+          } else if (url.endsWith('/verify')){
+            const body = JSON.parse(opts.body);
+            if (body.code && body.code.startsWith('1234')){
+              resolve({ ok:true, json: async () => ({ success:true, verified_token:'demo-'+Math.random().toString(36).slice(2,12), verified_mobile:body.mobile }) });
+            } else {
+              resolve({ ok:false, status:400, json: async () => ({ error:'code_mismatch', message:"That code doesn't match. Try 1234XX for the demo." }) });
+            }
+          }
+        }, 400);
+      });
+    }
+    return originalFetch.apply(this, arguments);
+  };
+  window.submitToGoogleForm = (data) => { console.log('[DEMO] Would submit:', data); };
+}
+const ASSET_TYPES = ['car','truck','equipment','leisure','marine']; // types that trigger the "have you found the asset" question
+
+/* ---------------------------------------------------------------
+   QUESTIONS — ordered array. Each item has:
+     id, section, type, text, help?, options?, showIf?, validate?,
+     knockout?, autoAdvance?
+   --------------------------------------------------------------- */
+const QUESTIONS = [
+  // --- Section: What you need ---
+  { id:'assetType', section:'What you need', type:'tiles', autoAdvance:true,
+    text:'What are you looking to finance?',
+    options:[
+      { v:'car',   icon:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.22.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.85 7h10.3l1.04 3H5.81l1.04-3zM19 17H5v-5h14v5z"/><circle cx="7.5" cy="14.5" r="1.5"/><circle cx="16.5" cy="14.5" r="1.5"/></svg>', label:'Vehicle' },
+      { v:'truck', icon:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 8h-3V4H3c-1.1 0-2 .9-2 2v11h2c0 1.66 1.34 3 3 3s3-1.34 3-3h6c0 1.66 1.34 3 3 3s3-1.34 3-3h2v-5l-3-4zM6 18.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm13.5-9l1.96 2.5H17V9.5h2.5zM18 18.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></svg>', label:'Truck or Trailer' },
+      { v:'equipment', icon:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94 0 .31.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg>', label:'Equipment / Machinery' },
+      { v:'leisure', icon:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 10c0-2.21-1.79-4-4-4H6C3.79 6 2 7.79 2 10v6h1.5c.28-1.14 1.29-2 2.5-2s2.22.86 2.5 2h6c.28-1.14 1.29-2 2.5-2s2.22.86 2.5 2H22v-6zM6 18c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm11 0c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3-4h-2v-3h-3V8h1c2.21 0 4 1.79 4 4v2zm-5-3H4v-1c0-1.1.9-2 2-2h9v3z"/></svg>', label:'Leisure (Caravan / Motorbike)' },
+      { v:'marine', icon:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 21c-1.39 0-2.78-.47-4-1.32-2.44 1.71-5.56 1.71-8 0C6.78 20.53 5.39 21 4 21H2v2h2c1.38 0 2.74-.35 4-.99 2.52 1.29 5.48 1.29 8 0 1.26.65 2.62.99 4 .99h2v-2h-2zM3.95 19H4c1.6 0 3.02-.88 4-2 .98 1.12 2.4 2 4 2s3.02-.88 4-2c.98 1.12 2.4 2 4 2h.05l1.89-6.68c.08-.26.06-.54-.06-.78s-.34-.42-.6-.5L20 10.62V6c0-1.1-.9-2-2-2h-3V1H9v3H6c-1.1 0-2 .9-2 2v4.62l-1.29.42c-.26.08-.48.26-.6.5s-.15.52-.06.78L3.95 19zM6 6h12v3.97L12 8 6 9.97V6z"/></svg>', label:'Marine (Boat / Jetski)' },
+      { v:'business_cashflow', icon:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 6h-4V4c0-1.11-.89-2-2-2h-4c-1.11 0-2 .89-2 2v2H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-6 0h-4V4h4v2z"/></svg>', label:'Business cashflow / overdraft' },
+      { v:'personal', icon:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.11 0-1.99.89-1.99 2L2 18c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V6c0-1.11-.89-2-2-2zm0 14H4v-6h16v6zm0-10H4V6h16v2z"/></svg>', label:'Personal Loan' },
+      { v:'other', icon:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 9l1.25-2.75L23 5l-2.75-1.25L19 1l-1.25 2.75L15 5l2.75 1.25L19 9zm-7.5.5L9 4 6.5 9.5 1 12l5.5 2.5L9 20l2.5-5.5L17 12l-5.5-2.5zM19 15l-1.25 2.75L15 19l2.75 1.25L19 23l1.25-2.75L23 19l-2.75-1.25L19 15z"/></svg>', label:'Something Else' }
+    ]
+  },
+  { id:'amount', section:'What you need', type:'currency',
+    text:'How much do you want to borrow?',
+    help:'Minimum $20,000. Enter a rough figure and we can refine on the call.',
+    validate:(v)=>{
+      const n = parseInt(String(v).replace(/[^0-9]/g,''),10);
+      if (!n || isNaN(n)) return 'Please enter an amount.';
+      if (n < 20000) return { knockout:true, message:"Sorry, $20,000 is the minimum amount we finance. If you need less, we'd suggest speaking to your bank about a small personal loan or credit product." };
+      return null;
+    }
+  },
+  { id:'timeframe', section:'What you need', type:'radio', autoAdvance:true,
+    text:'When do you need the finance?',
+    options:[
+      { v:'asap',        label:'ASAP',                  hint:'Ready to buy now' },
+      { v:'week',        label:'Within a week',         hint:'Almost there' },
+      { v:'month',       label:'Within a month',        hint:'Actively looking' },
+      { v:'researching', label:'Just researching',      hint:'Exploring my options' }
+    ]
+  },
+  { id:'over18', section:'Getting to know you', type:'radio', autoAdvance:true,
+    text:'Are you over 18 years old?',
+    options:[
+      { v:'yes', label:'Yes' },
+      { v:'no',  label:'No', knockout:{ message:"Sorry, we can only help clients who are 18 years or older. This is a legal requirement for anyone entering a credit contract in Australia." } }
+    ]
+  },
+
+  // --- Section: Who's applying ---
+  { id:'entity', section:'Who\'s applying', type:'radio', autoAdvance:true,
+    text:'Are you applying in your own name, or through a business?',
+    options:[
+      { v:'personal', icon:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>', label:'In my own name', hint:'Personal loan or asset purchase' },
+      { v:'business', icon:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 7V3H2v18h20V7H12zM6 19H4v-2h2v2zm0-4H4v-2h2v2zm0-4H4V9h2v2zm0-4H4V5h2v2zm4 12H8v-2h2v2zm0-4H8v-2h2v2zm0-4H8V9h2v2zm0-4H8V5h2v2zm10 12h-8v-2h2v-2h-2v-2h2v-2h-2V9h8v10zm-2-8h-2v2h2v-2zm0 4h-2v2h2v-2z"/></svg>', label:'Through a business (ABN)', hint:'Sole trader, company, partnership or trust' }
+    ]
+  },
+  { id:'abn', section:'Your business', type:'abn',
+    text:"What's your ABN or business name?",
+    help:"Enter your 11-digit ABN, or start typing your business/trading name and we'll pull up matches.",
+    showIf:(a)=>a.entity==='business'
+  },
+
+  // --- Personal path: residency ---
+  { id:'permanentResident', section:'Residency', type:'radio', autoAdvance:true,
+    text:'Are you an Australian permanent resident?',
+    help:'Includes Australian citizens.',
+    showIf:(a)=>a.entity==='personal',
+    options:[
+      { v:'yes', label:'Yes' },
+      { v:'no',  label:'No' }
+    ]
+  },
+  { id:'hasVisa', section:'Residency', type:'radio', autoAdvance:true,
+    text:'Do you hold a current Australian visa?',
+    showIf:(a)=>a.entity==='personal' && a.permanentResident==='no',
+    options:[
+      { v:'yes', label:'Yes' },
+      { v:'no',  label:'No', knockout:{ message:"Sorry, we can only help clients with either permanent residency or a valid current Australian visa. Please get in touch again once you have one." } }
+    ]
+  },
+  { id:'workRights', section:'Residency', type:'radio', autoAdvance:true,
+    text:'Do you currently have permission to work in Australia?',
+    showIf:(a)=>a.entity==='personal' && a.permanentResident==='no' && a.hasVisa==='yes',
+    options:[
+      { v:'yes', label:'Yes' },
+      { v:'no',  label:'No', knockout:{ message:"Sorry, our lender panel requires that all applicants have current work rights in Australia. Please come back to us once your work rights are approved." } }
+    ]
+  },
+
+  // --- Personal path: income + employment ---
+  { id:'incomeSource', section:'Income', type:'radio', autoAdvance:true,
+    text:'Where does your income come from?',
+    showIf:(a)=>a.entity==='personal',
+    options:[
+      { v:'employment', label:'Employment (wages or salary)' },
+      { v:'self',       label:'My own business / self-employed' },
+      { v:'centrelink', label:'Centrelink benefits only', knockout:{ message:"Sorry, we can't help clients whose only income comes from Centrelink. Our lenders need employment income to service a loan. If you also work and just receive supplementary Centrelink payments (like Family Tax Benefit or Carer Allowance), please go back and select 'Employment' instead." } },
+      { v:'other',      label:'Other' }
+    ]
+  },
+  // Only shown when "Other" is picked above — client types how they earn income
+  { id:'incomeSourceOther', section:'Income', type:'text',
+    text:'How do you earn your income?',
+    help:"Tell us in your own words so we know how to structure your application.",
+    showIf:(a)=>a.entity==='personal' && a.incomeSource === 'other',
+    validate:(v)=>v && v.trim().length >= 3 ? null : 'Please tell us how you earn income.'
+  },
+  { id:'employmentStatus', section:'Employment', type:'radio', autoAdvance:true,
+    text:'What is your employment status?',
+    showIf:(a)=>a.entity==='personal',
+    options:[
+      { v:'fulltime',            label:'Full-time',                hint:'38+ standard hours per week' },
+      { v:'parttime',            label:'Part-time',                hint:'Set hours each week, ongoing role' },
+      { v:'casual',              label:'Casual',                   hint:'Hours vary week to week' },
+      { v:'employed-centrelink', label:'Employed plus Centrelink', hint:'I work plus I also receive Centrelink supplements' },
+      { v:'unemployed',          label:'Unemployed',               hint:'Not currently working', knockout:{ message:"Sorry, we can't help without employment income. Please come back to us once you're in stable Full-time, Part-time or Casual work." } }
+    ]
+  },
+  { id:'employmentLength', section:'Employment', type:'radio', autoAdvance:true,
+    text:'How long have you been in your current job?',
+    showIf:(a)=>a.entity==='personal' && a.employmentStatus==='casual',
+    options:[
+      { v:'0-60', label:'0 to 60 days' },
+      { v:'61+',  label:'61 days or more' }
+    ]
+  },
+  { id:'employmentGap', section:'Employment', type:'radio', autoAdvance:true,
+    text:'Was there a gap between your previous job and this one?',
+    help:'e.g. more than 2 weeks off between finishing your old job and starting this one.',
+    showIf:(a)=>a.entity==='personal' && a.employmentStatus==='casual' && a.employmentLength==='0-60',
+    options:[
+      { v:'no',  label:'No, I moved straight from another job' },
+      { v:'yes', label:'Yes, there was a gap', knockout:{ message:"Sorry, we can't help right now. Our casual-employment lenders need 60+ days of continuous employment with no significant gaps. Please come back to us once you've been in this role for 60 days, and we'll happily take another look." } }
+    ]
+  },
+
+  // --- Credit ---
+  { id:'creditScoreRange', section:'Credit', type:'radio', autoAdvance:true,
+    text:'Do you know your credit score range?',
+    help:'A rough range is fine. Checking your rate with us won\'t impact your credit score.',
+    options:[
+      { v:'below500', label:'Below 500' },
+      { v:'501-600', label:'501 to 600' },
+      { v:'601-700', label:'601 to 700' },
+      { v:'701-800', label:'701 to 800' },
+      { v:'801+',    label:'801+' },
+      { v:'unknown', label:"I don't know" }
+    ]
+  },
+  { id:'creditRating', section:'Credit', type:'radio', autoAdvance:true,
+    text:'How would you describe your credit history?',
+    options:[
+      { v:'perfect', label:'Perfect', hint:'No defaults, no missed payments' },
+      { v:'ok',      label:'OK',      hint:'Maybe the odd late payment' },
+      { v:'notgood', label:'Not so good', hint:'Some past issues' },
+      { v:'bad',     label:'Bad',     hint:'Defaults or bankruptcy' },
+      { v:'unknown', label:"I don't know" }
+    ]
+  },
+
+  // --- Living ---
+  { id:'livingSituation', section:'Living', type:'radio', autoAdvance:true,
+    text:'What is your current living arrangement?',
+    options:[
+      { v:'own',              label:'I own my home outright' },
+      { v:'mortgage',         label:'Paying off a mortgage' },
+      { v:'rent-agent',       label:'Renting through an agent' },
+      { v:'rent-private',     label:'Renting privately' },
+      { v:'boarding',         label:'Boarding' },
+      { v:'family',           label:'Living with family' },
+      { v:'employer-provided',label:'Employer-provided accommodation' }
+    ]
+  },
+
+  // --- Asset details (only for asset paths) ---
+  { id:'assetFound', section:'Your purchase', type:'radio', autoAdvance:true,
+    text:'Have you already found what you want to buy?',
+    showIf:(a)=>ASSET_TYPES.includes(a.assetType),
+    options:[
+      { v:'yes',         label:'Yes, ready to buy',            hint:'I have the specific one in mind' },
+      { v:'looking',     label:'Still looking',                hint:'Comparing options right now' },
+      { v:'researching', label:'Just researching for now',     hint:'Getting a feel for what I can afford' }
+    ]
+  },
+  // Only asked if they said Yes above. Year of manufacture matters for lender panel selection.
+  { id:'assetYear', section:'Your purchase', type:'year',
+    text:'What year of manufacture is it?',
+    help:'Any age is fine. We finance classic and vintage vehicles too.',
+    showIf:(a)=>ASSET_TYPES.includes(a.assetType) && a.assetFound === 'yes',
+    validate:(v)=>{
+      const y = parseInt(String(v).trim(), 10);
+      const currentYear = new Date().getFullYear();
+      if (!y || isNaN(y) || String(v).trim().length !== 4) return 'Please enter a 4-digit year (e.g. 2022).';
+      if (y > currentYear + 1) return "That's in the future! Please enter a valid year.";
+      return null;
+    }
+  },
+
+  // --- Contact ---
+  { id:'firstName', section:'Contact details', type:'text',
+    text:'What\'s your first name?',
+    validate:(v)=> v && v.trim().length>=2 ? null : 'Please enter your first name.'
+  },
+  { id:'surname', section:'Contact details', type:'text',
+    text:'And your surname?',
+    validate:(v)=> v && v.trim().length>=2 ? null : 'Please enter your surname.'
+  },
+  { id:'mobile', section:'Contact details', type:'tel',
+    text:"What's the best mobile number to reach you on?",
+    help:"We'll text you a code to verify it's really you.",
+    validate:(v)=>{
+      const digits = String(v).replace(/\D/g,'');
+      if (!/^0?4\d{8}$/.test(digits) && !/^614\d{8}$/.test(digits)) {
+        return 'Please enter a valid Australian mobile (e.g. 0412 345 678).';
+      }
+      return null;
+    }
+  },
+  { id:'email', section:'Contact details', type:'email',
+    text:"What's your email address?",
+    validate:(v)=> /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(v).trim()) ? null : 'Please enter a valid email address.'
+  },
+  { id:'state', section:'Contact details', type:'radio', autoAdvance:true,
+    text:'What state do you live in?',
+    options:[
+      { v:'VIC', label:'VIC' }, { v:'NSW', label:'NSW' }, { v:'QLD', label:'QLD' },
+      { v:'SA', label:'SA' },   { v:'WA', label:'WA' },   { v:'TAS', label:'TAS' },
+      { v:'ACT', label:'ACT' }, { v:'NT', label:'NT' }
+    ]
+  },
+  // "Best time to call" — final choice question (auto-advances to the "Other" follow-up if picked; otherwise user clicks Submit).
+  { id:'bestTime', section:'Contact details', type:'radio', autoAdvance:false,
+    text:"When's the best time for us to call?",
+    help:"So we can catch you when it suits, not interrupt your day.",
+    footnote:"Office hours: Monday to Friday 8am to 6pm. Saturday 9am to 5pm. Sunday and outside office hours available by appointment only.",
+    options:[
+      { v:'morning',   label:'Morning',   hint:'Between 8am and 12pm' },
+      { v:'afternoon', label:'Afternoon', hint:'Between 12pm and 5pm' },
+      { v:'evening',   label:'Evening',   hint:'Between 5pm and 8pm' },
+      { v:'weekend',   label:'Weekend',   hint:'Saturday or Sunday' },
+      { v:'anytime',   label:'Anytime',   hint:'Whenever works for you' },
+      { v:'other',     label:'Other',     hint:"I'll tell you when" }
+    ]
+  },
+  // Only shown when "Other" is picked above — client types their preferred time in their own words.
+  { id:'bestTimeOther', section:'Contact details', type:'text',
+    text:'When works best for you?',
+    help:'A quick note is fine — e.g. "Weekday lunches" or "Only after 7pm".',
+    showIf:(a)=>a.bestTime === 'other',
+    validate:(v)=>v && v.trim().length >= 3 ? null : 'Please tell us when to call.'
+  }
+];
+
+/* ---------------------------------------------------------------
+   STATE
+   --------------------------------------------------------------- */
+const state = {
+  answers: {},
+  history: [],   // stack of question indexes visited (for Back)
+  currentIdx: 0,
+  abnLookup: null,
+  submitting: false
+};
+
+/* ---------------------------------------------------------------
+   DOM refs
+   --------------------------------------------------------------- */
+const $card    = document.getElementById('questionCard');
+const $btnNext = document.getElementById('btnNext');
+const $btnBack = document.getElementById('btnBack');
+const $progFill  = document.getElementById('progressFill');
+const $progLabel = document.getElementById('progressLabel');
+const $progCount = document.getElementById('progressCount');
+const $chatbot   = document.getElementById('chatbot');
+const $knockout  = document.getElementById('knockoutScreen');
+const $success   = document.getElementById('successScreen');
+
+/* ---------------------------------------------------------------
+   FLOW CONTROLLER
+   --------------------------------------------------------------- */
+function currentQuestion() { return QUESTIONS[state.currentIdx]; }
+
+// Advance to the next question that satisfies showIf. Returns index or -1 if none.
+function findNextIndex(fromIdx){
+  for (let i = fromIdx + 1; i < QUESTIONS.length; i++){
+    const q = QUESTIONS[i];
+    if (!q.showIf || q.showIf(state.answers)) return i;
+  }
+  return -1;
+}
+
+function totalVisibleCount(){
+  return QUESTIONS.filter(q => !q.showIf || q.showIf(state.answers)).length;
+}
+
+function currentPositionInVisible(){
+  let pos = 0;
+  for (let i = 0; i <= state.currentIdx; i++){
+    const q = QUESTIONS[i];
+    if (!q.showIf || q.showIf(state.answers)) pos++;
+  }
+  return pos;
+}
+
+function updateProgress(){
+  const total = totalVisibleCount();
+  const pos = currentPositionInVisible();
+  const pct = Math.round((pos / total) * 100);
+  $progFill.style.width = pct + '%';
+  $progLabel.textContent = currentQuestion().section;
+  $progCount.textContent = 'Question ' + pos + ' of ' + total;
+  document.querySelector('.progress-bar').setAttribute('aria-valuenow', pct);
+}
+
+/* Check whether the current field is complete enough to advance.
+   Used to enable/disable the Continue button in real time — no skipping. */
+function isFieldValid(){
+  const q = currentQuestion();
+  if (!q) return false;
+
+  // Choice types: any option selected?
+  if (q.type === 'tiles' || q.type === 'radio'){
+    return !!state.answers[q.id];
+  }
+  // ABN: needs a confirmed lookup (the "Yes, that's me" click) or an error fallback
+  if (q.type === 'abn'){
+    return !!(state.abnLookup && state.abnLookup.confirmed);
+  }
+  // Text-based types: read from the live input
+  const inp = document.getElementById('qinp');
+  if (!inp) return false;
+  const raw = String(inp.value || '').trim();
+  if (!raw) return false;
+
+  if (q.type === 'currency'){
+    const n = parseInt(raw.replace(/[^0-9]/g,''), 10);
+    return !!n && !isNaN(n);
+  }
+  if (q.type === 'text'){
+    return raw.length >= 2;
+  }
+  if (q.type === 'tel'){
+    const digits = raw.replace(/\D/g,'');
+    return /^0?4\d{8}$/.test(digits) || /^614\d{8}$/.test(digits);
+  }
+  if (q.type === 'email'){
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(raw);
+  }
+  if (q.type === 'year'){
+    const y = parseInt(raw, 10);
+    const currentYear = new Date().getFullYear();
+    return !!y && !isNaN(y) && raw.length === 4 && y <= currentYear + 1;
+  }
+  return true;
+}
+
+/* Decide whether to show the Continue button — and if so, is it enabled? */
+function updateNextButton(){
+  const q = currentQuestion();
+  if (!q) { $btnNext.hidden = true; return; }
+
+  const isAutoAdvanceChoice = (q.type === 'tiles' || q.type === 'radio') && q.autoAdvance !== false;
+
+  // ABN uses its own "Yes, that's me" confirm button — no Continue needed unless the ABR lookup failed (then confirmed=true with data=null)
+  if (q.type === 'abn'){
+    const errorFallback = state.abnLookup && state.abnLookup.confirmed && !state.abnLookup.data;
+    if (!errorFallback){ $btnNext.hidden = true; return; }
+    // else fall through to show Continue
+  }
+
+  if (isAutoAdvanceChoice){
+    $btnNext.hidden = true;
+    return;
+  }
+
+  // Text/currency/tel/email OR the final radio (contactMethod) — show Continue, gate on validity
+  $btnNext.hidden = false;
+  $btnNext.disabled = !isFieldValid();
+  const isLast = findNextIndex(state.currentIdx) === -1;
+  $btnNext.textContent = isLast ? 'Submit Enquiry →' : 'Continue →';
+}
+
+/* Render one question */
+function render(){
+  const q = currentQuestion();
+  if (!q) { console.error('No question at idx', state.currentIdx); return; }
+
+  updateProgress();
+  $btnBack.hidden = state.history.length === 0;
+
+  let inputHTML = '';
+  if (q.type === 'tiles' || q.type === 'radio'){
+    const cls = q.type === 'tiles' ? 'options grid-2' : 'options';
+    inputHTML = '<div class="' + cls + '" role="radiogroup" aria-label="' + q.text + '">' +
+      q.options.map(o =>
+        '<button type="button" class="option" data-value="' + o.v + '" role="radio" aria-checked="false">' +
+          (o.icon ? '<span class="icon">' + o.icon + '</span>' : '') +
+          '<span class="opt-body">' +
+            '<span class="opt-label">' + o.label + '</span>' +
+            (o.hint ? '<span class="opt-hint">' + o.hint + '</span>' : '') +
+          '</span>' +
+        '</button>'
+      ).join('') +
+      '</div>';
+  } else if (q.type === 'currency'){
+    const val = state.answers[q.id] ? formatCurrency(state.answers[q.id]) : '';
+    inputHTML = '<div class="field field-amount"><span class="prefix">$</span>' +
+      '<input type="text" inputmode="numeric" id="qinp" placeholder="30,000" value="' + val + '" autocomplete="off">' +
+      '<div class="error-msg">Enter an amount.</div></div>';
+  } else if (q.type === 'text'){
+    inputHTML = '<div class="field"><input type="text" id="qinp" value="' + (state.answers[q.id] || '') + '" autocomplete="given-name">' +
+      '<div class="error-msg">Please fill this in.</div></div>';
+  } else if (q.type === 'tel'){
+    inputHTML = '<div class="field"><input type="tel" id="qinp" placeholder="0412 345 678" value="' + (state.answers[q.id] || '') + '" autocomplete="tel" inputmode="tel">' +
+      '<div class="error-msg">Enter a valid AU mobile.</div></div>';
+  } else if (q.type === 'email'){
+    inputHTML = '<div class="field"><input type="email" id="qinp" placeholder="you@example.com" value="' + (state.answers[q.id] || '') + '" autocomplete="email" inputmode="email">' +
+      '<div class="error-msg">Enter a valid email address.</div></div>';
+  } else if (q.type === 'abn'){
+    inputHTML = '<div class="field"><input type="text" id="qinp" placeholder="ABN or business name" value="' + (state.answers[q.id] || '') + '" autocomplete="off">' +
+      '<div class="error-msg">Enter a valid ABN or business name.</div></div>' +
+      '<div class="abn-lookup" id="abnLookup"></div>';
+  } else if (q.type === 'year'){
+    inputHTML = '<div class="field"><input type="text" id="qinp" placeholder="e.g. 2022" value="' + (state.answers[q.id] || '') + '" autocomplete="off" inputmode="numeric" maxlength="4">' +
+      '<div class="error-msg">Enter a 4-digit year.</div></div>';
+  }
+
+  $card.innerHTML =
+    '<span class="question-eyebrow">' + q.section + '</span>' +
+    '<h1 class="question-text">' + q.text + '</h1>' +
+    (q.help ? '<p class="question-help">' + q.help + '</p>' : '') +
+    inputHTML +
+    (q.footnote ? '<p class="question-footnote">' + q.footnote + '</p>' : '');
+
+  // Wire up the inputs
+  if (q.type === 'tiles' || q.type === 'radio'){
+    $card.querySelectorAll('.option').forEach(btn => {
+      // Pre-select if returning
+      if (state.answers[q.id] === btn.dataset.value){
+        btn.classList.add('selected');
+        btn.setAttribute('aria-checked','true');
+      }
+      btn.addEventListener('click', () => selectOption(btn, q));
+    });
+  } else {
+    const inp = document.getElementById('qinp');
+    if (inp){
+      setTimeout(() => inp.focus(), 250);
+      inp.addEventListener('input', () => updateNextButton());
+      inp.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' && !$btnNext.disabled) { e.preventDefault(); tryAdvance(); }
+      });
+      if (q.type === 'currency'){
+        inp.addEventListener('input', (e) => {
+          const digits = e.target.value.replace(/[^0-9]/g,'');
+          e.target.value = digits ? formatCurrency(digits) : '';
+        });
+      } else if (q.type === 'tel'){
+        inp.addEventListener('input', (e) => { e.target.value = formatMobile(e.target.value); });
+      } else if (q.type === 'year'){
+        inp.addEventListener('input', (e) => { e.target.value = e.target.value.replace(/\D/g,'').slice(0,4); });
+      } else if (q.type === 'abn'){
+        inp.addEventListener('input', (e) => {
+          const val = e.target.value;
+          const hasLetters = /[a-zA-Z]/.test(val);
+          // Only apply ABN formatting when input is numeric — leave name searches alone
+          if (!hasLetters) e.target.value = formatABN(val);
+          maybeLookupABN(e.target.value);
+        });
+        if (state.answers[q.id]) maybeLookupABN(state.answers[q.id]);
+      }
+    }
+  }
+
+  // Decide Continue button state — hidden on auto-advance choices, disabled until valid otherwise
+  updateNextButton();
+}
+
+function selectOption(btn, q){
+  const val = btn.dataset.value;
+  // Visual state
+  $card.querySelectorAll('.option').forEach(b => {
+    b.classList.remove('selected');
+    b.setAttribute('aria-checked','false');
+  });
+  btn.classList.add('selected');
+  btn.setAttribute('aria-checked','true');
+
+  state.answers[q.id] = val;
+
+  // Check knockout
+  const opt = q.options.find(o => o.v === val);
+  if (opt && opt.knockout){
+    setTimeout(() => showKnockout(opt.knockout), 380);
+    return;
+  }
+
+  if (q.autoAdvance){
+    setTimeout(() => tryAdvance(), 320);
+  } else {
+    // Non-auto-advance choice (e.g. final contact-method question) — enable the Continue button now that a selection exists
+    updateNextButton();
+  }
+}
+
+function tryAdvance(){
+  const q = currentQuestion();
+
+  // Read value from input if needed
+  if (['currency','text','tel','email','abn','year'].includes(q.type)){
+    const inp = document.getElementById('qinp');
+    const raw = inp ? inp.value.trim() : '';
+    // Save either raw string or normalized value
+    if (q.type === 'currency'){
+      const digits = raw.replace(/[^0-9]/g,'');
+      state.answers[q.id] = digits ? parseInt(digits,10) : null;
+    } else if (q.type === 'tel'){
+      state.answers[q.id] = raw;
+    } else if (q.type === 'abn'){
+      state.answers[q.id] = raw.replace(/\s/g,'');
+    } else if (q.type === 'year'){
+      state.answers[q.id] = raw ? parseInt(raw, 10) : null;
+    } else {
+      state.answers[q.id] = raw;
+    }
+  }
+
+  // Validate
+  if (q.validate){
+    const err = q.validate(state.answers[q.id]);
+    if (err){
+      if (typeof err === 'object' && err.knockout){
+        showKnockout(err);
+        return;
+      }
+      showFieldError(err);
+      return;
+    }
+  }
+
+  // ABN-specific: require successful lookup + confirmation
+  if (q.type === 'abn'){
+    if (!state.abnLookup || !state.abnLookup.confirmed){
+      showFieldError('Please confirm the business details before continuing.');
+      return;
+    }
+    state.answers.abnLookup = state.abnLookup.data;
+  }
+
+  // Advance or submit
+  const nextIdx = findNextIndex(state.currentIdx);
+  if (nextIdx === -1){
+    // Last question — kick off submit flow
+    handleSubmit();
+    return;
+  }
+  state.history.push(state.currentIdx);
+  state.currentIdx = nextIdx;
+  render();
+}
+
+function goBack(){
+  if (!state.history.length) return;
+  state.currentIdx = state.history.pop();
+  render();
+}
+
+function showFieldError(msg){
+  const field = $card.querySelector('.field');
+  if (field){
+    field.classList.add('has-error');
+    const errEl = field.querySelector('.error-msg');
+    if (errEl) errEl.textContent = msg;
+    const inp = field.querySelector('input');
+    if (inp){ inp.classList.add('error'); inp.focus(); }
+  }
+}
+
+function showKnockout(k){
+  $chatbot.hidden = true;
+  $knockout.hidden = false;
+  document.getElementById('knockoutMessage').textContent = k.message || "Sorry, we can't help you this time.";
+  if (k.title) document.getElementById('knockoutTitle').textContent = k.title;
+  window.scrollTo({ top:0, behavior:'smooth' });
+}
+
+document.getElementById('knockoutBack').addEventListener('click', () => {
+  $knockout.hidden = true;
+  $chatbot.hidden = false;
+  render();
+});
+
+$btnNext.addEventListener('click', tryAdvance);
+$btnBack.addEventListener('click', goBack);
+
+/* ---------------------------------------------------------------
+   FORMATTERS
+   --------------------------------------------------------------- */
+function formatCurrency(v){
+  const digits = String(v).replace(/[^0-9]/g,'');
+  if (!digits) return '';
+  return parseInt(digits,10).toLocaleString('en-AU');
+}
+function formatMobile(v){
+  const d = String(v).replace(/\D/g,'').slice(0,10);
+  if (d.length <= 4) return d;
+  if (d.length <= 7) return d.slice(0,4) + ' ' + d.slice(4);
+  return d.slice(0,4) + ' ' + d.slice(4,7) + ' ' + d.slice(7);
+}
+function formatABN(v){
+  const d = String(v).replace(/\D/g,'').slice(0,11);
+  if (d.length <= 2) return d;
+  if (d.length <= 5) return d.slice(0,2) + ' ' + d.slice(2);
+  if (d.length <= 8) return d.slice(0,2) + ' ' + d.slice(2,5) + ' ' + d.slice(5);
+  return d.slice(0,2) + ' ' + d.slice(2,5) + ' ' + d.slice(5,8) + ' ' + d.slice(8);
+}
+
+/* ---------------------------------------------------------------
+   ABN LOOKUP (ABR API)
+   --------------------------------------------------------------- */
+let abnDebounce = null;
+function maybeLookupABN(raw){
+  const digitsOnly = String(raw).replace(/\D/g,'');
+  const hasLetters = /[a-zA-Z]/.test(raw);
+  const cleaned = String(raw).trim();
+  const box = document.getElementById('abnLookup');
+  state.abnLookup = null;
+  if (!box) return;
+
+  // Mode 1: pure-numeric with 11 digits → ABN lookup
+  if (!hasLetters && digitsOnly.length === 11){
+    box.classList.add('show');
+    box.classList.remove('lookup-error');
+    box.innerHTML = '<div class="abn-label">Looking up…</div><div class="abn-entity">Checking ABN…</div>';
+    clearTimeout(abnDebounce);
+    abnDebounce = setTimeout(() => doABRLookup(digitsOnly, box), 250);
+    return;
+  }
+
+  // Mode 2: contains letters and 3+ chars → name search
+  if (hasLetters && cleaned.length >= 3){
+    box.classList.add('show');
+    box.classList.remove('lookup-error');
+    box.innerHTML = '<div class="abn-label">Searching…</div><div class="abn-entity">Finding businesses matching "' + escapeHTML(cleaned) + '"…</div>';
+    clearTimeout(abnDebounce);
+    abnDebounce = setTimeout(() => doABRNameSearch(cleaned, box), 400);
+    return;
+  }
+
+  // Not enough to search yet
+  box.classList.remove('show','lookup-error');
+  box.innerHTML = '';
+}
+
+function doABRLookup(abn, box){
+  // Use ABR's JSONP endpoint (no CORS)
+  const cb = 'afABR_' + Date.now();
+  window[cb] = (data) => {
+    try {
+      if (!data || !data.EntityName){
+        box.classList.add('lookup-error');
+        box.innerHTML = '<div class="abn-label">Not found</div><div class="abn-entity">We couldn\'t find that ABN. Please double-check the number.</div>';
+        return;
+      }
+      const name = data.BusinessName && data.BusinessName.length ? data.BusinessName[0] : data.EntityName;
+      const status = data.AbnStatus || '';
+      state.abnLookup = { data, confirmed:false };
+      box.classList.remove('lookup-error');
+      box.innerHTML =
+        '<div class="abn-label">✓ Found</div>' +
+        '<div class="abn-entity">' + escapeHTML(name) + '</div>' +
+        '<div class="abn-meta">' + escapeHTML(data.EntityName || '') + ' &middot; Status: ' + escapeHTML(status) + '</div>' +
+        '<div style="margin-top:12px;display:flex;gap:8px">' +
+          '<button type="button" class="btn btn-primary" id="abnConfirm" style="padding:10px 18px;font-size:13px">Yes, that\'s me →</button>' +
+          '<button type="button" class="btn btn-ghost" id="abnDeny" style="padding:10px 12px;font-size:13px">Not me</button>' +
+        '</div>';
+      document.getElementById('abnConfirm').addEventListener('click', () => {
+        state.abnLookup.confirmed = true;
+        tryAdvance();
+      });
+      document.getElementById('abnDeny').addEventListener('click', () => {
+        state.abnLookup = null;
+        box.innerHTML = '<div class="abn-label">No match</div><div class="abn-entity">No problem, please re-enter your ABN above.</div>';
+        box.classList.add('lookup-error');
+        document.getElementById('qinp').focus();
+        document.getElementById('qinp').select();
+      });
+    } catch(e){ console.error(e); }
+    delete window[cb];
+  };
+  const s = document.createElement('script');
+  s.src = 'https://abr.business.gov.au/json/AbnDetails.aspx?abn=' + abn + '&guid=' + encodeURIComponent(AF_ABR_GUID) + '&callback=' + cb;
+  s.onerror = () => {
+    box.classList.add('lookup-error');
+    box.innerHTML = '<div class="abn-label">Lookup unavailable</div><div class="abn-entity">Can\'t reach the ABR right now. Click Continue to proceed anyway.</div>';
+    // Allow proceeding without full data — Continue button appears via updateNextButton() below
+    state.abnLookup = { data:null, confirmed:true };
+    updateNextButton();
+    delete window[cb];
+  };
+  document.body.appendChild(s);
+}
+
+/* ABR name search — shows a picker of matching businesses, user taps one → resolves as ABN lookup */
+function doABRNameSearch(name, box){
+  const cb = 'afABRNames_' + Date.now();
+  window[cb] = (data) => {
+    try {
+      const names = (data && data.Names) || [];
+      if (names.length === 0){
+        box.classList.add('lookup-error');
+        box.innerHTML = '<div class="abn-label">No matches</div><div class="abn-entity">No businesses found matching that name. Try refining, or paste the 11-digit ABN directly.</div>';
+        return;
+      }
+      box.classList.remove('lookup-error');
+      const results = names.slice(0, 8);
+      box.innerHTML =
+        '<div class="abn-label">✓ ' + results.length + (names.length > 8 ? '+' : '') + ' matches. Pick your business</div>' +
+        '<div class="abn-name-results">' +
+          results.map(n =>
+            '<button type="button" class="abn-name-result" data-abn="' + escapeHTML(n.Abn) + '">' +
+              '<div class="abn-name-title">' + escapeHTML(n.Name || '') + '</div>' +
+              '<div class="abn-name-meta">ABN ' + formatABN(n.Abn || '') +
+                (n.State ? ' &middot; ' + escapeHTML(n.State) : '') +
+                (n.Postcode ? ' ' + escapeHTML(n.Postcode) : '') +
+              '</div>' +
+            '</button>'
+          ).join('') +
+        '</div>';
+      box.querySelectorAll('.abn-name-result').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const abn = btn.dataset.abn;
+          const inp = document.getElementById('qinp');
+          if (inp){ inp.value = formatABN(abn); }
+          maybeLookupABN(abn);
+        });
+      });
+    } catch(e){ console.error(e); }
+    delete window[cb];
+  };
+  const s = document.createElement('script');
+  s.src = 'https://abr.business.gov.au/json/MatchingNames.aspx?name=' + encodeURIComponent(name) + '&maxResults=10&guid=' + encodeURIComponent(window.AF_ABR_GUID || '') + '&callback=' + cb;
+  s.onerror = () => {
+    box.classList.add('lookup-error');
+    box.innerHTML = '<div class="abn-label">Search unavailable</div><div class="abn-entity">Can\'t reach the ABR right now. Try entering the ABN directly.</div>';
+    delete window[cb];
+  };
+  document.body.appendChild(s);
+}
+
+function escapeHTML(s){ return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+
+/* ---------------------------------------------------------------
+   SUBMIT FLOW — SMS verify then Google Form
+   --------------------------------------------------------------- */
+async function handleSubmit(){
+  if (state.submitting) return;
+  const contactMethodQ = currentQuestion();
+  if (contactMethodQ.type === 'radio' && !state.answers[contactMethodQ.id]){
+    showFieldError('Please pick a contact method.');
+    return;
+  }
+  state.submitting = true;
+  $btnNext.disabled = true;
+  $btnNext.textContent = 'Submitting…';
+
+  // Build payload
+  const data = { ...state.answers, submittedAt: new Date().toISOString() };
+  try {
+    const params = new URLSearchParams(location.search);
+    data.gclid = params.get('gclid') || (localStorage && localStorage.getItem('gclid')) || '';
+    data.landingPage = params.get('from') || '';
+    data.source = document.referrer || 'direct';
+  } catch(e){}
+
+  try {
+    const v = await runSmsVerification(data.mobile);
+    if (!v.success){
+      state.submitting = false;
+      $btnNext.disabled = false;
+      $btnNext.textContent = 'Submit Enquiry →';
+      return;
+    }
+    data.verifiedToken  = v.token;
+    data.verifiedMobile = v.mobile;
+    data.mobileVerified = true;
+
+    submitToGoogleForm(data);
+
+    if (typeof gtag === 'function'){
+      gtag('event','conversion',{ 'send_to':'AW-XXXXXXXXXX/AAAAAAAA','value':1.0,'currency':'AUD' });
+    }
+    console.log('Lead captured:', data);
+    if (window.parent !== window){
+      window.parent.postMessage({ type:'afs-lead-submitted', data }, '*');
+    }
+    // Personalise "we'll call you shortly [time]"
+    const timeMap = {
+      morning:   ' in the morning',
+      afternoon: ' in the afternoon',
+      evening:   ' in the evening',
+      weekend:   ' on the weekend',
+      anytime:   ' shortly',
+      other:     ' at your preferred time'
+    };
+    const timeEl = document.getElementById('successBestTime');
+    if (timeEl) timeEl.textContent = timeMap[data.bestTime] || '';
+
+    await new Promise(r => setTimeout(r, 400));
+    $chatbot.hidden = true;
+    $success.hidden = false;
+    window.scrollTo({ top:0, behavior:'smooth' });
+    if (window.parent !== window){
+      window.parent.postMessage({ type:'afs-lead-success' }, '*');
+    }
+  } catch(err){
+    console.error(err);
+    state.submitting = false;
+    $btnNext.disabled = false;
+    $btnNext.textContent = 'Submit Enquiry →';
+    alert("Something went wrong. Please try again or call us on 1300 235 255.");
+  }
+}
+
+/* ---------------------------------------------------------------
+   SMS VERIFICATION (mirrors the v1 pattern)
+   --------------------------------------------------------------- */
+function runSmsVerification(mobile){
+  return new Promise(async (resolve) => {
+    const modal        = document.getElementById('verifyModal');
+    const codeInput    = document.getElementById('verifyCode');
+    const errorEl      = document.getElementById('verifyError');
+    const cancelBtn    = document.getElementById('verifyCancel');
+    const submitBtn    = document.getElementById('verifySubmit');
+    const resendBtn    = document.getElementById('verifyResend');
+    const mobileLabel  = document.getElementById('verifyMobileDisplay');
+
+    codeInput.value = '';
+    codeInput.classList.remove('error');
+    errorEl.classList.remove('show');
+    submitBtn.disabled = false;
+    submitBtn.textContent = 'Verify & Send';
+    mobileLabel.textContent = formatMobile(mobile);
+
+    let cooldown = null;
+    function showError(m){ errorEl.textContent = m; errorEl.classList.add('show'); codeInput.classList.add('error'); }
+    function clearError(){ errorEl.classList.remove('show'); codeInput.classList.remove('error'); }
+
+    function startResendCooldown(sec){
+      clearInterval(cooldown);
+      resendBtn.disabled = true;
+      let s = sec;
+      resendBtn.innerHTML = 'Resend in <span id="verifyResendTimer">' + s + '</span>s';
+      cooldown = setInterval(() => {
+        s--;
+        if (s <= 0){ clearInterval(cooldown); resendBtn.disabled = false; resendBtn.textContent = 'Resend code'; return; }
+        document.getElementById('verifyResendTimer').textContent = s;
+      }, 1000);
+    }
+
+    async function sendCode(){
+      clearError();
+      try {
+        const r = await fetch(AF_VERIFY_API + '/send', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ mobile }) });
+        const d = await r.json();
+        if (!r.ok || !d.success){ showError(d.message || 'Could not send SMS.'); return false; }
+        startResendCooldown(60);
+        return true;
+      } catch(e){ showError('Network error. Please try again.'); return false; }
+    }
+    async function verifyCode(){
+      const code = codeInput.value.trim();
+      if (!/^\d{6}$/.test(code)){ showError('Enter the 6-digit code from your SMS.'); return; }
+      clearError();
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '<span class="verify-spinner"></span>Verifying…';
+      try {
+        const r = await fetch(AF_VERIFY_API + '/verify', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ mobile, code }) });
+        const d = await r.json();
+        if (!r.ok || !d.success){
+          showError(d.message || "That code doesn't look right. Try again.");
+          submitBtn.disabled = false;
+          submitBtn.textContent = 'Verify & Send';
+          codeInput.focus(); codeInput.select();
+          return;
+        }
+        cleanup(); resolve({ success:true, token:d.verified_token, mobile:d.verified_mobile });
+      } catch(e){
+        showError('Network error. Please try again.');
+        submitBtn.disabled = false; submitBtn.textContent = 'Verify & Send';
+      }
+    }
+    function cleanup(){
+      clearInterval(cooldown);
+      modal.hidden = true;
+      submitBtn.removeEventListener('click', verifyCode);
+      cancelBtn.removeEventListener('click', onCancel);
+      resendBtn.removeEventListener('click', onResend);
+      codeInput.removeEventListener('input', onInput);
+      codeInput.removeEventListener('keydown', onKeydown);
+    }
+    function onCancel(){ cleanup(); resolve({ success:false, reason:'cancelled' }); }
+    function onResend(){ if (!resendBtn.disabled) sendCode(); }
+    function onInput(){
+      codeInput.value = codeInput.value.replace(/\D/g,'').slice(0,6);
+      clearError();
+      if (codeInput.value.length === 6) verifyCode();
+    }
+    function onKeydown(e){
+      if (e.key === 'Enter'){ e.preventDefault(); verifyCode(); }
+      if (e.key === 'Escape'){ onCancel(); }
+    }
+
+    submitBtn.addEventListener('click', verifyCode);
+    cancelBtn.addEventListener('click', onCancel);
+    resendBtn.addEventListener('click', onResend);
+    codeInput.addEventListener('input', onInput);
+    codeInput.addEventListener('keydown', onKeydown);
+
+    modal.hidden = false;
+    const sent = await sendCode();
+    if (!sent) startResendCooldown(15);
+    setTimeout(() => codeInput.focus(), 100);
+  });
+}
+
+/* ---------------------------------------------------------------
+   GOOGLE FORM SUBMISSION (stub — wire up your form ID + entry IDs)
+   Mirrors the v1 chatbot's approach.
+   --------------------------------------------------------------- */
+const GOOGLE_FORM_ID = '1FAIpQLSf_YOUR_FORM_ID_HERE';
+const FIELD_MAP = {
+  assetType:        'entry.100100100',
+  amount:           'entry.100100101',
+  timeframe:        'entry.100100102',
+  over18:           'entry.100100103',
+  entity:           'entry.100100104',
+  abn:              'entry.100100105',
+  permanentResident:'entry.100100106',
+  hasVisa:          'entry.100100107',
+  workRights:       'entry.100100108',
+  incomeSource:     'entry.100100109',
+  incomeSourceOther:'entry.100100132',
+  employmentStatus: 'entry.100100110',
+  employmentLength: 'entry.100100111',
+  employmentGap:    'entry.100100112',
+  creditScoreRange: 'entry.100100113',
+  creditRating:     'entry.100100114',
+  livingSituation:  'entry.100100115',
+  assetFound:       'entry.100100116',
+  assetYear:        'entry.100100130',
+  firstName:        'entry.100100117',
+  surname:          'entry.100100118',
+  mobile:           'entry.100100119',
+  email:            'entry.100100120',
+  state:            'entry.100100121',
+  bestTime:         'entry.100100122',
+  bestTimeOther:    'entry.100100131',
+  verifiedMobile:   'entry.100100123',
+  verifiedToken:    'entry.100100124',
+  mobileVerified:   'entry.100100125',
+  submittedAt:      'entry.100100126',
+  gclid:            'entry.100100127',
+  landingPage:      'entry.100100128',
+  source:           'entry.100100129'
+};
+
+function submitToGoogleForm(data){
+  if (!GOOGLE_FORM_ID || GOOGLE_FORM_ID.includes('YOUR_FORM_ID')){
+    console.warn('Google Form ID not set — skipping submit');
+    return;
+  }
+  const form = new FormData();
+  Object.keys(FIELD_MAP).forEach(k => {
+    const v = data[k];
+    if (v !== undefined && v !== null && v !== '') form.append(FIELD_MAP[k], String(v));
+  });
+  fetch('https://docs.google.com/forms/d/e/' + GOOGLE_FORM_ID + '/formResponse',
+    { method:'POST', mode:'no-cors', body: form }
+  ).catch(err => console.error('Form submit error:', err));
+}
+
+/* ---------------------------------------------------------------
+   INIT
+   --------------------------------------------------------------- */
+render();
+</script>
+</body>
+</html>

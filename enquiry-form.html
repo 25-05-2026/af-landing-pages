@@ -1500,7 +1500,7 @@ function doABRNameSearch(name, box){
     delete window[cb];
   };
   const s = document.createElement('script');
-  s.src = 'https://abr.business.gov.au/json/MatchingNames.aspx?name=' + encodeURIComponent(name) + '&maxResults=10&guid=' + encodeURIComponent(window.AF_ABR_GUID || '') + '&callback=' + cb;
+  s.src = 'https://abr.business.gov.au/json/MatchingNames.aspx?name=' + encodeURIComponent(name) + '&maxResults=10&guid=' + encodeURIComponent(AF_ABR_GUID) + '&callback=' + cb;
   s.onerror = () => {
     box.classList.add('lookup-error');
     box.innerHTML = '<div class="abn-label">Search unavailable</div><div class="abn-entity">Can\'t reach the ABR right now. Try entering the ABN directly.</div>';

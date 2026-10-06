@@ -229,8 +229,9 @@
   }
   .hero .container {
     position: relative; z-index: 2;
-    display: grid; grid-template-columns: 1.3fr 0.85fr;
-    gap: 60px; align-items: center;
+    max-width: 1380px;
+    display: grid; grid-template-columns: 1.5fr 0.8fr;
+    gap: 64px; align-items: center;
     min-height: 570px;   /* matches hero min-height minus padding */
   }
   .hero-eyebrow {
@@ -1981,7 +1982,7 @@
   border: 2px solid rgba(141,198,63,.55);
   justify-self: end;
   width: 100%;
-  max-width: 460px;
+  max-width: 440px;
   box-shadow:
     0 0 0 4px rgba(141,198,63,.08),
     0 0 40px rgba(141,198,63,.22),

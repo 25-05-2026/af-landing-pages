@@ -150,10 +150,11 @@
      TODAY'S BEST RATE — glass tile on the left of the hero
      ============================================================ */
   .rate-glass{
-    display:block;align-self:flex-start;
-    width:280px;max-width:100%;
+    position:relative;z-index:2;
+    display:block;align-self:center;justify-self:start;
+    width:100%;max-width:280px;
     padding:22px 22px 20px;
-    margin:26px 0 0;
+    margin:0;
     background:rgba(15,20,36,.62);
     backdrop-filter:blur(18px) saturate(1.2);
     -webkit-backdrop-filter:blur(18px) saturate(1.2);
@@ -251,8 +252,8 @@
   .hero--embedded{text-align:left;padding:70px 0 60px;min-height:720px}
   .hero--embedded .hero-inner{
     max-width:1380px;
-    display:grid;grid-template-columns:1.5fr 0.8fr;
-    gap:64px;align-items:center;
+    display:grid;grid-template-columns:280px 1fr 440px;
+    gap:44px;align-items:center;
     text-align:left;
   }
   .hero--embedded .hero-sub{max-width:none;margin:0 0 28px}
@@ -277,12 +278,16 @@
     pointer-events:none;z-index:5;
   }
   .hero-form-card iframe{flex:1;width:100%;min-height:640px;border:0;display:block;background:#fff}
+  @media (max-width:1180px){
+    .hero--embedded .hero-inner{grid-template-columns:260px 1fr 400px;gap:32px}
+  }
   @media (max-width:980px){
-    .hero--embedded .hero-inner{grid-template-columns:1fr;gap:36px;text-align:center}
+    .hero--embedded .hero-inner{grid-template-columns:1fr;gap:36px;text-align:center;justify-items:center}
     .hero--embedded .hero-sub{max-width:720px;margin-left:auto;margin-right:auto}
     .hero--embedded .hero-cta-row{justify-content:center}
     .hero--embedded .hero-stats{justify-content:center;border-top:0;padding-top:16px}
     .hero-form-card{min-height:600px}
+    .rate-glass{max-width:340px;justify-self:center}
   }
   .hero .credit-pill{background:rgba(141,198,63,.16);color:var(--green);border-color:rgba(141,198,63,.4);margin-bottom:22px}
   .hero h1{color:#fff;margin-bottom:.35em}
@@ -500,6 +505,25 @@
   <div class="hero-blob" aria-hidden="true"></div>
   <div class="hero-car-visual" aria-hidden="true"></div>
   <div class="hero-inner">
+    <a href="#quote" class="rate-glass" aria-label="Today's best car finance rate">
+      <span class="rate-glass-pill"><span class="rate-glass-dot" aria-hidden="true"></span>Live rate</span>
+      <span class="rate-glass-label">Today's Best Rate</span>
+      <span class="rate-glass-value">
+        <span class="num">6.49</span>
+        <span class="unit"><span class="pct">%</span><span class="pa">p.a.</span></span>
+      </span>
+      <span class="rate-glass-comp">7.12% comparison rate*</span>
+      <span class="rate-glass-meta">
+        <span class="row">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          <span class="txt">Updated today</span>
+        </span>
+        <span class="row">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14a9 3 0 0 0 18 0V5"/><path d="M3 12a9 3 0 0 0 18 0"/></svg>
+          <span class="txt">From our panel of <strong>63+ lenders</strong></span>
+        </span>
+      </span>
+    </a>
     <div class="hero-text">
       <span class="credit-pill"><svg viewBox="0 0 24 24"><path d="M12 1 3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/></svg> Will NOT impact your credit score</span>
       <h1>Finance that <span class="hl">fits you</span>.</h1>
@@ -515,25 +539,6 @@
         <div class="hero-stat"><svg viewBox="0 0 24 24"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg> <strong>63+</strong> Bank &amp; non-bank lenders</div>
         <div class="hero-stat"><svg viewBox="0 0 24 24"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg> Hundreds of <strong>5-star</strong> reviews</div>
       </div>
-      <a href="#quote" class="rate-glass" aria-label="Today's best car finance rate">
-        <span class="rate-glass-pill"><span class="rate-glass-dot" aria-hidden="true"></span>Live rate</span>
-        <span class="rate-glass-label">Today's Best Rate</span>
-        <span class="rate-glass-value">
-          <span class="num">6.49</span>
-          <span class="unit"><span class="pct">%</span><span class="pa">p.a.</span></span>
-        </span>
-        <span class="rate-glass-comp">7.12% comparison rate*</span>
-        <span class="rate-glass-meta">
-          <span class="row">
-            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-            <span class="txt">Updated today</span>
-          </span>
-          <span class="row">
-            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14a9 3 0 0 0 18 0V5"/><path d="M3 12a9 3 0 0 0 18 0"/></svg>
-            <span class="txt">From our panel of <strong>63+ lenders</strong></span>
-          </span>
-        </span>
-      </a>
       <p class="rate-fineprint">
         *Today's advertised rate 6.49% p.a. (7.12% comparison rate based on a $30,000 loan over 5 years). Rate accurate as at 23 October 2026 and subject to change. Fees, charges and lender approval criteria apply. Australian Credit Licence 488607.
       </p>

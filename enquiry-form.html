@@ -917,12 +917,11 @@ const QUESTIONS = [
   },
   { id:'employmentStatus', section:'Employment', type:'radio', autoAdvance:true,
     text:'What is your employment status?',
-    showIf:(a)=>a.entity==='personal',
+    showIf:(a)=>a.entity==='personal' && a.incomeSource !== 'self',
     options:[
       { v:'fulltime',            label:'Full-time',                hint:'38+ standard hours per week' },
       { v:'parttime',            label:'Part-time',                hint:'Set hours each week, ongoing role' },
       { v:'casual',              label:'Casual',                   hint:'Hours vary week to week' },
-      { v:'self-employed',       label:'Self-employed',            hint:'I run my own business or work as a contractor' },
       { v:'employed-centrelink', label:'Employed plus Centrelink', hint:'I work plus I also receive Centrelink supplements' },
       { v:'unemployed',          label:'Unemployed',               hint:'Not currently working', knockout:{ message:"Sorry, we can't help without employment income. Please come back to us once you're in stable Full-time, Part-time or Casual work." } }
     ]

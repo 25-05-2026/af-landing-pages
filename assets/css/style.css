@@ -229,7 +229,7 @@
   }
   .hero .container {
     position: relative; z-index: 2;
-    display: grid; grid-template-columns: 1.1fr 0.9fr;
+    display: grid; grid-template-columns: 1.3fr 0.85fr;
     gap: 60px; align-items: center;
     min-height: 570px;   /* matches hero min-height minus padding */
   }
@@ -1979,6 +1979,9 @@
 .hero .quote-card--embedded {
   border-radius: 22px;
   border: 2px solid rgba(141,198,63,.55);
+  justify-self: end;
+  width: 100%;
+  max-width: 460px;
   box-shadow:
     0 0 0 4px rgba(141,198,63,.08),
     0 0 40px rgba(141,198,63,.22),

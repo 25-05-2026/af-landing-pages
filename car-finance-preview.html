@@ -147,6 +147,105 @@
   .hero-inner{position:relative;z-index:2;max-width:880px;margin:0 auto;padding:0 22px}
 
   /* ============================================================
+     TODAY'S BEST RATE — glass tile on the left of the hero
+     ============================================================ */
+  .rate-glass{
+    display:block;align-self:flex-start;
+    width:260px;max-width:100%;
+    padding:22px 22px 20px;
+    margin-bottom:22px;
+    background:rgba(15,20,36,.62);
+    backdrop-filter:blur(18px) saturate(1.2);
+    -webkit-backdrop-filter:blur(18px) saturate(1.2);
+    border:1px solid rgba(141,198,63,.35);
+    border-radius:22px;
+    text-decoration:none;color:#fff;
+    font-family:'Inter',sans-serif;text-align:left;line-height:1.5;
+    box-shadow:
+      0 0 44px rgba(141,198,63,.18),
+      0 24px 44px rgba(0,0,0,.42),
+      0 6px 12px rgba(0,0,0,.28),
+      inset 0 1px 0 rgba(255,255,255,.08);
+    transition:transform .2s ease-out, box-shadow .2s ease-out, border-color .2s ease-out;
+  }
+  .rate-glass:hover{
+    transform:translateY(-2px);
+    border-color:rgba(141,198,63,.55);
+    box-shadow:
+      0 0 60px rgba(141,198,63,.28),
+      0 30px 54px rgba(0,0,0,.5),
+      0 8px 14px rgba(0,0,0,.32),
+      inset 0 1px 0 rgba(255,255,255,.1);
+  }
+  .rate-glass-pill{
+    display:inline-flex;align-items:center;gap:7px;
+    padding:5px 12px 4px;
+    background:rgba(141,198,63,.16);
+    border:1px solid rgba(141,198,63,.42);
+    border-radius:100px;
+    color:#8DC63F;
+    font-size:10.5px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;
+    margin-bottom:16px;
+  }
+  .rate-glass-dot{
+    width:7px;height:7px;flex:none;
+    background:#8DC63F;border-radius:50%;
+    box-shadow:0 0 0 0 rgba(141,198,63,.7);
+    animation:rateGlassPulse 2s ease-out infinite;
+  }
+  @keyframes rateGlassPulse{
+    0%{box-shadow:0 0 0 0 rgba(141,198,63,.7)}
+    70%{box-shadow:0 0 0 9px rgba(141,198,63,0)}
+    100%{box-shadow:0 0 0 0 rgba(141,198,63,0)}
+  }
+  .rate-glass-label{
+    display:block;
+    font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;
+    color:rgba(255,255,255,.65);margin-bottom:4px;
+  }
+  .rate-glass-value{
+    display:flex;align-items:flex-start;gap:2px;
+    margin:2px 0 8px;line-height:1;
+  }
+  .rate-glass-value .num{
+    font-family:'Fraunces',Georgia,serif;
+    font-size:72px;font-weight:700;line-height:.9;letter-spacing:-.035em;color:#fff;
+  }
+  .rate-glass-value .unit{display:flex;flex-direction:column;align-items:flex-start;gap:2px;padding-top:8px}
+  .rate-glass-value .pct{font-family:'Fraunces',Georgia,serif;font-size:30px;font-weight:600;line-height:1;color:#fff}
+  .rate-glass-value .pa{
+    font-family:'Inter',sans-serif;font-size:11px;font-weight:700;
+    letter-spacing:.09em;text-transform:uppercase;
+    color:rgba(255,255,255,.55);margin-top:-2px;
+  }
+  .rate-glass-comp{
+    display:block;font-size:13px;font-weight:600;
+    color:rgba(255,255,255,.78);
+    padding-bottom:14px;margin-bottom:14px;
+    border-bottom:1px solid rgba(255,255,255,.09);
+  }
+  .rate-glass-meta{display:block}
+  .rate-glass-meta .row{
+    display:flex;align-items:center;gap:10px;margin-top:8px;
+    font-size:12.5px;font-weight:500;color:rgba(255,255,255,.82);line-height:1.3;
+  }
+  .rate-glass-meta .row:first-child{margin-top:0}
+  .rate-glass-meta .icon{
+    width:26px;height:26px;padding:5px;
+    background:rgba(141,198,63,.14);
+    border:1px solid rgba(141,198,63,.28);
+    border-radius:8px;color:#8DC63F;flex:none;
+  }
+  .rate-glass-meta .row:first-child .txt{
+    font-weight:700;letter-spacing:.11em;text-transform:uppercase;font-size:11px;color:#fff;
+  }
+  .rate-glass-meta strong{color:#fff;font-weight:700}
+  .rate-fineprint{
+    margin:22px 0 0;max-width:720px;
+    font-size:10.5px;line-height:1.5;color:rgba(217,224,238,.55);
+  }
+
+  /* ============================================================
      HERO WITH EMBEDDED FORM — preview variant for landing pages
      ============================================================ */
   .hero--embedded{text-align:left;padding:70px 0 60px;min-height:720px}
@@ -402,6 +501,25 @@
   <div class="hero-car-visual" aria-hidden="true"></div>
   <div class="hero-inner">
     <div class="hero-text">
+      <a href="#quote" class="rate-glass" aria-label="Today's best car finance rate">
+        <span class="rate-glass-pill"><span class="rate-glass-dot" aria-hidden="true"></span>Live rate</span>
+        <span class="rate-glass-label">Today's Best Rate</span>
+        <span class="rate-glass-value">
+          <span class="num">6.49</span>
+          <span class="unit"><span class="pct">%</span><span class="pa">p.a.</span></span>
+        </span>
+        <span class="rate-glass-comp">7.12% comparison rate*</span>
+        <span class="rate-glass-meta">
+          <span class="row">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            <span class="txt">Updated today</span>
+          </span>
+          <span class="row">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14a9 3 0 0 0 18 0V5"/><path d="M3 12a9 3 0 0 0 18 0"/></svg>
+            <span class="txt">From our panel of <strong>63+ lenders</strong></span>
+          </span>
+        </span>
+      </a>
       <span class="credit-pill"><svg viewBox="0 0 24 24"><path d="M12 1 3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/></svg> Will NOT impact your credit score</span>
       <h1>Finance that <span class="hl">fits you</span>.</h1>
       <p class="hero-sub">We compare <strong>today's best rates</strong> across <strong>63+ lenders</strong> working for you, not against you. Faster approvals, zero impact on your credit score.</p>
@@ -416,6 +534,9 @@
         <div class="hero-stat"><svg viewBox="0 0 24 24"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg> <strong>63+</strong> Bank &amp; non-bank lenders</div>
         <div class="hero-stat"><svg viewBox="0 0 24 24"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg> Hundreds of <strong>5-star</strong> reviews</div>
       </div>
+      <p class="rate-fineprint">
+        *Today's advertised rate 6.49% p.a. (7.12% comparison rate based on a $30,000 loan over 5 years). Rate accurate as at 23 October 2026 and subject to change. Fees, charges and lender approval criteria apply. Australian Credit Licence 488607.
+      </p>
     </div>
     <div class="hero-form-card" id="quote">
       <iframe src="enquiry-form.html?variant=hero" title="Quick Finance Enquiry" loading="eager"></iframe>

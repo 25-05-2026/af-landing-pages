@@ -103,18 +103,67 @@
      match the acquiredfinance.com hero so the embedded form reads as a
      continuation of the hero rather than a floating white card on top of it. */
   html.variant-hero .chatbot-header{
+    position:relative;
     background:
-      radial-gradient(ellipse at 100% 0%, rgba(141,198,63,.22) 0%, transparent 55%),
-      linear-gradient(180deg,#1A2138 0%,#0F1424 100%);
-    border-bottom:2px solid var(--green);
-    padding:18px 22px 14px;
+      radial-gradient(ellipse at 100% -10%, rgba(141,198,63,.28) 0%, transparent 55%),
+      radial-gradient(ellipse at 0% 120%, rgba(141,198,63,.08) 0%, transparent 50%),
+      linear-gradient(180deg,#1C2440 0%,#141A33 55%,#0D1226 100%);
+    border-bottom:1px solid rgba(141,198,63,.35);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.06), 0 1px 0 rgba(141,198,63,.22);
+    padding:20px 24px 16px;
   }
-  html.variant-hero .chatbot-title{color:#fff}
-  html.variant-hero .chatbot-subtitle{color:rgba(255,255,255,.72)}
-  html.variant-hero .progress-bar{background:rgba(255,255,255,.14)}
-  html.variant-hero .progress-fill{box-shadow:0 0 10px rgba(141,198,63,.5)}
-  html.variant-hero .progress-meta{color:rgba(255,255,255,.65)}
-  html.variant-hero .progress-meta #progressLabel{color:var(--green)}
+  html.variant-hero .chatbot-header::before{
+    content:"";position:absolute;left:0;right:0;top:0;height:3px;
+    background:linear-gradient(90deg,#8DC63F 0%,#C4EB7A 50%,#8DC63F 100%);
+    box-shadow:0 0 14px rgba(141,198,63,.55);
+  }
+  html.variant-hero .chatbot-title{
+    color:#fff;
+    font-size:22px;letter-spacing:-.02em;
+    text-shadow:0 1px 0 rgba(0,0,0,.25);
+    margin-bottom:5px;
+  }
+  html.variant-hero .chatbot-subtitle{
+    color:rgba(255,255,255,.78);
+    font-size:12.5px;
+    margin-bottom:14px;
+  }
+  html.variant-hero .progress-bar{
+    height:6px;
+    background:rgba(255,255,255,.08);
+    box-shadow:inset 0 1px 2px rgba(0,0,0,.35);
+    border:1px solid rgba(255,255,255,.06);
+  }
+  html.variant-hero .progress-fill{
+    background:linear-gradient(90deg,#8DC63F 0%,#C4EB7A 60%,#8DC63F 100%);
+    box-shadow:
+      0 0 10px rgba(141,198,63,.65),
+      0 0 20px rgba(141,198,63,.3),
+      inset 0 1px 0 rgba(255,255,255,.4);
+  }
+  html.variant-hero .progress-meta{
+    color:rgba(255,255,255,.6);
+    margin-top:10px;
+  }
+  html.variant-hero .progress-meta #progressLabel{
+    display:inline-block;
+    color:#C4EB7A;
+    background:rgba(141,198,63,.14);
+    border:1px solid rgba(141,198,63,.38);
+    padding:3px 9px;border-radius:100px;
+    font-size:10px;letter-spacing:.1em;text-transform:uppercase;
+    font-weight:700;
+  }
+  html.variant-hero .progress-meta #progressCount{
+    display:inline-block;
+    color:rgba(255,255,255,.78);
+    background:rgba(255,255,255,.05);
+    border:1px solid rgba(255,255,255,.14);
+    padding:3px 9px;border-radius:100px;
+    font-size:10px;letter-spacing:.06em;
+    font-weight:600;
+    font-variant-numeric:tabular-nums;
+  }
 
   /* Hero variant: compact asset-type tiles so all 8 fit the embedded form without scrolling */
   html.variant-hero .options.grid-2{grid-template-columns:1fr 1fr}

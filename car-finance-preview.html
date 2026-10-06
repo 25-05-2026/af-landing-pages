@@ -151,10 +151,10 @@
      ============================================================ */
   .rate-glass{
     position:relative;z-index:2;
-    display:block;align-self:start;justify-self:center;
+    display:block;align-self:center;justify-self:start;
     width:100%;max-width:220px;
     padding:16px 18px 14px;
-    margin:0;
+    margin:0 0 0 -30px;
     background:rgba(15,20,36,.62);
     backdrop-filter:blur(18px) saturate(1.2);
     -webkit-backdrop-filter:blur(18px) saturate(1.2);
@@ -249,12 +249,13 @@
   /* ============================================================
      HERO WITH EMBEDDED FORM — preview variant for landing pages
      ============================================================ */
-  .hero--embedded{text-align:left;padding:52px 0 56px;min-height:680px}
+  .hero--embedded{text-align:left;padding:52px 0 56px;min-height:calc(100vh - 88px)}
   .hero--embedded .hero-inner{
     max-width:1380px;
     display:grid;grid-template-columns:240px 1fr 420px;
-    gap:36px;align-items:start;
+    gap:36px;align-items:center;
     text-align:left;
+    min-height:inherit;
   }
   .hero--embedded .hero-sub{max-width:none;margin:0 0 22px;font-size:clamp(1.1rem,2vw,1.4rem)}
   .hero--embedded .hero-cta-row{justify-content:flex-start;margin-bottom:22px}

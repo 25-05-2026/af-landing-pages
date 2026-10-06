@@ -249,16 +249,18 @@
   /* ============================================================
      HERO WITH EMBEDDED FORM — preview variant for landing pages
      ============================================================ */
-  .hero--embedded{text-align:left;padding:48px 0 60px;min-height:720px}
+  .hero--embedded{text-align:left;padding:52px 0 56px;min-height:680px}
   .hero--embedded .hero-inner{
     max-width:1380px;
-    display:grid;grid-template-columns:300px 1fr 440px;
-    gap:40px;align-items:center;
+    display:grid;grid-template-columns:240px 1fr 420px;
+    gap:36px;align-items:start;
     text-align:left;
   }
-  .hero--embedded .hero-sub{max-width:none;margin:0 0 28px}
-  .hero--embedded .hero-cta-row{justify-content:flex-start;margin-bottom:28px}
-  .hero--embedded .hero-stats{justify-content:flex-start;padding-top:24px;border-top:1px solid rgba(255,255,255,.14)}
+  .hero--embedded .hero-sub{max-width:none;margin:0 0 22px;font-size:clamp(1.1rem,2vw,1.4rem)}
+  .hero--embedded .hero-cta-row{justify-content:flex-start;margin-bottom:22px}
+  .hero--embedded .hero-stats{justify-content:flex-start;gap:20px;font-size:.95rem;padding-top:18px;border-top:1px solid rgba(255,255,255,.14)}
+  .hero--embedded h1{font-size:clamp(40px,4.6vw,62px);margin-bottom:14px}
+  .hero--embedded .credit-pill{margin-bottom:16px}
   .hero-form-card{
     background:#fff;
     border-radius:22px;
@@ -279,7 +281,7 @@
   }
   .hero-form-card iframe{flex:1;width:100%;min-height:640px;border:0;display:block;background:#fff}
   @media (max-width:1180px){
-    .hero--embedded .hero-inner{grid-template-columns:260px 1fr 400px;gap:28px}
+    .hero--embedded .hero-inner{grid-template-columns:220px 1fr 380px;gap:24px}
   }
   @media (max-width:980px){
     .hero--embedded .hero-inner{grid-template-columns:1fr;gap:36px;text-align:center;justify-items:center}

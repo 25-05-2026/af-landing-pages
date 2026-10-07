@@ -454,7 +454,7 @@
     </a>
     <div class="topbar-cta">
       <a href="tel:1300235255" class="tel-pill"><svg viewBox="0 0 24 24"><path d="M20 15.5c-1.25 0-2.45-.2-3.57-.57a1 1 0 0 0-1.02.24l-2.2 2.2a15.07 15.07 0 0 1-6.59-6.59l2.2-2.21a1 1 0 0 0 .25-1.02A11.36 11.36 0 0 1 8.5 4a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1c0 9.39 7.61 17 17 17a1 1 0 0 0 1-1v-3.5a1 1 0 0 0-1-1z"/></svg>1300 235 255</a>
-      <a href="apply.html?from=abn-business" class="btn btn--primary tel-only" style="padding:10px 18px;font-size:.92rem">Get Quote</a>
+      <a href="enquiry-form.html" class="btn btn--primary tel-only" style="padding:10px 18px;font-size:.92rem">Get Quote</a>
     </div>
   </div>
 </header>
@@ -695,7 +695,7 @@
         <p>Every structure. Director guarantees handled carefully. We know which lenders prefer which entities — and how to package your deal for max approval probability.</p>
       </div>
     </div>
-    <div class="center" style="margin-top:44px"><a href="apply.html?from=abn-business" class="btn btn--primary btn--lg">Start The Chat →</a></div>
+    <div class="center" style="margin-top:44px"><a href="enquiry-form.html" class="btn btn--primary btn--lg">Start The Chat →</a></div>
   </div>
 </section>
 
@@ -718,7 +718,7 @@
       <div class="lowdoc-item">Asset-backed assessment</div>
       <div class="lowdoc-item">Past credit — case by case</div>
     </div>
-    <div class="center" style="margin-top:36px"><a href="apply.html?from=abn-business" class="btn btn--primary btn--lg">Check My Eligibility →</a></div>
+    <div class="center" style="margin-top:36px"><a href="enquiry-form.html" class="btn btn--primary btn--lg">Check My Eligibility →</a></div>
   </div>
 </section>
 
@@ -778,7 +778,7 @@
         <div class="case-meta"><strong>Structure:</strong> 48-month hire purchase</div>
       </div>
     </div>
-    <div class="center" style="margin-top:40px"><a href="apply.html?from=abn-business" class="btn btn--primary btn--lg">Get My Indicative Quote →</a></div>
+    <div class="center" style="margin-top:40px"><a href="enquiry-form.html" class="btn btn--primary btn--lg">Get My Indicative Quote →</a></div>
   </div>
 </section>
 
@@ -827,7 +827,7 @@
       </div>
     </div>
 
-    <a href="apply.html?from=abn-business" class="btn btn--primary btn--xl" style="font-size:1.15rem;padding:22px 40px">Get My Indicative Quote →</a>
+    <a href="enquiry-form.html" class="btn btn--primary btn--xl" style="font-size:1.15rem;padding:22px 40px">Get My Indicative Quote →</a>
     <p style="margin-top:18px;font-size:.9rem;color:var(--muted)">Prefer to talk? <a href="tel:1300235255" style="color:var(--green-dk2);font-weight:700">Call 1300 235 255</a></p>
   </div>
 </section>
@@ -859,7 +859,7 @@
       <h2>Ready to talk numbers?</h2>
       <p>Wholesale rates. Same-day approvals. 63+ commercial lenders working for your business, not against it.</p>
       <div class="btn-row" style="justify-content:center">
-        <a href="apply.html?from=abn-business" class="btn btn--primary btn--xl">Start The Chat</a>
+        <a href="enquiry-form.html" class="btn btn--primary btn--xl">Start The Chat</a>
         <a href="tel:1300235255" class="btn btn--ghost-light btn--xl">Call 1300 235 255</a>
       </div>
     </div>
@@ -895,7 +895,7 @@
 <!-- STICKY MOBILE CTA -->
 <div class="sticky-cta">
   <a href="tel:1300235255" class="btn btn--ghost" style="border-color:var(--navy)">Call</a>
-  <a href="apply.html?from=abn-business" class="btn btn--primary">Start Chat</a>
+  <a href="enquiry-form.html" class="btn btn--primary">Start Chat</a>
 </div>
 
 <!-- ============ APPLY FORM MODAL ============ -->
@@ -949,7 +949,7 @@
     io.observe(anchor);
   })();
 
-  // Apply form modal — intercepts every apply.html link and opens it in an iframe overlay
+  // Enquiry modal — intercepts every enquiry-form.html link and opens the new chatbot in an iframe overlay
   (function(){
     var modal = document.getElementById('applyModal');
     if(!modal) return;
@@ -976,7 +976,7 @@
     document.addEventListener('keydown', function(e){
       if(e.key === 'Escape' && modal.classList.contains('is-open')) closeModal();
     });
-    document.querySelectorAll('a[href^="apply.html"]').forEach(function(a){
+    document.querySelectorAll('a[href^="enquiry-form.html"]').forEach(function(a){
       a.addEventListener('click', function(e){
         if(e.metaKey || e.ctrlKey || e.shiftKey || e.button === 1) return;
         e.preventDefault();

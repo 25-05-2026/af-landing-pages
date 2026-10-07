@@ -41,31 +41,48 @@
 
   /* ---------- TOP BAR ---------- */
   .topbar {
-    background: var(--ink-deep);
-    color: var(--grey-300);
-    font-size: 13px;
-    padding: 9px 0;
+    background: linear-gradient(90deg, #1A2138 0%, #0F1424 100%);
+    color: rgba(229, 234, 245, 0.78);
+    font-size: 12.5px;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(141, 198, 63, 0.18);
+    letter-spacing: .005em;
   }
   .topbar .container {
     display: flex; justify-content: space-between; align-items: center;
     gap: 16px; flex-wrap: wrap;
   }
-  .topbar a { color: var(--grey-300); text-decoration: none; }
+  .topbar a { color: rgba(229, 234, 245, 0.78); text-decoration: none; transition: color .15s ease; }
   .topbar a:hover { color: var(--green); }
-  .topbar .badges { display: flex; gap: 18px; align-items: center; }
-  .topbar .badges span { display: flex; align-items: center; gap: 6px; }
-  .topbar .star { color: var(--gold); letter-spacing: 1px; }
+  .topbar .badges { display: flex; gap: 20px; align-items: center; }
+  .topbar .badges span { display: flex; align-items: center; gap: 7px; }
+  .topbar .badges > span:nth-child(2) {
+    color: rgba(141, 198, 63, 0.5); font-size: 9px;
+  }
+  .topbar .star { color: var(--green); letter-spacing: 1.5px; font-size: 11.5px; }
+  .topbar > .container > div:first-child {
+    position: relative; padding-left: 14px;
+  }
+  .topbar > .container > div:first-child::before {
+    content: ""; position: absolute; left: 0; top: 50%;
+    transform: translateY(-50%);
+    width: 3px; height: 14px;
+    background: var(--green); border-radius: 2px;
+    box-shadow: 0 0 8px rgba(141, 198, 63, 0.55);
+  }
 
   /* ---------- HEADER ---------- */
   header.main {
-    background: var(--white);
+    background: rgba(255, 255, 255, 0.92);
     border-bottom: 1px solid var(--grey-100);
     position: sticky; top: 0; z-index: 100;
-    backdrop-filter: blur(8px);
+    backdrop-filter: saturate(1.4) blur(14px);
+    -webkit-backdrop-filter: saturate(1.4) blur(14px);
+    box-shadow: 0 1px 0 rgba(141, 198, 63, 0.08), 0 8px 24px rgba(15, 20, 36, 0.04);
   }
   header.main .container {
     display: flex; justify-content: space-between; align-items: center;
-    padding-top: 18px; padding-bottom: 18px;
+    padding-top: 16px; padding-bottom: 16px;
   }
   .logo { display: inline-flex; align-items: center; text-decoration: none; }
   .logo img { height: 42px; width: auto; display: block; }
@@ -74,30 +91,49 @@
     filter: brightness(0) invert(1);
   }
 
-  nav.primary { display: flex; align-items: center; gap: 22px; }
+  nav.primary { display: flex; align-items: center; gap: 28px; }
   nav.primary a {
     color: var(--grey-700); text-decoration: none;
-    font-weight: 500; font-size: 15px; transition: color 0.2s;
-    position: relative;
+    font-weight: 500; font-size: 14.5px;
+    transition: color 0.18s ease;
+    position: relative; padding: 6px 0;
+    letter-spacing: -.005em;
   }
-  nav.primary a:hover { color: var(--green-dark); }
-  /* vertical pipe separators between nav items */
-  nav.primary a + a::before {
-    content: "|";
-    position: absolute;
-    left: -13px;
-    color: var(--grey-300);
-    font-weight: 400;
-    pointer-events: none;
+  nav.primary a::after {
+    content: ""; position: absolute;
+    left: 0; right: 0; bottom: 0;
+    height: 2px; border-radius: 2px;
+    background: linear-gradient(90deg, var(--green), var(--green-dark));
+    transform: scaleX(0); transform-origin: left center;
+    transition: transform .22s cubic-bezier(.4,0,.2,1);
   }
+  nav.primary a:hover { color: var(--ink); }
+  nav.primary a:hover::after { transform: scaleX(1); }
 
-  .header-cta { display: flex; align-items: center; gap: 16px; }
+  .header-cta { display: flex; align-items: center; gap: 18px; }
   .phone-link {
-    display: flex; align-items: center; gap: 8px;
+    display: inline-flex; align-items: center; gap: 9px;
     color: var(--ink); text-decoration: none;
     font-weight: 700; font-size: 15px;
+    padding: 8px 16px 8px 14px; border-radius: 100px;
+    background: rgba(141, 198, 63, 0.06);
+    border: 1px solid rgba(141, 198, 63, 0.22);
+    transition: background .15s ease, border-color .15s ease;
   }
+  .phone-link:hover { background: rgba(141, 198, 63, 0.14); border-color: rgba(141, 198, 63, 0.4); }
   .phone-link svg { color: var(--green-dark); }
+  .header-cta .btn-primary {
+    box-shadow:
+      0 4px 14px rgba(141, 198, 63, 0.42),
+      0 0 0 1px rgba(141, 198, 63, 0.25),
+      inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  }
+  .header-cta .btn-primary:hover {
+    box-shadow:
+      0 6px 20px rgba(141, 198, 63, 0.55),
+      0 0 0 1px rgba(141, 198, 63, 0.35),
+      inset 0 1px 0 rgba(255, 255, 255, 0.35);
+  }
 
   /* Phone icon "ringing" animation — two quick wiggles, then pause, repeat.
      Applied to both the header phone-link icon and the CTA band phone-big icon. */

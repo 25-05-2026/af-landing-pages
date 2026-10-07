@@ -993,14 +993,7 @@
         openModal(href);
       });
     });
-    // After successful submit, lift the parent up to thank-you.html so the
-    // user sees the full confirmation page (and Google Ads conversion fires
-    // at top-level, not inside the iframe).
-    window.addEventListener('message', function(e){
-      if(e && e.data && e.data.type === 'afs-lead-submitted'){
-        setTimeout(function(){ window.location.href = 'thank-you.html'; }, 400);
-      }
-    });
+    // Success state is rendered inside the iframe — no parent redirect.
   })();
 </script>
 

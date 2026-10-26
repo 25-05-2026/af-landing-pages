@@ -373,7 +373,7 @@
     <div class="hero-form-wrap">
       <div class="hero-form-haze" aria-hidden="true"></div>
       <div class="hero-form-card" id="quote">
-        <iframe src="enquiry-form.html?variant=hero" title="Personal loan rate check" loading="eager"></iframe>
+        <iframe src="enquiry-form.html?variant=hero&amp;preset=personal-loan" title="Personal loan rate check" loading="eager"></iframe>
       </div>
     </div>
   </div>
@@ -817,6 +817,10 @@
         // Chatbot auto-detects iframe mode, so no extra flag is needed
         if(href.indexOf('embed=') === -1){
           href += (href.indexOf('?') === -1 ? '?' : '&') + 'embed=1';
+        }
+        // Pre-seed the chatbot to skip the asset-type question (we already know they want a personal loan)
+        if(href.indexOf('preset=') === -1){
+          href += '&preset=personal-loan';
         }
         // Forward the gclid through to the form, if we have one stashed
         try{

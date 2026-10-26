@@ -1064,8 +1064,25 @@ const QUESTIONS = [
 /* ---------------------------------------------------------------
    STATE
    --------------------------------------------------------------- */
+/* ---------------------------------------------------------------
+   PRESET ANSWERS from URL (?preset=<key>)
+   Lets specialised landing pages (eg /personal-loans) seed answers
+   that the visitor would otherwise have to tap through. The seeded
+   questions are hidden from the flow; validation still runs on
+   everything else.
+   --------------------------------------------------------------- */
+const PRESET_MAP = {
+  'personal-loan': { assetType: 'personal', entity: 'personal' }
+};
+const PRESET_ANSWERS = (function(){
+  try {
+    const p = new URLSearchParams(location.search).get('preset');
+    return (p && PRESET_MAP[p]) ? Object.assign({}, PRESET_MAP[p]) : null;
+  } catch(e) { return null; }
+})();
+
 const state = {
-  answers: {},
+  answers: PRESET_ANSWERS ? Object.assign({}, PRESET_ANSWERS) : {},
   history: [],   // stack of question indexes visited (for Back)
   currentIdx: 0,
   abnLookup: null,
@@ -1090,24 +1107,28 @@ const $success   = document.getElementById('successScreen');
    --------------------------------------------------------------- */
 function currentQuestion() { return QUESTIONS[state.currentIdx]; }
 
-// Advance to the next question that satisfies showIf. Returns index or -1 if none.
+// A question is "visible" when its showIf passes AND it's not pre-seeded by PRESET_ANSWERS.
+function isVisibleQuestion(q){
+  if (PRESET_ANSWERS && Object.prototype.hasOwnProperty.call(PRESET_ANSWERS, q.id)) return false;
+  return !q.showIf || q.showIf(state.answers);
+}
+
+// Advance to the next visible question. Returns index or -1 if none.
 function findNextIndex(fromIdx){
   for (let i = fromIdx + 1; i < QUESTIONS.length; i++){
-    const q = QUESTIONS[i];
-    if (!q.showIf || q.showIf(state.answers)) return i;
+    if (isVisibleQuestion(QUESTIONS[i])) return i;
   }
   return -1;
 }
 
 function totalVisibleCount(){
-  return QUESTIONS.filter(q => !q.showIf || q.showIf(state.answers)).length;
+  return QUESTIONS.filter(isVisibleQuestion).length;
 }
 
 function currentPositionInVisible(){
   let pos = 0;
   for (let i = 0; i <= state.currentIdx; i++){
-    const q = QUESTIONS[i];
-    if (!q.showIf || q.showIf(state.answers)) pos++;
+    if (isVisibleQuestion(QUESTIONS[i])) pos++;
   }
   return pos;
 }
@@ -1793,6 +1814,13 @@ function submitToGoogleForm(data){
 /* ---------------------------------------------------------------
    INIT
    --------------------------------------------------------------- */
+// If any answers are pre-seeded via PRESET_ANSWERS, jump to the first
+// still-visible question instead of starting at index 0 (which would
+// show the seeded question and look confusing).
+if (PRESET_ANSWERS) {
+  const firstVisible = findNextIndex(-1);
+  if (firstVisible > -1) state.currentIdx = firstVisible;
+}
 render();
 </script>
 </body>

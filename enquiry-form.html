@@ -810,6 +810,35 @@ if (AF_DEMO_MODE) {
 const ASSET_TYPES = ['car','truck','equipment','leisure','marine']; // types that trigger the "have you found the asset" question
 
 /* ---------------------------------------------------------------
+   PRESETS from URL (?preset=<key>)
+   Lets specialised landing pages (eg /personal-loans) seed answers
+   that the visitor would otherwise have to tap through, and override
+   per-product config such as the minimum loan amount. The seeded
+   questions are hidden from the flow; validation still runs on
+   everything else. Declared BEFORE the QUESTIONS array so help text
+   and validators can reference MIN_AMOUNT inline.
+   --------------------------------------------------------------- */
+const PRESET_CONFIGS = {
+  'personal-loan': {
+    answers: { assetType: 'personal', entity: 'personal' },
+    minAmount: 5000,
+    minAmountKnockout: "Sorry, $5,000 is the minimum amount we finance on personal loans. For a smaller amount, a credit card or a chat with your bank will usually suit you better."
+  }
+};
+const PRESET_KEY = (function(){
+  try {
+    const p = new URLSearchParams(location.search).get('preset');
+    return (p && PRESET_CONFIGS[p]) ? p : null;
+  } catch(e) { return null; }
+})();
+const PRESET_CONFIG  = PRESET_KEY ? PRESET_CONFIGS[PRESET_KEY] : null;
+const PRESET_ANSWERS = PRESET_CONFIG && PRESET_CONFIG.answers ? Object.assign({}, PRESET_CONFIG.answers) : null;
+const MIN_AMOUNT       = (PRESET_CONFIG && PRESET_CONFIG.minAmount) || 20000;
+const MIN_AMOUNT_LABEL = '$' + MIN_AMOUNT.toLocaleString('en-AU');
+const MIN_AMOUNT_KNOCK = (PRESET_CONFIG && PRESET_CONFIG.minAmountKnockout)
+  || ('Sorry, ' + MIN_AMOUNT_LABEL + " is the minimum amount we finance. If you need less, we'd suggest speaking to your bank about a small personal loan or credit product.");
+
+/* ---------------------------------------------------------------
    QUESTIONS — ordered array. Each item has:
      id, section, type, text, help?, options?, showIf?, validate?,
      knockout?, autoAdvance?
@@ -831,11 +860,11 @@ const QUESTIONS = [
   },
   { id:'amount', section:'What you need', type:'currency',
     text:'How much do you want to borrow?',
-    help:'Minimum $20,000. Enter a rough figure and we can refine on the call.',
+    help:'Minimum ' + MIN_AMOUNT_LABEL + '. Enter a rough figure and we can refine on the call.',
     validate:(v)=>{
       const n = parseInt(String(v).replace(/[^0-9]/g,''),10);
       if (!n || isNaN(n)) return 'Please enter an amount.';
-      if (n < 20000) return { knockout:true, message:"Sorry, $20,000 is the minimum amount we finance. If you need less, we'd suggest speaking to your bank about a small personal loan or credit product." };
+      if (n < MIN_AMOUNT) return { knockout:true, message: MIN_AMOUNT_KNOCK };
       return null;
     }
   },
@@ -1064,23 +1093,6 @@ const QUESTIONS = [
 /* ---------------------------------------------------------------
    STATE
    --------------------------------------------------------------- */
-/* ---------------------------------------------------------------
-   PRESET ANSWERS from URL (?preset=<key>)
-   Lets specialised landing pages (eg /personal-loans) seed answers
-   that the visitor would otherwise have to tap through. The seeded
-   questions are hidden from the flow; validation still runs on
-   everything else.
-   --------------------------------------------------------------- */
-const PRESET_MAP = {
-  'personal-loan': { assetType: 'personal', entity: 'personal' }
-};
-const PRESET_ANSWERS = (function(){
-  try {
-    const p = new URLSearchParams(location.search).get('preset');
-    return (p && PRESET_MAP[p]) ? Object.assign({}, PRESET_MAP[p]) : null;
-  } catch(e) { return null; }
-})();
-
 const state = {
   answers: PRESET_ANSWERS ? Object.assign({}, PRESET_ANSWERS) : {},
   history: [],   // stack of question indexes visited (for Back)

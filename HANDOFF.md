@@ -69,9 +69,11 @@ Upload them to **the same folder** as the HTML pages so relative paths still res
 
 ## 4. Update inter-page links
 
-> **How the form works:** every "Check Eligibility" / "Get A Business Quote" / "Check Your Rate" CTA opens `enquiry-form.html` in an iframe popup on top of the landing page. The visitor never leaves. On submit, the parent navigates to `thank-you.html`.
+> **How the form works:** all three landing pages (car, commercial, personal loans) embed the `enquiry-form.html` chatbot directly in the hero fold via an iframe, so the visitor can start answering questions without scrolling or clicking. All CTA buttons further down the page also open the same chatbot in a popup overlay. On submit, the parent navigates to `thank-you.html`.
 >
-> On `personal-loans.html` the chatbot is ALSO embedded in the hero fold (so the visitor sees it immediately). All CTA buttons on that page open the same chatbot in the popup. Both paths pass `?preset=personal-loan` to the chatbot, which skips the asset-type and entity questions and sets the loan minimum to $5,000.
+> Car and commercial also show a "Today's Best Rate" glass tile beside the chatbot — purely visual, no logic required.
+>
+> Personal loans does NOT show a rate tile (personal loan rates are credit-score priced, so a single advertised rate would set the wrong expectation). Instead, every CTA on personal-loans.html passes `?preset=personal-loan` to the chatbot, which skips the asset-type and entity questions and sets the loan minimum to $5,000 (vs the $20,000 default on the asset-finance pages).
 >
 > `enquiry-form.html` must still be deployed as a real page — it's both the iframe target and the fallback for JS-disabled visitors.
 
@@ -148,7 +150,8 @@ So you don't need to touch them:
 - **Sticky mobile CTA**, click-to-call links, responsive layouts, prefers-reduced-motion, ringing phone-icon animation
 - **51 lender logos** in `/lenders/` and three credibility badges + three hero images in `/branding/`
 - **Form popup modal** on all three landing pages (iframe overlay with ESC/backdrop close)
-- **Chatbot hero embed** on personal-loans.html (iframe already positioned, no extra wiring needed)
+- **Chatbot hero embed** on all three landing pages (iframe already positioned, no extra wiring needed)
+- **"Today's Best Rate" glass tile** on car and commercial heroes (currently shows 6.49% p.a. for car and 7.49% p.a. for commercial — hard-coded in the HTML; update these numbers directly in the file when rates change)
 
 ---
 
